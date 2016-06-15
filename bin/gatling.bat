@@ -47,13 +47,15 @@ set COMPILER_OPTS=-Xss10M %JAVA_OPTS%
 rem Setup classpaths
 set COMMON_CLASSPATH=%GATLING_CONF%;%JAVA_CLASSPATH%
 
-set GATLING_LIB="\\sfnetfile.advent.com\CHEETAH\NextGen\APXCloud\GatlingLib"
-set COMPILER_CLASSPATH="%GATLING_LIB%"\lib\zinc\*;%COMMON_CLASSPATH%
-set GATLING_CLASSPATH="%GATLING_LIB%"\lib\*;"%GATLING_HOME%"\user-files;%COMMON_CLASSPATH%
+set Gatlinglib=\\sfnetfile.advent.com\CHEETAH\NextGen\AdventDirect\Automation\Gatlinglib
+rem set Gatlinglib="%GATLING_HOME%"\lib
+set COMPILER_CLASSPATH=%Gatlinglib%\zinc\*;%COMMON_CLASSPATH%
+set GATLING_CLASSPATH=%Gatlinglib%\*;"%GATLING_HOME%"\user-files;%COMMON_CLASSPATH%
+
 
 rem Run the compiler
 set COMPILATION_CLASSPATH=""
-for %%i in (%GATLING_LIB%\*.jar) do call :addToPath "%%i"
+for %%i in (%Gatlinglib%\*.jar) do call :addToPath "%%i"
 java %COMPILER_OPTS% -cp %COMPILER_CLASSPATH% io.gatling.compiler.ZincCompiler -ccp %COMPILATION_CLASSPATH% %USER_ARGS%  2>NUL
 rem Run Gatling
 java %JAVA_OPTS% -cp %GATLING_CLASSPATH% io.gatling.app.Gatling %USER_ARGS%
