@@ -25,7 +25,6 @@ build.log
 
 # Test Results
 results
-target
 
 # misc
 .DS_Store
@@ -45,9 +44,9 @@ highstock.js
 theme.js
 
 #Generated and copied config files
-gatling.conf
-recorder.conf
-gatling-akka.conf
-logback.xml
+#gatling.conf
+#recorder.conf
+#gatling-akka.conf
+#logback.xml
 gatling-compiler/src/main/resources/gatling-defaults.conf
 gatling-version.properties

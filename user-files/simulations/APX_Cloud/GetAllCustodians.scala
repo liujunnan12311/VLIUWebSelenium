@@ -19,7 +19,7 @@ class GetAllCustodians extends Simulation {
     .contentTypeHeader("application/json; charset=utf-8")
     .header("Persistent-Auth", "true")
 
-  var scn = scenario("API Verify No Parameters")
+  var scn = scenario("API Get All Custodians")
     .exec(
       http("Login")
       .get("/APXLogin/api/authenticate?loginname="+user+"&password="+password)
