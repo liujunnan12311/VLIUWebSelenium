@@ -47,8 +47,8 @@ set COMPILER_OPTS=-Xss10M %JAVA_OPTS%
 rem Setup classpaths
 set COMMON_CLASSPATH=%GATLING_CONF%;%JAVA_CLASSPATH%
 
-set Gatlinglib=\\sfnetfile.advent.com\CHEETAH\NextGen\AdventDirect\Automation\Gatlinglib
-rem set Gatlinglib=\\sfnetfile.advent.com\CHEETAH\NextGen\APXCloud\GatlingLib\lib
+rem set Gatlinglib=\\sfnetfile.advent.com\CHEETAH\NextGen\AdventDirect\Automation\Gatlinglib
+set Gatlinglib=\\sfnetfile.advent.com\CHEETAH\NextGen\APXCloud\GatlingLib\lib
 rem set Gatlinglib=C:\Aaron\Code\Test\gatling-charts-highcharts-bundle-2.2.1\lib
 set COMPILER_CLASSPATH=%Gatlinglib%\zinc\*;%COMMON_CLASSPATH%
 set GATLING_CLASSPATH=%Gatlinglib%\*;"%GATLING_HOME%"\user-files;%COMMON_CLASSPATH%
