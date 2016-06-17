@@ -1,3 +1,7 @@
+/**
+  * Created by azli on 6/16/2016.
+  */
+
 package APXCloudPerfTest
 
 import io.gatling.core.Predef._
@@ -5,7 +9,7 @@ import io.gatling.http.Predef._
 import scala.concurrent.duration._
 
 
-class GetAllCustodians extends Simulation {
+class Load_Currency_Page extends Simulation {
 
   var userNumber = Integer.getInteger("userNumber")
   val duration = Integer.getInteger("duration")   //seconds
@@ -19,16 +23,16 @@ class GetAllCustodians extends Simulation {
     .contentTypeHeader("application/json; charset=utf-8")
     .header("Persistent-Auth", "true")
 
-  var scn = scenario("API Get All Custodians")
+  var scn = scenario("Load Country Page")
     .exec(
       http("Login")
-      .get("/APXLogin/api/authenticate?loginname="+user+"&password="+password)
-      .check(status.is(200))
+        .get("/APXLogin/api/authenticate?loginname="+user+"&password="+password)
+        .check(status.is(200))
     )
     .exec (
-      http("Get all custodians")
-        .get("/APXlogin/api/internal/Custodian?$d=y&$m=y&$f=Large&$p=0&$e=all")
-        .check(status.is(200), jsonPath("$..Data").exists, jsonPath("$..HasException").notExists)
+      http("Open")
+        .get("/APXlogin/api/internal/Currency?$d=y&$m=y&$f=Large&$e=all")
+        .check(status.is(200))
     )
 
   setUp(scn.inject(rampUsers(userNumber) over (duration))).protocols(httpConf)

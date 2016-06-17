@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 import scala.util.Random
 import java.util.concurrent.ThreadLocalRandom
 
-class AddEntity extends Simulation {
+class Post_Add_Entity_API extends Simulation {
 
   var userNumber = Integer.getInteger("userNumber")
   val duration = Integer.getInteger("duration")   //seconds
