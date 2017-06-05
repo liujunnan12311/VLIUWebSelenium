@@ -93,7 +93,7 @@ WDS.sampleResult.getLatency();
 WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
 
 //WDS.log.info(&quot;Wait until Country page is loaded...&quot;);
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountrySummary_grid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_CountryGrid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
 
 //WDS.log.info(&quot;Sample ended&quot;);
 WDS.sampleResult.sampleEnd();
@@ -141,19 +141,19 @@ WDS.log.info(&quot;Navigate to APX Cloud Country page&quot;);
 WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
 
 WDS.log.info(&quot;Wait until Country page is loaded...&quot;);
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountrySummary_grid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_CountryGrid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
 
 WDS.sampleResult.sampleStart();
 WDS.sampleResult.getLatency();
 //WDS.log.info(&quot;Sample started on country page filtering&quot;);
 
-var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;labelInputTextInput-CountryCode&quot;]&apos;));
+var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_CountryGrid&quot;]//th[1]//div/input&apos;));
 countryCodeFilter.sendKeys(&apos;us&apos;);
 countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);
 
 //WDS.log.info(&quot;Wait until the filtered results display...&quot;);
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountrySummary_grid&apos;]/*//span[contains(., &apos;Showing all 1&apos;)]&quot;)));
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[contains(@id,&apos;summaryGridContextMenuRow&apos;)]//span[normalize-space(.)=&apos;us&apos;]&quot;)));
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_CountryGrid&apos;]/*//span[contains(., &apos;Showing all 1&apos;)]&quot;)));
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_CountryGrid&apos;]/*//div[normalize-space(.)=&apos;us&apos;]&quot;)));
 
 //WDS.log.info(&quot;Sample ended&quot;);
 WDS.sampleResult.sampleEnd();
@@ -201,9 +201,9 @@ WDS.log.info(&quot;Navigate to APX Cloud Country page&quot;);
 WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
 
 WDS.log.info(&quot;Wait until Country summary page is loaded...&quot;);
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountrySummary_grid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_CountryGrid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
 
-var usCountryRowInSummaryPanel = WDS.browser.findElement(pkg.By.xpath(&quot;//*[contains(@id,&apos;summaryGridContextMenuRow&apos;)]//span[normalize-space(.)=&apos;us&apos;]&quot;));
+var usCountryRowInSummaryPanel = WDS.browser.findElement(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_CountryGrid&apos;]/*//div[normalize-space(.)=&apos;us&apos;]&quot;));
 WDS.browser.executeScript(&quot;arguments[0].scrollIntoView(true);&quot;, usCountryRowInSummaryPanel); 
 
 WDS.sampleResult.sampleStart();
@@ -258,13 +258,13 @@ WDS.log.info(&quot;Navigate to APX Cloud Country page&quot;);
 WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
 
 WDS.log.info(&quot;Wait until Country summary page is loaded...&quot;);
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountrySummary_grid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_CountryGrid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
 
-var usCountryRowInSummaryPanel = WDS.browser.findElement(pkg.By.xpath(&quot;//*[contains(@id,&apos;summaryGridContextMenuRow&apos;)]//span[normalize-space(.)=&apos;us&apos;]&quot;));
+var usCountryRowInSummaryPanel = WDS.browser.findElement(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_CountryGrid&apos;]/*//div[normalize-space(.)=&apos;us&apos;]&quot;));
 usCountryRowInSummaryPanel.click();
 
 wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;labelInputTextInput-SecInfoCountry_CountryCode&apos;]&quot;)));
-WDS.browser.findElement(pkg.By.xpath(&quot;//apxtabstripwidget//*//span[.=&apos;Withholding Tax&apos;]&quot;)).click();
+WDS.browser.findElement(pkg.By.xpath(&quot;//apxtabstripwidget[@id=&apos;SecInfoCountryDetail_tabs&apos;]/*//div[@class=&apos;apx-tabstrip-tab-wrap&apos; and normalize-space(.)=&apos;Withholding Tax&apos;]&quot;)).click();
 
 wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;labelEditableSelectComboBoxIssueCountryCode&quot;]/span/kendo-searchbar/input&apos;)));
 
