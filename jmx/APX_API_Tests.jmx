@@ -1097,7 +1097,7 @@ for (int i = 0; i &lt; count; i++) {
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="false">
           <boolProp name="resetInterpreter">false</boolProp>
           <stringProp name="parameters"></stringProp>
           <stringProp name="filename"></stringProp>
@@ -1119,7 +1119,7 @@ for (int i = 0; i &lt; count; i++) {
 }</stringProp>
         </BeanShellPreProcessor>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter Particular Macro And Expand All" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter Particular Macro And Expand All" enabled="false">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -1232,6 +1232,490 @@ for (int i = 0; i &lt; count; i++) {
         </HTTPSamplerProxy>
         <hashTree/>
       </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="ReportingAPI_GetReportParameters" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${LoopCount}</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${NumberOfThreads}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${RampUpSeconds}</stringProp>
+        <longProp name="ThreadGroup.start_time">1498471172000</longProp>
+        <longProp name="ThreadGroup.end_time">1498471172000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+          <boolProp name="resetInterpreter">false</boolProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
+import org.apache.jmeter.protocol.http.control.Cookie;
+import org.apache.jmeter.testelement.property.JMeterProperty;
+  
+CookieManager manager = ctx.getCurrentSampler().getCookieManager();
+int count = Integer.parseInt(props.getProperty(&quot;cookiecount&quot;));
+
+for (int i = 0; i &lt; count; i++) {
+    Cookie cookie = new Cookie(props.getProperty(&quot;cookie_name&quot; + i), 
+    		  props.getProperty(&quot;cookie_value&quot; + i),
+            props.getProperty(&quot;cookie_domain&quot; + i), 
+            props.getProperty(&quot;cookie_path&quot; + i),
+            Boolean.parseBoolean(props.getProperty(&quot;cookie_secure&quot; + i)),
+            Long.parseLong(props.getProperty(&quot;cookie_expires&quot; + i)));
+    manager.add(cookie);
+}</stringProp>
+        </BeanShellPreProcessor>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetReportParameter" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/reporting/ssrs/ParameterXML/-8003</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="ReportingAPI_GetReportPortfolios" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${LoopCount}</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${NumberOfThreads}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${RampUpSeconds}</stringProp>
+        <longProp name="ThreadGroup.start_time">1498471172000</longProp>
+        <longProp name="ThreadGroup.end_time">1498471172000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+          <boolProp name="resetInterpreter">false</boolProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
+import org.apache.jmeter.protocol.http.control.Cookie;
+import org.apache.jmeter.testelement.property.JMeterProperty;
+  
+CookieManager manager = ctx.getCurrentSampler().getCookieManager();
+int count = Integer.parseInt(props.getProperty(&quot;cookiecount&quot;));
+
+for (int i = 0; i &lt; count; i++) {
+    Cookie cookie = new Cookie(props.getProperty(&quot;cookie_name&quot; + i), 
+    		  props.getProperty(&quot;cookie_value&quot; + i),
+            props.getProperty(&quot;cookie_domain&quot; + i), 
+            props.getProperty(&quot;cookie_path&quot; + i),
+            Boolean.parseBoolean(props.getProperty(&quot;cookie_secure&quot; + i)),
+            Long.parseLong(props.getProperty(&quot;cookie_expires&quot; + i)));
+    manager.add(cookie);
+}</stringProp>
+        </BeanShellPreProcessor>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetReportPortfolios" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/portfoliobase</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="ReportingAPI_GetFieldDependence" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${LoopCount}</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${NumberOfThreads}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${RampUpSeconds}</stringProp>
+        <longProp name="ThreadGroup.start_time">1498471172000</longProp>
+        <longProp name="ThreadGroup.end_time">1498471172000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+          <boolProp name="resetInterpreter">false</boolProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
+import org.apache.jmeter.protocol.http.control.Cookie;
+import org.apache.jmeter.testelement.property.JMeterProperty;
+  
+CookieManager manager = ctx.getCurrentSampler().getCookieManager();
+int count = Integer.parseInt(props.getProperty(&quot;cookiecount&quot;));
+
+for (int i = 0; i &lt; count; i++) {
+    Cookie cookie = new Cookie(props.getProperty(&quot;cookie_name&quot; + i), 
+    		  props.getProperty(&quot;cookie_value&quot; + i),
+            props.getProperty(&quot;cookie_domain&quot; + i), 
+            props.getProperty(&quot;cookie_path&quot; + i),
+            Boolean.parseBoolean(props.getProperty(&quot;cookie_secure&quot; + i)),
+            Long.parseLong(props.getProperty(&quot;cookie_expires&quot; + i)));
+    manager.add(cookie);
+}</stringProp>
+        </BeanShellPreProcessor>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetFieldDependence" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+	&quot;parameterValue&quot;: {&#xd;
+		&quot;name&quot;: &quot;ClassificationID1&quot;,&#xd;
+		&quot;Value&quot;: [&#xd;
+			{&#xd;
+				&quot;dataValue&quot;: &quot;-4&quot;&#xd;
+			}&#xd;
+		]&#xd;
+	},&#xd;
+	&quot;ReportID&quot;: 9456,&#xd;
+	&quot;rdlDataSetName&quot;: &quot;Exclusions1&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/reporting/ssrs/ExecuteRdlDataSet</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="ReportingAPI_RunPortfolioApparisal" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${LoopCount}</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${NumberOfThreads}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${RampUpSeconds}</stringProp>
+        <longProp name="ThreadGroup.start_time">1498471172000</longProp>
+        <longProp name="ThreadGroup.end_time">1498471172000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+          <boolProp name="resetInterpreter">false</boolProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
+import org.apache.jmeter.protocol.http.control.Cookie;
+import org.apache.jmeter.testelement.property.JMeterProperty;
+  
+CookieManager manager = ctx.getCurrentSampler().getCookieManager();
+int count = Integer.parseInt(props.getProperty(&quot;cookiecount&quot;));
+
+for (int i = 0; i &lt; count; i++) {
+    Cookie cookie = new Cookie(props.getProperty(&quot;cookie_name&quot; + i), 
+    		  props.getProperty(&quot;cookie_value&quot; + i),
+            props.getProperty(&quot;cookie_domain&quot; + i), 
+            props.getProperty(&quot;cookie_path&quot; + i),
+            Boolean.parseBoolean(props.getProperty(&quot;cookie_secure&quot; + i)),
+            Long.parseLong(props.getProperty(&quot;cookie_expires&quot; + i)));
+    manager.add(cookie);
+}</stringProp>
+        </BeanShellPreProcessor>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="RunPortfolioApparasial" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;Parameter&quot;: [&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;SessionGuid&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;1&quot;&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;Portfolios&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;1&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;case&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;Date&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;2&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;1999-12-31T08:00:00.000&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;ReportingCurrencyCode&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;1&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;us&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;ClassificationID&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;3&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;-19&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;ClassificationID2&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;3&quot;&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;ClassificationID3&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;3&quot;&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;IncludeUnsupervisedAssets&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;5&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;False&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;DisplayOption&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;5&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;True&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;DisplayAnnIncome&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;5&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;False&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;DisplayAcqDate&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;5&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;False&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;ReportTitle&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;1&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;Portfolio Appraisal&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;ShowTaxLotsLumped&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;3&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;1&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;ShowCurrencyFullPrecision&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;3&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;1&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;AccruedInterestID&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;3&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;4&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;YieldOptionID&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;3&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;4&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;BondCostBasisID&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;3&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;5&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;MFBasisIncludeReinvest&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;3&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;1&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;UseSettlementDate&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;3&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;0&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;ShowCurrentMBSFace&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;3&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;1&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;ShowCurrentTIPSFace&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;3&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;1&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;LocaleID&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;3&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;1033&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;PriceTypeID&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;3&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;1&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;ShowSecuritySymbol&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;1&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;y&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;OverridePortfolioSettings&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;5&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;True&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    },&#xd;
+    {&#xd;
+      &quot;name&quot;: &quot;ServerURL&quot;,&#xd;
+      &quot;primitiveType&quot;: &quot;1&quot;,&#xd;
+      &quot;Value&quot;: [&#xd;
+        {&#xd;
+          &quot;dataValue&quot;: &quot;http://10apx2012r2/APXLogin/&quot;&#xd;
+        }&#xd;
+      ]&#xd;
+    }&#xd;
+  ],&#xd;
+  &quot;Path&quot;: &quot;PortfolioAppraisal&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/reporting/ssrs/RunReport</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+      </hashTree>
       <PostThreadGroup guiclass="PostThreadGroupGui" testclass="PostThreadGroup" testname="tearDown Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
@@ -1302,13 +1786,15 @@ for (int i = 0; i &lt; count; i++) {
         <collectionProp name="Arguments.arguments">
           <elementProp name="ServerName" elementType="Argument">
             <stringProp name="Argument.name">ServerName</stringProp>
-            <stringProp name="Argument.value">vmw12r2apxapi.gencos.com</stringProp>
+            <stringProp name="Argument.value">03apxqa2016.gencos.com</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">vmw12r2apxapi.gencos.com</stringProp>
           </elementProp>
           <elementProp name="UserName" elementType="Argument">
             <stringProp name="Argument.name">UserName</stringProp>
-            <stringProp name="Argument.value">perf_ui</stringProp>
+            <stringProp name="Argument.value">admin</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">perf_ui</stringProp>
           </elementProp>
           <elementProp name="Password" elementType="Argument">
             <stringProp name="Argument.name">Password</stringProp>
@@ -1332,8 +1818,9 @@ for (int i = 0; i &lt; count; i++) {
           </elementProp>
           <elementProp name="NumberOfThreads" elementType="Argument">
             <stringProp name="Argument.name">NumberOfThreads</stringProp>
-            <stringProp name="Argument.value">30</stringProp>
+            <stringProp name="Argument.value">3</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">30</stringProp>
           </elementProp>
           <elementProp name="RampUpSeconds" elementType="Argument">
             <stringProp name="Argument.name">RampUpSeconds</stringProp>
