@@ -4900,7 +4900,7 @@ for (int i = 0; i &lt; count; i++) {
           </elementProp>
           <elementProp name="NumberOfThreads" elementType="Argument">
             <stringProp name="Argument.name">NumberOfThreads</stringProp>
-            <stringProp name="Argument.value">8</stringProp>
+            <stringProp name="Argument.value">5</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">20</stringProp>
           </elementProp>
@@ -4911,7 +4911,7 @@ for (int i = 0; i &lt; count; i++) {
           </elementProp>
           <elementProp name="Protocol" elementType="Argument">
             <stringProp name="Argument.name">Protocol</stringProp>
-            <stringProp name="Argument.value">https</stringProp>
+            <stringProp name="Argument.value">http</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
