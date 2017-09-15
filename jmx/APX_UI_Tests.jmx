@@ -6,7 +6,13 @@
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">true</boolProp>
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-        <collectionProp name="Arguments.arguments"/>
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="server" elementType="Argument">
+            <stringProp name="Argument.name">server</stringProp>
+            <stringProp name="Argument.value">${__P(envTarget, vmw12apxcldprf1.gencos.com)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
       </elementProp>
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
@@ -26,46 +32,81 @@
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="LoginPageLoadingSampler" enabled="true">
-          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); 
-var support_ui = JavaImporter(org.openqa.selenium.support.ui);
-var wait = new support_ui.WebDriverWait(WDS.browser, 15000);
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_CountryDetail" enabled="true">
+          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
+var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
 var serverName = &apos;${server}&apos;
+var userName = &apos;${userName}&apos;;
+var password = &apos;${password}&apos;;
 
-// In the beginning, Go to Google to avoid cache for next time
-WDS.browser.get(&apos;http://www.google.com&apos;);
-java.lang.Thread.sleep(3000);
+WDS.log.info(&quot;Navigate to APX Cloud Login page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#&apos;);
+
+WDS.log.info(&quot;Wait until Login page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;)));
+
+WDS.log.info(&quot;Logging in to APX Cloud...&quot;);
+var userField = WDS.browser.findElement(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;));
+userField.click();
+userField.sendKeys(userName);
+
+var pwdField = WDS.browser.findElement(pkg.By.xpath(&apos;//input[@placeholder=&quot;Password&quot;]&apos;));
+pwdField.click();
+pwdField.sendKeys(password);
+
+var button = WDS.browser.findElement(pkg.By.xpath(&apos;//button[text()=&quot;LOG IN&quot;]&apos;));
+button.click();
+
+WDS.log.info(&quot;Wait until home page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+
+WDS.log.info(&quot;Navigate to APX Cloud Country page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
+
+WDS.log.info(&quot;Wait until Country summary page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
+
+
+var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//th[1]//div/input&apos;));
+countryCodeFilter.sendKeys(&apos;us&apos;);
+countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//div[normalize-space(.)=&apos;us&apos; and @class=&apos;apx-label-textbox-widget-value-display&apos;]&quot;)));
+var usCountryRowInSummaryPanel = WDS.browser.findElement(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//div[normalize-space(.)=&apos;us&apos; and @class=&apos;apx-label-textbox-widget-value-display&apos;]&quot;));
 
 WDS.sampleResult.sampleStart();
 WDS.sampleResult.getLatency();
-//WDS.log.info(&quot;Sample started on Login page&quot;);
+usCountryRowInSummaryPanel.click();
 
-//WDS.log.info(&quot;Navigate to APX Cloud login page&quot;);
-WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#&apos;);
-
-//WDS.log.info(&quot;Wait until Login page is loaded...&quot;);
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;)));
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountryDetail_CountryCode&apos;]&quot;)));
 
 //WDS.log.info(&quot;Sample ended&quot;);
 WDS.sampleResult.sampleEnd();
 
-// At the end, Go to Google to avoid cache for next time
-WDS.browser.get(&apos;http://www.google.com&apos;);
+WDS.log.info(&quot;Log out APX Cloud...&quot;);
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;topnavbar_user&quot;]/apxiconsvgwidget/i&apos;)).click();
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)));
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)).click();
 java.lang.Thread.sleep(3000);</stringProp>
           <stringProp name="WebDriverSampler.parameters"></stringProp>
           <stringProp name="WebDriverSampler.language">javascript</stringProp>
         </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
         <hashTree/>
-        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="CountryPageLoadingSampler" enabled="true">
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_CountryList" enabled="true">
           <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
 var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
-var wait = new support_ui.WebDriverWait(WDS.browser, 15000);
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
 var serverName = &apos;${server}&apos;;
 var userName = &apos;${userName}&apos;;
 var password = &apos;${password}&apos;;
 
 WDS.log.info(&quot;Navigate to APX Cloud Login page&quot;);
 WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#&apos;);
+WDS.log.info(serverName);
 
 WDS.log.info(&quot;Wait until Login page is loaded...&quot;);
 wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;)));
@@ -93,7 +134,7 @@ WDS.sampleResult.getLatency();
 WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
 
 //WDS.log.info(&quot;Wait until Country page is loaded...&quot;);
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_CountryGrid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
 
 //WDS.log.info(&quot;Sample ended&quot;);
 WDS.sampleResult.sampleEnd();
@@ -108,10 +149,663 @@ java.lang.Thread.sleep(3000);</stringProp>
           <stringProp name="WebDriverSampler.language">javascript</stringProp>
         </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
         <hashTree/>
-        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="CountryPageFilterSampler" enabled="true">
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_PortfolioDetail" enabled="true">
           <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
 var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
-var wait = new support_ui.WebDriverWait(WDS.browser, 15000);
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
+var serverName = &apos;${server}&apos;;
+var userName = &apos;${userName}&apos;;
+var password = &apos;${password}&apos;;
+
+WDS.log.info(&quot;Navigate to APX Cloud Login page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#&apos;);
+
+WDS.log.info(&quot;Wait until Login page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;)));
+
+WDS.log.info(&quot;Logging in to APX Cloud...&quot;);
+var userField = WDS.browser.findElement(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;));
+userField.click();
+userField.sendKeys(userName);
+
+var pwdField = WDS.browser.findElement(pkg.By.xpath(&apos;//input[@placeholder=&quot;Password&quot;]&apos;));
+pwdField.click();
+pwdField.sendKeys(password);
+
+var button = WDS.browser.findElement(pkg.By.xpath(&apos;//button[text()=&quot;LOG IN&quot;]&apos;));
+button.click();
+
+WDS.log.info(&quot;Wait until home page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+
+//WDS.log.info(&quot;Sample started on portfolio page&quot;);
+
+//WDS.log.info(&quot;Navigate to APX Cloud portfolio page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#/s/PRTSummary&apos;);
+
+//WDS.log.info(&quot;Wait until portfolio page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;PRTSummary_grid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
+
+var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;PRTSummary_grid&quot;]//th[2]//input&apos;));
+countryCodeFilter.sendKeys(&apos;case&apos;);
+countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);
+
+var casePortfolioXPath = &quot;//*[@id=&apos;PRTSummary_grid&apos;]/*//div[normalize-space(.)=&apos;case&apos;]&quot;;
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(casePortfolioXPath)));
+var casePortfolioRowInSummaryPanel = WDS.browser.findElement(pkg.By.xpath(casePortfolioXPath));
+
+WDS.sampleResult.sampleStart();
+WDS.sampleResult.getLatency();
+casePortfolioRowInSummaryPanel.click();
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;prtCode&quot;]&apos;)));
+//WDS.log.info(&quot;Sample ended&quot;);
+WDS.sampleResult.sampleEnd();
+
+WDS.log.info(&quot;Log out APX Cloud...&quot;);
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;topnavbar_user&quot;]/apxiconsvgwidget/i&apos;)).click();
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)));
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)).click();
+java.lang.Thread.sleep(3000);</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_PortfolioList" enabled="true">
+          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
+var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
+var serverName = &apos;${server}&apos;;
+var userName = &apos;${userName}&apos;;
+var password = &apos;${password}&apos;;
+
+WDS.log.info(&quot;Navigate to APX Cloud Login page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#&apos;);
+
+WDS.log.info(&quot;Wait until Login page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;)));
+
+WDS.log.info(&quot;Logging in to APX Cloud...&quot;);
+var userField = WDS.browser.findElement(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;));
+userField.click();
+userField.sendKeys(userName);
+
+var pwdField = WDS.browser.findElement(pkg.By.xpath(&apos;//input[@placeholder=&quot;Password&quot;]&apos;));
+pwdField.click();
+pwdField.sendKeys(password);
+
+var button = WDS.browser.findElement(pkg.By.xpath(&apos;//button[text()=&quot;LOG IN&quot;]&apos;));
+button.click();
+
+WDS.log.info(&quot;Wait until home page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+
+WDS.sampleResult.sampleStart();
+WDS.sampleResult.getLatency();
+//WDS.log.info(&quot;Sample started on portfolio page&quot;);
+
+//WDS.log.info(&quot;Navigate to APX Cloud portfolio page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#/s/PRTSummary&apos;);
+
+//WDS.log.info(&quot;Wait until portfolio page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;PRTSummary_grid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
+
+//WDS.log.info(&quot;Sample ended&quot;);
+WDS.sampleResult.sampleEnd();
+
+WDS.log.info(&quot;Log out APX Cloud...&quot;);
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;topnavbar_user&quot;]/apxiconsvgwidget/i&apos;)).click();
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)));
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)).click();
+java.lang.Thread.sleep(3000);</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_ReportList" enabled="true">
+          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
+var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
+var serverName = &apos;${server}&apos;;
+var userName = &apos;${userName}&apos;;
+var password = &apos;${password}&apos;;
+
+WDS.log.info(&quot;Navigate to APX Cloud Login page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#&apos;);
+
+WDS.log.info(&quot;Wait until Login page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;)));
+
+WDS.log.info(&quot;Logging in to APX Cloud...&quot;);
+var userField = WDS.browser.findElement(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;));
+userField.click();
+userField.sendKeys(userName);
+
+var pwdField = WDS.browser.findElement(pkg.By.xpath(&apos;//input[@placeholder=&quot;Password&quot;]&apos;));
+pwdField.click();
+pwdField.sendKeys(password);
+
+var button = WDS.browser.findElement(pkg.By.xpath(&apos;//button[text()=&quot;LOG IN&quot;]&apos;));
+button.click();
+
+WDS.log.info(&quot;Wait until home page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+
+//WDS.log.info(&quot;Sample started on report summary page...&quot;);
+WDS.sampleResult.sampleStart();
+WDS.sampleResult.getLatency();
+
+//WDS.log.info(&quot;Navigate to APX Cloud Report summary page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#/s/ReportSummary&apos;);
+
+//WDS.log.info(&quot;Wait until Report summary page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;ReportSummary_reportGrid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
+
+//WDS.log.info(&quot;Sample ended&quot;);
+WDS.sampleResult.sampleEnd();
+
+WDS.log.info(&quot;Log out APX Cloud...&quot;);
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;topnavbar_user&quot;]/apxiconsvgwidget/i&apos;)).click();
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)));
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)).click();
+java.lang.Thread.sleep(3000);</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_ReportDetail" enabled="true">
+          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
+var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
+var serverName = &apos;${server}&apos;;
+var userName = &apos;${userName}&apos;;
+var password = &apos;${password}&apos;;
+
+WDS.log.info(&quot;Navigate to APX Cloud Login page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#&apos;);
+
+WDS.log.info(&quot;Wait until Login page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;)));
+
+WDS.log.info(&quot;Logging in to APX Cloud...&quot;);
+var userField = WDS.browser.findElement(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;));
+userField.click();
+userField.sendKeys(userName);
+
+var pwdField = WDS.browser.findElement(pkg.By.xpath(&apos;//input[@placeholder=&quot;Password&quot;]&apos;));
+pwdField.click();
+pwdField.sendKeys(password);
+
+var button = WDS.browser.findElement(pkg.By.xpath(&apos;//button[text()=&quot;LOG IN&quot;]&apos;));
+button.click();
+
+WDS.log.info(&quot;Wait until home page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+
+//WDS.log.info(&quot;Navigate to APX Cloud Report summary page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#/s/ReportSummary&apos;);
+
+//WDS.log.info(&quot;Wait until Report summary page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;ReportSummary_reportGrid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
+
+var Report13FXPath = &quot;//*[@id=&apos;ReportSummary_reportGrid&apos;]/*//kendo-grid-list//apxgridcontrolwidget/apxlabeltextboxwidget/div[normalize-space(.)=&apos;13F Report&apos;]&quot;;
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(Report13FXPath)));
+var Report13FRowInSummaryPanel = WDS.browser.findElement(pkg.By.xpath(Report13FXPath));
+
+//WDS.log.info(&quot;Sample started on report summary page...&quot;);
+WDS.sampleResult.sampleStart();
+WDS.sampleResult.getLatency();
+
+Report13FRowInSummaryPanel.click();
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;ReportEdit_repDisplayName&quot;]&apos;)));
+
+//WDS.log.info(&quot;Sample ended&quot;);
+WDS.sampleResult.sampleEnd();
+
+WDS.log.info(&quot;Log out APX Cloud...&quot;);
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;topnavbar_user&quot;]/apxiconsvgwidget/i&apos;)).click();
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)));
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)).click();
+java.lang.Thread.sleep(3000);</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_MacroList" enabled="true">
+          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
+var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
+var serverName = &apos;${server}&apos;;
+var userName = &apos;${userName}&apos;;
+var password = &apos;${password}&apos;;
+
+WDS.log.info(&quot;Navigate to APX Cloud Login page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#&apos;);
+
+WDS.log.info(&quot;Wait until Login page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;)));
+
+WDS.log.info(&quot;Logging in to APX Cloud...&quot;);
+var userField = WDS.browser.findElement(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;));
+userField.click();
+userField.sendKeys(userName);
+
+var pwdField = WDS.browser.findElement(pkg.By.xpath(&apos;//input[@placeholder=&quot;Password&quot;]&apos;));
+pwdField.click();
+pwdField.sendKeys(password);
+
+var button = WDS.browser.findElement(pkg.By.xpath(&apos;//button[text()=&quot;LOG IN&quot;]&apos;));
+button.click();
+
+WDS.log.info(&quot;Wait until home page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+
+WDS.sampleResult.sampleStart();
+WDS.sampleResult.getLatency();
+
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#/s/MacroSummary&apos;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;MacroSummary_macroSummaryGrid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
+
+//WDS.log.info(&quot;Sample ended&quot;);
+WDS.sampleResult.sampleEnd();
+
+WDS.log.info(&quot;Log out APX Cloud...&quot;);
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;topnavbar_user&quot;]/apxiconsvgwidget/i&apos;)).click();
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)));
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)).click();
+java.lang.Thread.sleep(3000);</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_MacroDetail" enabled="true">
+          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
+var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
+var serverName = &apos;${server}&apos;;
+var userName = &apos;${userName}&apos;;
+var password = &apos;${password}&apos;;
+
+WDS.log.info(&quot;Navigate to APX Cloud Login page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#&apos;);
+
+WDS.log.info(&quot;Wait until Login page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;)));
+
+WDS.log.info(&quot;Logging in to APX Cloud...&quot;);
+var userField = WDS.browser.findElement(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;));
+userField.click();
+userField.sendKeys(userName);
+
+var pwdField = WDS.browser.findElement(pkg.By.xpath(&apos;//input[@placeholder=&quot;Password&quot;]&apos;));
+pwdField.click();
+pwdField.sendKeys(password);
+
+var button = WDS.browser.findElement(pkg.By.xpath(&apos;//button[text()=&quot;LOG IN&quot;]&apos;));
+button.click();
+
+WDS.log.info(&quot;Wait until home page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#/s/MacroSummary&apos;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;MacroSummary_macroSummaryGrid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
+
+var abposMacroXPath = &quot;//*[@id=&apos;MacroSummary_macroSummaryGrid&apos;]/*//kendo-grid-list//apxgridcontrolwidget/apxlabeltextboxwidget/div[normalize-space(.)=&apos;abpos&apos;]&quot;;
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(abposMacroXPath)));
+var abposMacroRowInSummaryPanel = WDS.browser.findElement(pkg.By.xpath(abposMacroXPath));
+
+WDS.sampleResult.sampleStart();
+WDS.sampleResult.getLatency();
+
+abposMacroRowInSummaryPanel.click();
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;MacroDetail_macroName&quot;]&apos;)));
+
+WDS.sampleResult.sampleEnd();
+
+WDS.log.info(&quot;Log out APX Cloud...&quot;);
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;topnavbar_user&quot;]/apxiconsvgwidget/i&apos;)).click();
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)));
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)).click();
+java.lang.Thread.sleep(3000);</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_CountryEditTax" enabled="true">
+          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
+var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
+var interaction =JavaImporter(org.openqa.selenium.interactions);
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
+var serverName = &apos;${server}&apos;
+var userName = &apos;${userName}&apos;;
+var password = &apos;${password}&apos;;
+
+WDS.log.info(&quot;Navigate to APX Cloud Login page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#&apos;);
+
+WDS.log.info(&quot;Wait until Login page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;)));
+
+WDS.log.info(&quot;Logging in to APX Cloud...&quot;);
+var userField = WDS.browser.findElement(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;));
+userField.click();
+userField.sendKeys(userName);
+
+var pwdField = WDS.browser.findElement(pkg.By.xpath(&apos;//input[@placeholder=&quot;Password&quot;]&apos;));
+pwdField.click();
+pwdField.sendKeys(password);
+
+var button = WDS.browser.findElement(pkg.By.xpath(&apos;//button[text()=&quot;LOG IN&quot;]&apos;));
+button.click();
+
+WDS.log.info(&quot;Wait until home page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+
+WDS.log.info(&quot;Navigate to APX Cloud Country page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
+
+WDS.log.info(&quot;Wait until Country summary page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
+
+var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//th[1]//div/input&apos;));
+countryCodeFilter.sendKeys(&apos;us&apos;);
+countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//div[normalize-space(.)=&apos;us&apos; and @class=&apos;apx-label-textbox-widget-value-display&apos;]&quot;)));
+var usCountryRowInSummaryPanel = WDS.browser.findElement(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//div[normalize-space(.)=&apos;us&apos; and @class=&apos;apx-label-textbox-widget-value-display&apos;]&quot;));
+usCountryRowInSummaryPanel.click();
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_editBtn&quot;]/button&apos;)));
+
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_tabs&quot;]//div[@class=&quot;apx-tabstrip-tab-wrap&quot; and normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)).click();
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_editBtn&quot;]/button&apos;)).click();
+
+WDS.sampleResult.sampleStart();
+WDS.sampleResult.getLatency();
+
+wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_cancelBtn&quot;]/button&apos;)));
+WDS.sampleResult.sampleEnd();
+
+WDS.log.info(&quot;Log out APX Cloud...&quot;);
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;topnavbar_user&quot;]/apxiconsvgwidget/i&apos;)).click();
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)));
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)).click();
+java.lang.Thread.sleep(3000);</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_CountryAddTax" enabled="true">
+          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
+var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
+var interaction =JavaImporter(org.openqa.selenium.interactions);
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
+var serverName = &apos;${server}&apos;
+var userName = &apos;${userName}&apos;;
+var password = &apos;${password}&apos;;
+
+WDS.log.info(&quot;Navigate to APX Cloud Login page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#&apos;);
+
+WDS.log.info(&quot;Wait until Login page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;)));
+
+WDS.log.info(&quot;Logging in to APX Cloud...&quot;);
+var userField = WDS.browser.findElement(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;));
+userField.click();
+userField.sendKeys(userName);
+
+var pwdField = WDS.browser.findElement(pkg.By.xpath(&apos;//input[@placeholder=&quot;Password&quot;]&apos;));
+pwdField.click();
+pwdField.sendKeys(password);
+
+var button = WDS.browser.findElement(pkg.By.xpath(&apos;//button[text()=&quot;LOG IN&quot;]&apos;));
+button.click();
+
+WDS.log.info(&quot;Wait until home page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+
+WDS.log.info(&quot;Navigate to APX Cloud Country page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
+
+WDS.log.info(&quot;Wait until Country summary page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
+
+var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//th[1]//div/input&apos;));
+countryCodeFilter.sendKeys(&apos;us&apos;);
+countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//div[normalize-space(.)=&apos;us&apos; and @class=&apos;apx-label-textbox-widget-value-display&apos;]&quot;)));
+var usCountryRowInSummaryPanel = WDS.browser.findElement(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//div[normalize-space(.)=&apos;us&apos; and @class=&apos;apx-label-textbox-widget-value-display&apos;]&quot;));
+usCountryRowInSummaryPanel.click();
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_editBtn&quot;]/button&apos;)));
+
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_tabs&quot;]//div[@class=&quot;apx-tabstrip-tab-wrap&quot; and normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)).click();
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_editBtn&quot;]/button&apos;)).click();
+wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//button[normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)));
+
+WDS.sampleResult.sampleStart();
+WDS.sampleResult.getLatency();
+
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//button[normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)).click();
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxgridwidget[@id=&apos;SecInfoCountryDetail_WithholdingTaxGrid&apos;]//span[normalize-space(.)=&apos;Not Applicable&apos;]&quot;)));
+
+WDS.sampleResult.sampleEnd();
+
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_cancelBtn&quot;]/button&apos;)).click();
+WDS.browser.findElement(pkg.By.xpath(&quot;//kendo-dialog-actions//button[normalize-space(.)=&apos;Discard Changes&apos;]&quot;)).click();
+
+WDS.log.info(&quot;Log out APX Cloud...&quot;);
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;topnavbar_user&quot;]/apxiconsvgwidget/i&apos;)).click();
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)));
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)).click();
+java.lang.Thread.sleep(3000);</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_CountryAddIssuing" enabled="true">
+          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
+var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
+var interaction =JavaImporter(org.openqa.selenium.interactions);
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
+var serverName = &apos;${server}&apos;
+var userName = &apos;${userName}&apos;;
+var password = &apos;${password}&apos;;
+
+WDS.log.info(&quot;Navigate to APX Cloud Login page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#&apos;);
+
+WDS.log.info(&quot;Wait until Login page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;)));
+
+WDS.log.info(&quot;Logging in to APX Cloud...&quot;);
+var userField = WDS.browser.findElement(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;));
+userField.click();
+userField.sendKeys(userName);
+
+var pwdField = WDS.browser.findElement(pkg.By.xpath(&apos;//input[@placeholder=&quot;Password&quot;]&apos;));
+pwdField.click();
+pwdField.sendKeys(password);
+
+var button = WDS.browser.findElement(pkg.By.xpath(&apos;//button[text()=&quot;LOG IN&quot;]&apos;));
+button.click();
+
+WDS.log.info(&quot;Wait until home page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+
+WDS.log.info(&quot;Navigate to APX Cloud Country page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
+
+WDS.log.info(&quot;Wait until Country summary page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
+
+var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//th[1]//div/input&apos;));
+countryCodeFilter.sendKeys(&apos;us&apos;);
+countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//div[normalize-space(.)=&apos;us&apos; and @class=&apos;apx-label-textbox-widget-value-display&apos;]&quot;)));
+var usCountryRowInSummaryPanel = WDS.browser.findElement(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//div[normalize-space(.)=&apos;us&apos; and @class=&apos;apx-label-textbox-widget-value-display&apos;]&quot;));
+usCountryRowInSummaryPanel.click();
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_editBtn&quot;]/button&apos;)));
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_tabs&quot;]//div[@class=&quot;apx-tabstrip-tab-wrap&quot; and normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)).click();
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_editBtn&quot;]/button&apos;)).click();
+
+wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//button[normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)));
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//button[normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)).click();
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxgridwidget[@id=&apos;SecInfoCountryDetail_WithholdingTaxGrid&apos;]//span[normalize-space(.)=&apos;Not Applicable&apos;]&quot;)));
+
+WDS.sampleResult.sampleStart();
+WDS.sampleResult.getLatency();
+
+WDS.browser.findElement(pkg.By.xpath(&quot;//apxgridwidget[@id=&apos;SecInfoCountryDetail_WithholdingTaxGrid&apos;]//span[normalize-space(.)=&apos;Not Applicable&apos;]&quot;)).click();
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//kendo-popup//li[normalize-space(.)=&apos;Norway&apos;]&quot;)));
+
+WDS.sampleResult.sampleEnd();
+
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_cancelBtn&quot;]/button&apos;)).click();
+WDS.browser.findElement(pkg.By.xpath(&quot;//kendo-dialog-actions//button[normalize-space(.)=&apos;Discard Changes&apos;]&quot;)).click();
+
+WDS.log.info(&quot;Log out APX Cloud...&quot;);
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;topnavbar_user&quot;]/apxiconsvgwidget/i&apos;)).click();
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)));
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)).click();
+java.lang.Thread.sleep(3000);</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_CountryDeleteTax" enabled="true">
+          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
+var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
+var interaction =JavaImporter(org.openqa.selenium.interactions);
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
+var serverName = &apos;${server}&apos;
+var userName = &apos;${userName}&apos;;
+var password = &apos;${password}&apos;;
+
+WDS.log.info(&quot;Navigate to APX Cloud Login page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#&apos;);
+
+WDS.log.info(&quot;Wait until Login page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;)));
+
+WDS.log.info(&quot;Logging in to APX Cloud...&quot;);
+var userField = WDS.browser.findElement(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;));
+userField.click();
+userField.sendKeys(userName);
+
+var pwdField = WDS.browser.findElement(pkg.By.xpath(&apos;//input[@placeholder=&quot;Password&quot;]&apos;));
+pwdField.click();
+pwdField.sendKeys(password);
+
+var button = WDS.browser.findElement(pkg.By.xpath(&apos;//button[text()=&quot;LOG IN&quot;]&apos;));
+button.click();
+
+WDS.log.info(&quot;Wait until home page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+
+WDS.log.info(&quot;Navigate to APX Cloud Country page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
+
+WDS.log.info(&quot;Wait until Country summary page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
+
+var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//th[1]//div/input&apos;));
+countryCodeFilter.sendKeys(&apos;us&apos;);
+countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//div[normalize-space(.)=&apos;us&apos; and @class=&apos;apx-label-textbox-widget-value-display&apos;]&quot;)));
+var usCountryRowInSummaryPanel = WDS.browser.findElement(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//div[normalize-space(.)=&apos;us&apos; and @class=&apos;apx-label-textbox-widget-value-display&apos;]&quot;));
+usCountryRowInSummaryPanel.click();
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_editBtn&quot;]/button&apos;)));
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_tabs&quot;]//div[@class=&quot;apx-tabstrip-tab-wrap&quot; and normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)).click();
+
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_editBtn&quot;]/button&apos;)).click();
+wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//button[normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)));
+
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//button[normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)).click();
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxgridwidget[@id=&apos;SecInfoCountryDetail_WithholdingTaxGrid&apos;]//span[normalize-space(.)=&apos;Not Applicable&apos;]&quot;)));
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//tr[1]/td[1]//apxbuttonwidget/button/i&apos;)).click();
+
+WDS.sampleResult.sampleStart();
+WDS.sampleResult.getLatency();
+WDS.browser.findElement(pkg.By.xpath(&quot;//kendo-dialog-actions//button[normalize-space(.)=&apos;Remove Withholding Tax&apos;]&quot;)).click();
+wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//button[normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)));
+WDS.sampleResult.sampleEnd();
+
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_cancelBtn&quot;]/button&apos;)).click();
+WDS.browser.findElement(pkg.By.xpath(&quot;//kendo-dialog-actions//button[normalize-space(.)=&apos;Discard Changes&apos;]&quot;)).click();
+
+WDS.log.info(&quot;Log out APX Cloud...&quot;);
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;topnavbar_user&quot;]/apxiconsvgwidget/i&apos;)).click();
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)));
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)).click();
+java.lang.Thread.sleep(3000);</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_LoginLoading" enabled="true">
+          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); 
+var support_ui = JavaImporter(org.openqa.selenium.support.ui);
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
+var serverName = &apos;${server}&apos;
+
+// In the beginning, Go to Google to avoid cache for next time
+WDS.browser.get(&apos;http://www.google.com&apos;);
+java.lang.Thread.sleep(3000);
+
+WDS.sampleResult.sampleStart();
+WDS.sampleResult.getLatency();
+//WDS.log.info(&quot;Sample started on Login page&quot;);
+
+//WDS.log.info(&quot;Navigate to APX Cloud login page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#&apos;);
+
+//WDS.log.info(&quot;Wait until Login page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;)));
+
+//WDS.log.info(&quot;Sample ended&quot;);
+WDS.sampleResult.sampleEnd();
+
+// At the end, Go to Google to avoid cache for next time
+WDS.browser.get(&apos;http://www.google.com&apos;);
+java.lang.Thread.sleep(3000);</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_CountryFilter" enabled="true">
+          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
+var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
 var serverName = &apos;${server}&apos;
 var userName = &apos;${userName}&apos;;
 var password = &apos;${password}&apos;;
@@ -141,19 +835,18 @@ WDS.log.info(&quot;Navigate to APX Cloud Country page&quot;);
 WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
 
 WDS.log.info(&quot;Wait until Country page is loaded...&quot;);
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_CountryGrid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
 
 WDS.sampleResult.sampleStart();
 WDS.sampleResult.getLatency();
-//WDS.log.info(&quot;Sample started on country page filtering&quot;);
 
-var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_CountryGrid&quot;]//th[1]//div/input&apos;));
+var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//th[1]//div/input&apos;));
 countryCodeFilter.sendKeys(&apos;us&apos;);
 countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);
 
 //WDS.log.info(&quot;Wait until the filtered results display...&quot;);
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_CountryGrid&apos;]/*//span[contains(., &apos;Showing all 1&apos;)]&quot;)));
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_CountryGrid&apos;]/*//div[normalize-space(.)=&apos;us&apos;]&quot;)));
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//span[contains(., &apos;Showing all 1&apos;)]&quot;)));
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//div[normalize-space(.)=&apos;us&apos;]&quot;)));
 
 //WDS.log.info(&quot;Sample ended&quot;);
 WDS.sampleResult.sampleEnd();
@@ -168,10 +861,11 @@ java.lang.Thread.sleep(3000);</stringProp>
           <stringProp name="WebDriverSampler.language">javascript</stringProp>
         </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
         <hashTree/>
-        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="CountryDetailPageSampler" enabled="true">
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_CountryWithHoldingTax" enabled="true">
           <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
 var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
-var wait = new support_ui.WebDriverWait(WDS.browser, 15000);
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
 var serverName = &apos;${server}&apos;
 var userName = &apos;${userName}&apos;;
 var password = &apos;${password}&apos;;
@@ -201,84 +895,29 @@ WDS.log.info(&quot;Navigate to APX Cloud Country page&quot;);
 WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
 
 WDS.log.info(&quot;Wait until Country summary page is loaded...&quot;);
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_CountryGrid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
 
-var usCountryRowInSummaryPanel = WDS.browser.findElement(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_CountryGrid&apos;]/*//div[normalize-space(.)=&apos;us&apos;]&quot;));
-WDS.browser.executeScript(&quot;arguments[0].scrollIntoView(true);&quot;, usCountryRowInSummaryPanel); 
+var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//th[1]//div/input&apos;));
+countryCodeFilter.sendKeys(&apos;us&apos;);
+countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//div[normalize-space(.)=&apos;us&apos; and @class=&apos;apx-label-textbox-widget-value-display&apos;]&quot;)));
+var usCountryRowInSummaryPanel = WDS.browser.findElement(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//div[normalize-space(.)=&apos;us&apos; and @class=&apos;apx-label-textbox-widget-value-display&apos;]&quot;));
+usCountryRowInSummaryPanel.click();
+
+wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_tabs&quot;]//div[@class=&quot;apx-tabstrip-tab-wrap&quot; and normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)));
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_tabs&quot;]//div[@class=&quot;apx-tabstrip-tab-wrap&quot; and normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)).click();
+
+wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//span[contains(., &quot;Showing all&quot;)]&apos;)));
+var issuingCountryFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//th[1]/div/apxgridfilterwidget/div/kendo-dropdownlist/span/span[1]&apos;));
+issuingCountryFilter.click();
+WDS.browser.findElement(pkg.By.xpath(&quot;//kendo-popup//li[normalize-space(.)=&apos;Chile&apos;]&quot;)).click();
 
 WDS.sampleResult.sampleStart();
 WDS.sampleResult.getLatency();
-usCountryRowInSummaryPanel.click();
-
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;labelInputTextInput-SecInfoCountry_CountryCode&apos;]&quot;)));
-
-//WDS.log.info(&quot;Sample ended&quot;);
-WDS.sampleResult.sampleEnd();
-
-WDS.log.info(&quot;Log out APX Cloud...&quot;);
-WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;topnavbar_user&quot;]/apxiconsvgwidget/i&apos;)).click();
-
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)));
-WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)).click();
-java.lang.Thread.sleep(3000);</stringProp>
-          <stringProp name="WebDriverSampler.parameters"></stringProp>
-          <stringProp name="WebDriverSampler.language">javascript</stringProp>
-        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
-        <hashTree/>
-        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="CountryWithHoldingTaxSampler" enabled="true">
-          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
-var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
-var wait = new support_ui.WebDriverWait(WDS.browser, 15000);
-var serverName = &apos;${server}&apos;
-var userName = &apos;${userName}&apos;;
-var password = &apos;${password}&apos;;
-
-WDS.log.info(&quot;Navigate to APX Cloud Login page&quot;);
-WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#&apos;);
-
-WDS.log.info(&quot;Wait until Login page is loaded...&quot;);
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;)));
-
-WDS.log.info(&quot;Logging in to APX Cloud...&quot;);
-var userField = WDS.browser.findElement(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;));
-userField.click();
-userField.sendKeys(userName);
-
-var pwdField = WDS.browser.findElement(pkg.By.xpath(&apos;//input[@placeholder=&quot;Password&quot;]&apos;));
-pwdField.click();
-pwdField.sendKeys(password);
-
-var button = WDS.browser.findElement(pkg.By.xpath(&apos;//button[text()=&quot;LOG IN&quot;]&apos;));
-button.click();
-
-WDS.log.info(&quot;Wait until home page is loaded...&quot;);
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
-
-WDS.log.info(&quot;Navigate to APX Cloud Country page&quot;);
-WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
-
-WDS.log.info(&quot;Wait until Country summary page is loaded...&quot;);
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_CountryGrid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
-
-var usCountryRowInSummaryPanel = WDS.browser.findElement(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_CountryGrid&apos;]/*//div[normalize-space(.)=&apos;us&apos;]&quot;));
-usCountryRowInSummaryPanel.click();
-
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;labelInputTextInput-SecInfoCountry_CountryCode&apos;]&quot;)));
-WDS.browser.findElement(pkg.By.xpath(&quot;//apxtabstripwidget[@id=&apos;SecInfoCountryDetail_tabs&apos;]/*//div[@class=&apos;apx-tabstrip-tab-wrap&apos; and normalize-space(.)=&apos;Withholding Tax&apos;]&quot;)).click();
-
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;labelEditableSelectComboBoxIssueCountryCode&quot;]/span/kendo-searchbar/input&apos;)));
-
-var issuingCountryFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;labelEditableSelectComboBoxIssueCountryCode&quot;]/span/kendo-searchbar/input&apos;));
-issuingCountryFilter.sendKeys(&apos;Chile&apos;);
-issuingCountryFilter.sendKeys(org.openqa.selenium.Keys.ENTER);
-
-WDS.sampleResult.sampleStart();
-WDS.sampleResult.getLatency();
-//WDS.log.info(&quot;Sample started on country holding tax page&quot;);
 
 //WDS.log.info(&quot;Wait until issuing country filtered results display...&quot;);
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;CountryWithholdingTax_WithholdingTaxGrid&apos;]/*//span[contains(., &apos;Showing all 1&apos;)]&quot;)));
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[@id=&apos;summaryGridContextMenuRow0Col0&apos;]/span[normalize-space(.)=&apos;Chile&apos;]&quot;)));
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountryDetail_WithholdingTaxGrid&apos;]/*//span[contains(., &apos;Showing all 1&apos;)]&quot;)));
 
 //WDS.log.info(&quot;Sample ended&quot;);
 WDS.sampleResult.sampleEnd();
@@ -293,10 +932,11 @@ java.lang.Thread.sleep(3000);</stringProp>
           <stringProp name="WebDriverSampler.language">javascript</stringProp>
         </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
         <hashTree/>
-        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="ReportSummarySortSampler" enabled="true">
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_ReportSummarySort" enabled="true">
           <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
 var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
-var wait = new support_ui.WebDriverWait(WDS.browser, 15000);
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
 var serverName = &apos;${server}&apos;;
 var userName = &apos;${userName}&apos;;
 var password = &apos;${password}&apos;;
@@ -337,6 +977,9 @@ var results = WDS.browser.findElements(pkg.By.xpath(&quot;//apxgridwidget[@id=&a
 var lastIndex = results.size() -1;
 //WDS.log.info(&quot;The last text is &quot; + results[lastIndex].getText());
 var lastText = results[lastIndex].getText();
+lastText = &quot;Withholding Tax Reclaim&quot;; // Hard-code for now
+
+WDS.log.info(&quot;Log out APX Cloud...&quot; + lastText);
 
 //WDS.log.info(&quot;Sample started on report summary page...&quot;);
 WDS.sampleResult.sampleStart();
@@ -349,6 +992,106 @@ WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;ReportSummary_reportGri
 wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxgridwidget[@id=&apos;ReportSummary_reportGrid&apos;]//tr[1]/td[normalize-space(.)=&apos;&quot; + lastText + &quot;&apos;]&quot;)));
 
 //WDS.log.info(&quot;Sample ended&quot;);
+WDS.sampleResult.sampleEnd();
+
+WDS.log.info(&quot;Log out APX Cloud...&quot;);
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;topnavbar_user&quot;]/apxiconsvgwidget/i&apos;)).click();
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)));
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)).click();
+java.lang.Thread.sleep(3000);</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_CountryCRUD" enabled="true">
+          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
+var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
+var interaction =JavaImporter(org.openqa.selenium.interactions);
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
+var serverName = &apos;${server}&apos;
+var userName = &apos;${userName}&apos;;
+var password = &apos;${password}&apos;;
+
+WDS.log.info(&quot;Navigate to APX Cloud Login page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#&apos;);
+
+WDS.log.info(&quot;Wait until Login page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;)));
+
+WDS.log.info(&quot;Logging in to APX Cloud...&quot;);
+var userField = WDS.browser.findElement(pkg.By.xpath(&quot;//input[@placeholder=&apos;Username&apos;]&quot;));
+userField.click();
+userField.sendKeys(userName);
+
+var pwdField = WDS.browser.findElement(pkg.By.xpath(&apos;//input[@placeholder=&quot;Password&quot;]&apos;));
+pwdField.click();
+pwdField.sendKeys(password);
+
+var button = WDS.browser.findElement(pkg.By.xpath(&apos;//button[text()=&quot;LOG IN&quot;]&apos;));
+button.click();
+
+WDS.log.info(&quot;Wait until home page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+
+WDS.log.info(&quot;Navigate to APX Cloud Country page&quot;);
+WDS.browser.get(&apos;http://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
+
+WDS.log.info(&quot;Wait until Country summary page is loaded...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//span[contains(., &apos;Showing all&apos;)]&quot;)));
+
+var countryCode = &apos;xx&apos;;
+var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//th[1]//div/input&apos;));
+countryCodeFilter.sendKeys(countryCode);
+countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);
+
+var filteredResultXPath = &quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//div[normalize-space(.)=&apos;&quot; + countryCode + &quot;&apos; and @class=&apos;apx-label-textbox-widget-value-display&apos;]&quot;;
+if(WDS.browser.findElements(pkg.By.xpath(filteredResultXPath)).size() != 0){
+    var action = new interaction.Actions(WDS.browser);
+    var filteredCountry = WDS.browser.findElement(pkg.By.xpath(filteredResultXPath));
+	action.contextClick(filteredCountry).perform();
+
+    WDS.browser.findElement(pkg.By.xpath(&quot;//apxcontextmenuwidget/kendo-popup//div[normalize-space(.)=&apos;Delete Country&apos;]&quot;)).click(); 
+    WDS.browser.findElement(pkg.By.xpath(&quot;//kendo-dialog-actions//button[.=&apos;Discard Country&apos;]&quot;)).click(); 
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxnotificationwidget//div[@class=&apos;notification__msg&apos;]&quot;)));
+    WDS.browser.navigate().refresh();
+}
+
+wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_newBtn&quot;]/button&apos;)));
+var addCountryButton = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_newBtn&quot;]/button&apos;));
+addCountryButton.click();
+
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_CountryCode&quot;]//input&apos;)).sendKeys(countryCode);
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_CountryName&quot;]//input&apos;)).sendKeys(countryCode);
+
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_tabs&quot;]//div[@class=&quot;apx-tabstrip-tab-wrap&quot; and normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)).click();
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//button[normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)).click();
+
+// Select Issuing Country
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//td[2]&apos;)).click();
+WDS.browser.findElement(pkg.By.xpath(&quot;//kendo-popup//li[normalize-space(.)=&apos;Norway&apos;]&quot;)).click();
+
+// Dividend Tax %
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//td[4]//input&apos;)).sendKeys(&apos;1&apos;);
+
+// Dividend Reclaim %
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//td[5]//input&apos;)).sendKeys(&apos;1&apos;);
+
+// Interest Tax %
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//td[6]//input&apos;)).sendKeys(&apos;1&apos;);
+
+// Interest Reclaim %
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//td[7]//input&apos;)).sendKeys(&apos;1&apos;);
+wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_saveBtn&quot;]/button&apos;)));
+
+WDS.sampleResult.sampleStart();
+WDS.sampleResult.getLatency();
+
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_saveBtn&quot;]/button&apos;)).click();
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxnotificationwidget//div[@class=&apos;notification__msg&apos; and normalize-space(.)=&apos;Country created&apos;]&quot;)));
+
 WDS.sampleResult.sampleEnd();
 
 WDS.log.info(&quot;Log out APX Cloud...&quot;);
@@ -384,11 +1127,6 @@ java.lang.Thread.sleep(3000);</stringProp>
       <hashTree/>
       <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
         <collectionProp name="Arguments.arguments">
-          <elementProp name="server" elementType="Argument">
-            <stringProp name="Argument.name">server</stringProp>
-            <stringProp name="Argument.value">vmw12apxcloud07.gencos.com</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
           <elementProp name="chromeDriverPath" elementType="Argument">
             <stringProp name="Argument.name">chromeDriverPath</stringProp>
             <stringProp name="Argument.value">/usr/sbin/chromedriver</stringProp>
@@ -406,7 +1144,12 @@ java.lang.Thread.sleep(3000);</stringProp>
           </elementProp>
           <elementProp name="loopCount" elementType="Argument">
             <stringProp name="Argument.name">loopCount</stringProp>
-            <stringProp name="Argument.value">3</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="timeoutSec" elementType="Argument">
+            <stringProp name="Argument.name">timeoutSec</stringProp>
+            <stringProp name="Argument.value">60</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
