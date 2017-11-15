@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="3.1" jmeter="3.1 r1770033">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="APXCloud_API_Performance" enabled="true">
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="APXCloud_API_Performance_Query" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
@@ -647,16 +647,17 @@ for (int i = 0; i &lt; count; i++) {
           <boolProp name="HTTPSampler.monitor">false</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
-        <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-          <collectionProp name="Asserion.test_strings">
-            <stringProp name="49586">200</stringProp>
-          </collectionProp>
-          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <boolProp name="Assertion.assume_success">false</boolProp>
-          <intProp name="Assertion.test_type">8</intProp>
-        </ResponseAssertion>
-        <hashTree/>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Country_ViewDetail" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -722,16 +723,17 @@ for (int i = 0; i &lt; count; i++) {
           <boolProp name="HTTPSampler.monitor">false</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
-        <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-          <collectionProp name="Asserion.test_strings">
-            <stringProp name="49586">200</stringProp>
-          </collectionProp>
-          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <boolProp name="Assertion.assume_success">false</boolProp>
-          <intProp name="Assertion.test_type">8</intProp>
-        </ResponseAssertion>
-        <hashTree/>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_WithholdingTax_Filter" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -797,16 +799,17 @@ for (int i = 0; i &lt; count; i++) {
           <boolProp name="HTTPSampler.monitor">false</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
-        <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-          <collectionProp name="Asserion.test_strings">
-            <stringProp name="49586">200</stringProp>
-          </collectionProp>
-          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <boolProp name="Assertion.assume_success">false</boolProp>
-          <intProp name="Assertion.test_type">8</intProp>
-        </ResponseAssertion>
-        <hashTree/>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_APXReport_ListAll" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -1219,16 +1222,17 @@ for (int i = 0; i &lt; count; i++) {
           <boolProp name="HTTPSampler.monitor">false</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
-        <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-          <collectionProp name="Asserion.test_strings">
-            <stringProp name="49586">200</stringProp>
-          </collectionProp>
-          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <boolProp name="Assertion.assume_success">false</boolProp>
-          <intProp name="Assertion.test_type">8</intProp>
-        </ResponseAssertion>
-        <hashTree/>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_SSRSReportParmType_GetAll" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -1512,16 +1516,17 @@ for (int i = 0; i &lt; count; i++) {
           <boolProp name="HTTPSampler.monitor">false</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
-        <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-          <collectionProp name="Asserion.test_strings">
-            <stringProp name="49586">200</stringProp>
-          </collectionProp>
-          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <boolProp name="Assertion.assume_success">false</boolProp>
-          <intProp name="Assertion.test_type">8</intProp>
-        </ResponseAssertion>
-        <hashTree/>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Macro_FilterParticularMacroAndExpandAllChildren" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -1577,7 +1582,7 @@ for (int i = 0; i &lt; count; i++) {
                     &quot;Filter&quot;: {&#xd;
                         &quot;Field&quot;: &quot;MacroID&quot;,&#xd;
                         &quot;ComparisonOperator&quot;: 1,&#xd;
-                        &quot;Value&quot;: &quot;502&quot;&#xd;
+                        &quot;Value&quot;: &quot;126&quot;&#xd;
                     },&#xd;
                     &quot;LogicalOperator&quot;: 0,&#xd;
                     &quot;IsNegated&quot;: false&#xd;
@@ -1613,81 +1618,6 @@ for (int i = 0; i &lt; count; i++) {
           <boolProp name="HTTPSampler.monitor">false</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
-        <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-          <collectionProp name="Asserion.test_strings">
-            <stringProp name="49586">200</stringProp>
-          </collectionProp>
-          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <boolProp name="Assertion.assume_success">false</boolProp>
-          <intProp name="Assertion.test_type">8</intProp>
-        </ResponseAssertion>
-        <hashTree/>
-      </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Macro_SSRSMacro_List" enabled="true">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">${LoopCount}</stringProp>
-        </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${NumberOfThreads}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${RampUpSeconds}</stringProp>
-        <longProp name="ThreadGroup.start_time">1479261680000</longProp>
-        <longProp name="ThreadGroup.end_time">1479261680000</longProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-      </ThreadGroup>
-      <hashTree>
-        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
-          <boolProp name="resetInterpreter">false</boolProp>
-          <stringProp name="parameters"></stringProp>
-          <stringProp name="filename"></stringProp>
-          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
-import org.apache.jmeter.protocol.http.control.Cookie;
-import org.apache.jmeter.testelement.property.JMeterProperty;
-  
-CookieManager manager = ctx.getCurrentSampler().getCookieManager();
-int count = Integer.parseInt(props.getProperty(&quot;cookiecount&quot;));
-
-for (int i = 0; i &lt; count; i++) {
-    Cookie cookie = new Cookie(props.getProperty(&quot;cookie_name&quot; + i), 
-    		  props.getProperty(&quot;cookie_value&quot; + i),
-            props.getProperty(&quot;cookie_domain&quot; + i), 
-            props.getProperty(&quot;cookie_path&quot; + i),
-            Boolean.parseBoolean(props.getProperty(&quot;cookie_secure&quot; + i)),
-            Long.parseLong(props.getProperty(&quot;cookie_expires&quot; + i)));
-    manager.add(cookie);
-}</stringProp>
-        </BeanShellPreProcessor>
-        <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_Macro_SSRSMacro_PrepareData" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value"></stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Macro?ClassID=338&amp;Name=AnnualReport&amp;$fieldset=m&amp;$metadata=n</stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
             <collectionProp name="Asserion.test_strings">
@@ -1697,88 +1627,6 @@ for (int i = 0; i &lt; count; i++) {
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Insert A Style Set As Prepare Data" enabled="true">
-            <stringProp name="scriptLanguage">javascript</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="cacheKey"></stringProp>
-            <stringProp name="script">// Turn API response JSON into an object called &apos;AddingResponse&apos;
-eval(&apos;var AddingPrepareDataResponse = &apos; + prev.getResponseDataAsString());
-
-var prepareDataObject = JSON.parse(JSON.stringify(AddingPrepareDataResponse.Data[0]));
-vars.put(&quot;macroID&quot;, prepareDataObject.MacroID);</stringProp>
-          </JSR223PostProcessor>
-          <hashTree/>
-        </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_Macro_SSRSMacro_List" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">{&#xd;
-    &quot;Search&quot;: {&#xd;
-        &quot;Query&quot;: {&#xd;
-            &quot;Joins&quot;: [],&#xd;
-            &quot;CriteriaList&quot;: [&#xd;
-                {&#xd;
-                    &quot;Filter&quot;: {&#xd;
-                        &quot;Field&quot;: &quot;MacroID&quot;,&#xd;
-                        &quot;ComparisonOperator&quot;: 1,&#xd;
-                        &quot;Value&quot;: &quot;${macroID}&quot;&#xd;
-                    },&#xd;
-                    &quot;LogicalOperator&quot;: 0,&#xd;
-                    &quot;IsNegated&quot;: false&#xd;
-                }&#xd;
-            ],&#xd;
-            &quot;Entity&quot;: &quot;Macro&quot;&#xd;
-        },&#xd;
-        &quot;Options&quot;: {&#xd;
-            &quot;PageNumber&quot;: 0,&#xd;
-            &quot;PageSize&quot;: 0,&#xd;
-            &quot;OrderBy&quot;: [],&#xd;
-            &quot;UseDistinct&quot;: false&#xd;
-        }&#xd;
-    }&#xd;
-}</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Macro/search?$d=y&amp;$m=y&amp;$r=338&amp;$e=SSRSMacro</stringProp>
-          <stringProp name="HTTPSampler.method">POST</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="49586">200</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">8</intProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Remove useless local variables" enabled="true">
-            <stringProp name="scriptLanguage">groovy</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="cacheKey"></stringProp>
-            <stringProp name="script">vars.remove(&quot;macroID&quot;);</stringProp>
-          </JSR223PostProcessor>
           <hashTree/>
         </hashTree>
       </hashTree>
@@ -1860,16 +1708,17 @@ for (int i = 0; i &lt; count; i++) {
           <boolProp name="HTTPSampler.monitor">false</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
-        <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-          <collectionProp name="Asserion.test_strings">
-            <stringProp name="49586">200</stringProp>
-          </collectionProp>
-          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <boolProp name="Assertion.assume_success">false</boolProp>
-          <intProp name="Assertion.test_type">8</intProp>
-        </ResponseAssertion>
-        <hashTree/>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Custodian_Filter" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -1961,16 +1810,17 @@ for (int i = 0; i &lt; count; i++) {
           <boolProp name="HTTPSampler.monitor">false</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
-        <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-          <collectionProp name="Asserion.test_strings">
-            <stringProp name="49586">200</stringProp>
-          </collectionProp>
-          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <boolProp name="Assertion.assume_success">false</boolProp>
-          <intProp name="Assertion.test_type">8</intProp>
-        </ResponseAssertion>
-        <hashTree/>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Index_ListAll" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -2050,16 +1900,17 @@ for (int i = 0; i &lt; count; i++) {
           <boolProp name="HTTPSampler.monitor">false</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
-        <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-          <collectionProp name="Asserion.test_strings">
-            <stringProp name="49586">200</stringProp>
-          </collectionProp>
-          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <boolProp name="Assertion.assume_success">false</boolProp>
-          <intProp name="Assertion.test_type">8</intProp>
-        </ResponseAssertion>
-        <hashTree/>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Index_Filter" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -2151,16 +2002,17 @@ for (int i = 0; i &lt; count; i++) {
           <boolProp name="HTTPSampler.monitor">false</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
-        <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-          <collectionProp name="Asserion.test_strings">
-            <stringProp name="49586">200</stringProp>
-          </collectionProp>
-          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <boolProp name="Assertion.assume_success">false</boolProp>
-          <intProp name="Assertion.test_type">8</intProp>
-        </ResponseAssertion>
-        <hashTree/>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Portfolio_ListAll" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -2358,7 +2210,7 @@ for (int i = 0; i &lt; count; i++) {
                     &quot;Filter&quot;: {&#xd;
                         &quot;Field&quot;: &quot;PortfolioCode&quot;,&#xd;
                         &quot;ComparisonOperator&quot;: 8,&#xd;
-                        &quot;Value&quot;: &quot;c&quot;&#xd;
+                        &quot;Value&quot;: &quot;Port_&quot;&#xd;
                     },&#xd;
                     &quot;LogicalOperator&quot;: 0,&#xd;
                     &quot;IsNegated&quot;: false&#xd;
@@ -2394,16 +2246,17 @@ for (int i = 0; i &lt; count; i++) {
           <boolProp name="HTTPSampler.monitor">false</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
-        <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-          <collectionProp name="Asserion.test_strings">
-            <stringProp name="49586">200</stringProp>
-          </collectionProp>
-          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <boolProp name="Assertion.assume_success">false</boolProp>
-          <intProp name="Assertion.test_type">8</intProp>
-        </ResponseAssertion>
-        <hashTree/>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Security_ListAll" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -3111,7 +2964,7 @@ for (int i = 0; i &lt; count; i++) {
                     &quot;Filter&quot;: {&#xd;
                         &quot;Field&quot;: &quot;PortfolioID&quot;,&#xd;
                         &quot;ComparisonOperator&quot;: 1,&#xd;
-                        &quot;Value&quot;: &quot;180&quot;&#xd;
+                        &quot;Value&quot;: &quot;390379&quot;&#xd;
                     },&#xd;
                     &quot;LogicalOperator&quot;: 0,&#xd;
                     &quot;IsNegated&quot;: false&#xd;
@@ -3252,7 +3105,7 @@ for (int i = 0; i &lt; count; i++) {
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Portfolio/Search?$searchid=7162&amp;$metadata=n</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Portfolio/Search?$searchid=14&amp;$metadata=n</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3328,7 +3181,7 @@ for (int i = 0; i &lt; count; i++) {
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/PortfolioHoldings?$t=query(portfolioid=180&amp;columnset=gaIn&amp;groupby=assetclass&amp;filterkey=IndustryGroupName&amp;filterValue=Banks,Large Blend,Oil, Gas %26 Consumable Fuels&amp;showtaxlots=false)&amp;$metadata=y</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/PortfolioHoldings?$t=query(portfolioid=390379&amp;columnset=gaIn&amp;groupby=assetclass&amp;filterkey=IndustryGroupName&amp;filterValue=Banks,Large Blend,Oil, Gas %26 Consumable Fuels&amp;showtaxlots=false)&amp;$metadata=y</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3366,7 +3219,7 @@ for (int i = 0; i &lt; count; i++) {
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/PortfolioHoldings?$t=query(portfolioid=180&amp;columnset=valuation&amp;groupby=assetcLass&amp;showtaxlots=False&amp;filterkey=Symbol&amp;filterValue=AAPL)&amp;$metadata=y</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/PortfolioHoldings?$t=query(portfolioid=390379&amp;columnset=valuation&amp;groupby=assetcLass&amp;showtaxlots=False&amp;filterkey=Symbol&amp;filterValue=NO0010062961)&amp;$metadata=y</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3404,7 +3257,7 @@ for (int i = 0; i &lt; count; i++) {
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/PortfolioHoldings?$t=query(portfolioid=180&amp;columnset=gain&amp;showtaxlots=False&amp;filterkey=Symbol&amp;filterValue=912810DV7,Cash,fahb.x,ANN,APOL,ADM,CAG,CVX,BK,HMN,stvs.x,vsgb.x,BAX,PFE,ALK,GE,AAPL,ADVS,fgri.x,vfin.x,DOW,DCM,DUK,ED)&amp;$metadata=y</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/PortfolioHoldings?$t=query(portfolioid=390379&amp;columnset=gain&amp;showtaxlots=False&amp;filterkey=Symbol&amp;filterValue=NO0008000023,NO0008000155,NO0008000163,NO0010028988,NO0010062961)&amp;$metadata=y</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -5352,7 +5205,7 @@ for (int i = 0; i &lt; count; i++) {
                     &quot;Filter&quot;: {&#xd;
                         &quot;Field&quot;: &quot;CurrencyName&quot;,&#xd;
                         &quot;ComparisonOperator&quot;: 8,&#xd;
-                        &quot;Value&quot;: &quot;c&quot;&#xd;
+                        &quot;Value&quot;: &quot;u&quot;&#xd;
                     },&#xd;
                     &quot;LogicalOperator&quot;: 0,&#xd;
                     &quot;IsNegated&quot;: false&#xd;
@@ -5634,7 +5487,7 @@ for (int i = 0; i &lt; count; i++) {
                     &quot;Filter&quot;: {&#xd;
                         &quot;Field&quot;: &quot;DisclaimerName&quot;,&#xd;
                         &quot;ComparisonOperator&quot;: 8,&#xd;
-                        &quot;Value&quot;: &quot;t&quot;&#xd;
+                        &quot;Value&quot;: &quot;m&quot;&#xd;
                     },&#xd;
                     &quot;LogicalOperator&quot;: 0,&#xd;
                     &quot;IsNegated&quot;: false&#xd;
@@ -5916,7 +5769,7 @@ for (int i = 0; i &lt; count; i++) {
                     &quot;Filter&quot;: {&#xd;
                         &quot;Field&quot;: &quot;ExchangeName&quot;,&#xd;
                         &quot;ComparisonOperator&quot;: 8,&#xd;
-                        &quot;Value&quot;: &quot;b&quot;&#xd;
+                        &quot;Value&quot;: &quot;n&quot;&#xd;
                     },&#xd;
                     &quot;LogicalOperator&quot;: 0,&#xd;
                     &quot;IsNegated&quot;: false&#xd;
@@ -6198,7 +6051,7 @@ for (int i = 0; i &lt; count; i++) {
                     &quot;Filter&quot;: {&#xd;
                         &quot;Field&quot;: &quot;HolidayScheduleName&quot;,&#xd;
                         &quot;ComparisonOperator&quot;: 8,&#xd;
-                        &quot;Value&quot;: &quot;t&quot;&#xd;
+                        &quot;Value&quot;: &quot;n&quot;&#xd;
                     },&#xd;
                     &quot;LogicalOperator&quot;: 0,&#xd;
                     &quot;IsNegated&quot;: false&#xd;
@@ -6762,7 +6615,7 @@ for (int i = 0; i &lt; count; i++) {
                     &quot;Filter&quot;: {&#xd;
                         &quot;Field&quot;: &quot;IndustryGroupName&quot;,&#xd;
                         &quot;ComparisonOperator&quot;: 8,&#xd;
-                        &quot;Value&quot;: &quot;l&quot;&#xd;
+                        &quot;Value&quot;: &quot;n&quot;&#xd;
                     },&#xd;
                     &quot;LogicalOperator&quot;: 0,&#xd;
                     &quot;IsNegated&quot;: false&#xd;
@@ -9838,7 +9691,7 @@ for (int i = 0; i &lt; count; i++) {
                     &quot;Filter&quot;: {&#xd;
                         &quot;Field&quot;: &quot;UserGroupName&quot;,&#xd;
                         &quot;ComparisonOperator&quot;: 8,&#xd;
-                        &quot;Value&quot;: &quot;a&quot;&#xd;
+                        &quot;Value&quot;: &quot;e&quot;&#xd;
                     },&#xd;
                     &quot;LogicalOperator&quot;: 0,&#xd;
                     &quot;IsNegated&quot;: false&#xd;
@@ -10120,7 +9973,7 @@ for (int i = 0; i &lt; count; i++) {
                     &quot;Filter&quot;: {&#xd;
                         &quot;Field&quot;: &quot;GroupTypeName&quot;,&#xd;
                         &quot;ComparisonOperator&quot;: 8,&#xd;
-                        &quot;Value&quot;: &quot;a&quot;&#xd;
+                        &quot;Value&quot;: &quot;s&quot;&#xd;
                     },&#xd;
                     &quot;LogicalOperator&quot;: 0,&#xd;
                     &quot;IsNegated&quot;: false&#xd;
@@ -10554,7 +10407,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
                     &quot;Filter&quot;: {&#xd;
                         &quot;Field&quot;: &quot;Description&quot;,&#xd;
                         &quot;ComparisonOperator&quot;: 8,&#xd;
-                        &quot;Value&quot;: &quot;a&quot;&#xd;
+                        &quot;Value&quot;: &quot;m&quot;&#xd;
                     },&#xd;
                     &quot;LogicalOperator&quot;: 0,&#xd;
                     &quot;IsNegated&quot;: false&#xd;
@@ -10746,7 +10599,7 @@ for (int i = 0; i &lt; count; i++) {
                     &quot;Filter&quot;: {&#xd;
                         &quot;Field&quot;: &quot;ContactFullName&quot;,&#xd;
                         &quot;ComparisonOperator&quot;: 1,&#xd;
-                        &quot;Value&quot;: &quot;Case, Evan&quot;&#xd;
+                        &quot;Value&quot;: &quot;CONTACT 385402&quot;&#xd;
                     },&#xd;
                     &quot;LogicalOperator&quot;: 0,&#xd;
                     &quot;IsNegated&quot;: false&#xd;
@@ -12144,7 +11997,7 @@ for (int i = 0; i &lt; count; i++) {
                     &quot;Filter&quot;: {&#xd;
                         &quot;Field&quot;: &quot;ContactFullName&quot;,&#xd;
                         &quot;ComparisonOperator&quot;: 1,&#xd;
-                        &quot;Value&quot;: &quot;Case, Evan&quot;&#xd;
+                        &quot;Value&quot;: &quot;CONTACT 385402&quot;&#xd;
                     },&#xd;
                     &quot;LogicalOperator&quot;: 0,&#xd;
                     &quot;IsNegated&quot;: false&#xd;
@@ -12246,7 +12099,7 @@ for (int i = 0; i &lt; count; i++) {
                     &quot;Filter&quot;: {&#xd;
                         &quot;Field&quot;: &quot;ContactFullName&quot;,&#xd;
                         &quot;ComparisonOperator&quot;: 1,&#xd;
-                        &quot;Value&quot;: &quot;Case, Evan&quot;&#xd;
+                        &quot;Value&quot;: &quot;CONTACT 385402&quot;&#xd;
                     },&#xd;
                     &quot;LogicalOperator&quot;: 0,&#xd;
                     &quot;IsNegated&quot;: false&#xd;
@@ -12698,7 +12551,7 @@ for (int i = 0; i &lt; count; i++) {
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Portfolio?$metadata=n&amp;$permission=all&amp;portfolioid=181</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Portfolio?$metadata=n&amp;$permission=all&amp;portfolioid=390379</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -12736,7 +12589,7 @@ for (int i = 0; i &lt; count; i++) {
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Portfolio?$metadata=n&amp;$permission=(76,77,78)&amp;portfolioid=181</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Portfolio?$metadata=n&amp;$permission=(76,77,78)&amp;portfolioid=390379</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -13046,7 +12899,7 @@ for (int i = 0; i &lt; count; i++) {
                     &quot;Filter&quot;: {&#xd;
                         &quot;Field&quot;: &quot;PortfolioGroupCode&quot;,&#xd;
                         &quot;ComparisonOperator&quot;: 8,&#xd;
-                        &quot;Value&quot;: &quot;c&quot;&#xd;
+                        &quot;Value&quot;: &quot;g&quot;&#xd;
                     },&#xd;
                     &quot;LogicalOperator&quot;: 0,&#xd;
                     &quot;IsNegated&quot;: false&#xd;
@@ -13073,234 +12926,6 @@ for (int i = 0; i &lt; count; i++) {
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
           <stringProp name="HTTPSampler.path">/APXlogin/api/internal/PortfolioGroup/search?$d=y&amp;$m=y&amp;$c=-230022001</stringProp>
-          <stringProp name="HTTPSampler.method">POST</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-          <collectionProp name="Asserion.test_strings">
-            <stringProp name="49586">200</stringProp>
-          </collectionProp>
-          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <boolProp name="Assertion.assume_success">false</boolProp>
-          <intProp name="Assertion.test_type">8</intProp>
-        </ResponseAssertion>
-        <hashTree/>
-      </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_PortfolioGroup_CRUD" enabled="true">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">${LoopCount}</stringProp>
-        </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${NumberOfThreads}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${RampUpSeconds}</stringProp>
-        <longProp name="ThreadGroup.start_time">1497848643000</longProp>
-        <longProp name="ThreadGroup.end_time">1497848643000</longProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-      </ThreadGroup>
-      <hashTree>
-        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
-          <boolProp name="resetInterpreter">false</boolProp>
-          <stringProp name="parameters"></stringProp>
-          <stringProp name="filename"></stringProp>
-          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
-import org.apache.jmeter.protocol.http.control.Cookie;
-import org.apache.jmeter.testelement.property.JMeterProperty;
-  
-CookieManager manager = ctx.getCurrentSampler().getCookieManager();
-int count = Integer.parseInt(props.getProperty(&quot;cookiecount&quot;));
-
-for (int i = 0; i &lt; count; i++) {
-    Cookie cookie = new Cookie(props.getProperty(&quot;cookie_name&quot; + i), 
-    		  props.getProperty(&quot;cookie_value&quot; + i),
-            props.getProperty(&quot;cookie_domain&quot; + i), 
-            props.getProperty(&quot;cookie_path&quot; + i),
-            Boolean.parseBoolean(props.getProperty(&quot;cookie_secure&quot; + i)),
-            Long.parseLong(props.getProperty(&quot;cookie_expires&quot; + i)));
-    manager.add(cookie);
-}</stringProp>
-        </BeanShellPreProcessor>
-        <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_AddPortfolioGroup" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">[&#xd;
-    {&#xd;
-        &quot;AccruedInterestID&quot;: 0,&#xd;
-        &quot;AverageCostCode&quot;: &quot;&quot;,&#xd;
-        &quot;BaseCurrencyCode&quot;: &quot;au&quot;,&#xd;
-        &quot;BillInArrears&quot;: false,&#xd;
-        &quot;BillingMethodCode&quot;: &quot;f&quot;,&#xd;
-        &quot;ClosingMethodCode&quot;: &quot; &quot;,&#xd;
-        &quot;FlatFee&quot;: 0.7,&#xd;
-        &quot;FootNoteLine1&quot;: &quot;eee&quot;,&#xd;
-        &quot;FootNoteLine2&quot;: &quot;rrr&quot;,&#xd;
-        &quot;FootNoteLine3&quot;: &quot;ttt&quot;,&#xd;
-        &quot;InternalClosingMethodCode&quot;: &quot;&quot;,&#xd;
-        &quot;IsConsolidatedAccount&quot;: false,&#xd;
-        &quot;IsPortfolioSorted&quot;: true,&#xd;
-        &quot;IsSystem&quot;: false,&#xd;
-        &quot;MaintainCalcData&quot;: false,&#xd;
-        &quot;MinimumFee&quot;: 9,&#xd;
-        &quot;NumOfCopies&quot;: 1,&#xd;
-        &quot;OwnerClassID&quot;: 52,&#xd;
-        &quot;OwnerCode&quot;: &quot;Admin&quot;,&#xd;
-        &quot;OwnerID&quot;: -1001,&#xd;
-        &quot;OwnerName&quot;: &quot;Admin&quot;,&#xd;
-        &quot;PastDueAmount&quot;: 9,&#xd;
-        &quot;PaymentFrequencyID&quot;: 4,&#xd;
-        &quot;PortfolioGroupCode&quot;: &quot;APITestPortGrp${__threadNum}&quot;,&#xd;
-        &quot;PortfolioGroupID&quot;: 0,&#xd;
-        &quot;Purpose&quot;: &quot;&quot;,&#xd;
-        &quot;ReportHeading1&quot;: &quot;API Auto Test Portfolio Group Heading 1&quot;,&#xd;
-        &quot;SyntheticIndexDesc&quot;: &quot;iii&quot;,&#xd;
-        &quot;TaxRate&quot;: 9,&#xd;
-        &quot;UseAverageCost&quot;: false,&#xd;
-        &quot;_Action&quot;: &quot;Insert&quot;&#xd;
-    }&#xd;
-]</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/PortfolioGroup</stringProp>
-          <stringProp name="HTTPSampler.method">POST</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="49586">200</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">8</intProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Added JSON Object" enabled="true">
-            <stringProp name="scriptLanguage">javascript</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="cacheKey"></stringProp>
-            <stringProp name="script">// Turn API response JSON into an object called &apos;AddingResponse&apos;
-eval(&apos;var AddingResponse = &apos; + prev.getResponseDataAsString());
-
-var dataObject = JSON.parse(JSON.stringify(AddingResponse.Data[0]));
-dataObject.ReportHeading1 = dataObject.ReportHeading1 + &quot; (New)&quot;;
-dataObject.StartDate = &quot;2005-03-01T00:00:00&quot;;
-dataObject._Action = &quot;Update&quot;;
-
-vars.put(&quot;updatingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);
-// vars.put(&quot;portCode&quot;, dataObject.PortfolioCode);
-// vars.put(&quot;portID&quot;, dataObject.PortfolioID);
-
-
-
-/*
-for (var counter = 1; counter &lt;= SearchResponse.responseData.results.length; counter++)	
-{		
-    var x = SearchResponse.responseData.results[counter - 1];
-   vars.put(&quot;haveBoots&quot; + counter, x.unescapedUrl);
-}
-*/</stringProp>
-          </JSR223PostProcessor>
-          <hashTree/>
-        </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_UpdatePortfolioGroup" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">${updatingBody}</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/PortfolioGroup</stringProp>
-          <stringProp name="HTTPSampler.method">POST</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="49586">200</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">8</intProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Updated JSON Object" enabled="true">
-            <stringProp name="scriptLanguage">javascript</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="cacheKey"></stringProp>
-            <stringProp name="script">eval(&apos;var UpdatingResponse = &apos; + prev.getResponseDataAsString());
-
-var dataObject = JSON.parse(JSON.stringify(UpdatingResponse.Data[0]));
-delete dataObject[&apos;PortfolioBaseCashClosingList&apos;];
-delete dataObject[&apos;PortfolioBaseClosingList&apos;];
-dataObject._Action = &quot;Delete&quot;;
-
-vars.put(&quot;deletingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);</stringProp>
-          </JSR223PostProcessor>
-          <hashTree/>
-        </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_DeletePortfolioGroup" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">${deletingBody}</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/PortfolioGroup</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
