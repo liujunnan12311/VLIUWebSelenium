@@ -1310,7 +1310,7 @@ for (int i = 0; i &lt; count; i++) {
           <hashTree/>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Portfolio_ListAll" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Portfolio_Query" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -1430,7 +1430,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Portfolio/search?$d=y&amp;$m=y&amp;$s=${savedSearchID}</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Portfolio/search?$d=y&amp;$m=y&amp;$s=${savedSearchID}&amp;$c=-200020001</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -1451,45 +1451,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-      </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Portfolio_Filter" enabled="true">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">${LoopCount}</stringProp>
-        </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${NumberOfThreads}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${RampUpSeconds}</stringProp>
-        <longProp name="ThreadGroup.start_time">1479261680000</longProp>
-        <longProp name="ThreadGroup.end_time">1479261680000</longProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-      </ThreadGroup>
-      <hashTree>
-        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
-          <boolProp name="resetInterpreter">false</boolProp>
-          <stringProp name="parameters"></stringProp>
-          <stringProp name="filename"></stringProp>
-          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
-import org.apache.jmeter.protocol.http.control.Cookie;
-import org.apache.jmeter.testelement.property.JMeterProperty;
-  
-CookieManager manager = ctx.getCurrentSampler().getCookieManager();
-int count = Integer.parseInt(props.getProperty(&quot;cookiecount&quot;));
-
-for (int i = 0; i &lt; count; i++) {
-    Cookie cookie = new Cookie(props.getProperty(&quot;cookie_name&quot; + i), 
-    		  props.getProperty(&quot;cookie_value&quot; + i),
-            props.getProperty(&quot;cookie_domain&quot; + i), 
-            props.getProperty(&quot;cookie_path&quot; + i),
-            Boolean.parseBoolean(props.getProperty(&quot;cookie_secure&quot; + i)),
-            Long.parseLong(props.getProperty(&quot;cookie_expires&quot; + i)));
-    manager.add(cookie);
-}</stringProp>
-        </BeanShellPreProcessor>
-        <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_Portfolio_Filter" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_Portfolio_FilteredList" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -1532,7 +1494,71 @@ for (int i = 0; i &lt; count; i++) {
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Portfolio/search?$d=y&amp;$m=y&amp;$c=-200020001</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Portfolio/search?$d=y&amp;$m=y&amp;$c=-200020001&amp;$s=${savedSearchID}</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_Portfolio_FilteredListAndPaging" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;Search&quot;: {&#xd;
+        &quot;Query&quot;: {&#xd;
+            &quot;Joins&quot;: [],&#xd;
+            &quot;CriteriaList&quot;: [&#xd;
+                {&#xd;
+                    &quot;CriteriaList&quot;: null,&#xd;
+                    &quot;ExistsSubquery&quot;: null,&#xd;
+                    &quot;Filter&quot;: {&#xd;
+                        &quot;Field&quot;: &quot;PortfolioCode&quot;,&#xd;
+                        &quot;ComparisonOperator&quot;: 8,&#xd;
+                        &quot;Value&quot;: &quot;Port_&quot;&#xd;
+                    },&#xd;
+                    &quot;LogicalOperator&quot;: 0,&#xd;
+                    &quot;IsNegated&quot;: false&#xd;
+                }&#xd;
+            ],&#xd;
+            &quot;Entity&quot;: &quot;Portfolio&quot;&#xd;
+        },&#xd;
+        &quot;Options&quot;: {&#xd;
+            &quot;PageNumber&quot;: 0,&#xd;
+            &quot;PageSize&quot;: 50,&#xd;
+            &quot;OrderBy&quot;: [],&#xd;
+            &quot;UseDistinct&quot;: false&#xd;
+        }&#xd;
+    }&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Portfolio/search?$d=y&amp;$m=y&amp;$c=-200020001&amp;$s=${savedSearchID}</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3367,7 +3393,7 @@ for (int i = 0; i &lt; count; i++) {
           <hashTree/>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Contact_ListAll" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Contact_Query" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -3485,7 +3511,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Contact/search?$d=y&amp;$m=y&amp;$s=${savedSearchID}</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Contact/search?$d=y&amp;$m=y&amp;$s=${savedSearchID}&amp;$c=-100010001</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3506,95 +3532,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-      </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Contact_ListAllButPaging" enabled="true">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">${LoopCount}</stringProp>
-        </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${NumberOfThreads}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${RampUpSeconds}</stringProp>
-        <longProp name="ThreadGroup.start_time">1479261680000</longProp>
-        <longProp name="ThreadGroup.end_time">1479261680000</longProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-      </ThreadGroup>
-      <hashTree>
-        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
-          <boolProp name="resetInterpreter">false</boolProp>
-          <stringProp name="parameters"></stringProp>
-          <stringProp name="filename"></stringProp>
-          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
-import org.apache.jmeter.protocol.http.control.Cookie;
-import org.apache.jmeter.testelement.property.JMeterProperty;
-  
-CookieManager manager = ctx.getCurrentSampler().getCookieManager();
-int count = Integer.parseInt(props.getProperty(&quot;cookiecount&quot;));
-
-for (int i = 0; i &lt; count; i++) {
-    Cookie cookie = new Cookie(props.getProperty(&quot;cookie_name&quot; + i), 
-    		  props.getProperty(&quot;cookie_value&quot; + i),
-            props.getProperty(&quot;cookie_domain&quot; + i), 
-            props.getProperty(&quot;cookie_path&quot; + i),
-            Boolean.parseBoolean(props.getProperty(&quot;cookie_secure&quot; + i)),
-            Long.parseLong(props.getProperty(&quot;cookie_expires&quot; + i)));
-    manager.add(cookie);
-}</stringProp>
-        </BeanShellPreProcessor>
-        <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_GetSavedSearchID_PrepareTestingData" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value"></stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/UserSearches?$d=y&amp;$m=y&amp;$t=listsavedsearches(ContentID=-7001)</stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="49586">200</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">8</intProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Get and Put Saved Search ID" enabled="true">
-            <stringProp name="scriptLanguage">javascript</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="cacheKey"></stringProp>
-            <stringProp name="script">eval(&apos;var QueryingResponse = &apos; + prev.getResponseDataAsString());
-
-var responseObject = JSON.parse(JSON.stringify(QueryingResponse));
-responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;All Contacts&quot;; }).map(function (x) { vars.put(&quot;savedSearchID&quot;, x.SearchID); });
-// vars.put(&quot;savedSearch&quot;, JSON.stringify(queryResult));</stringProp>
-          </JSR223PostProcessor>
-          <hashTree/>
-        </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_Contact_ListAllButPaging" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_Contact_ListAllAndPaging" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -3609,7 +3547,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
         },&#xd;
         &quot;Options&quot;: {&#xd;
             &quot;PageNumber&quot;: 0,&#xd;
-            &quot;PageSize&quot;: 50,&#xd;
+            &quot;PageSize&quot;: 500,&#xd;
             &quot;OrderBy&quot;: [],&#xd;
             &quot;UseDistinct&quot;: false&#xd;
         }&#xd;
@@ -3625,7 +3563,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Contact/search?$d=y&amp;$m=y&amp;$s=${savedSearchID}</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Contact/search?$d=y&amp;$m=y&amp;$s=${savedSearchID}&amp;$c=-100010001</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3646,95 +3584,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-      </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Contact_Filter&amp;Paging" enabled="true">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">${LoopCount}</stringProp>
-        </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${NumberOfThreads}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${RampUpSeconds}</stringProp>
-        <longProp name="ThreadGroup.start_time">1479261680000</longProp>
-        <longProp name="ThreadGroup.end_time">1479261680000</longProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-      </ThreadGroup>
-      <hashTree>
-        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
-          <boolProp name="resetInterpreter">false</boolProp>
-          <stringProp name="parameters"></stringProp>
-          <stringProp name="filename"></stringProp>
-          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
-import org.apache.jmeter.protocol.http.control.Cookie;
-import org.apache.jmeter.testelement.property.JMeterProperty;
-  
-CookieManager manager = ctx.getCurrentSampler().getCookieManager();
-int count = Integer.parseInt(props.getProperty(&quot;cookiecount&quot;));
-
-for (int i = 0; i &lt; count; i++) {
-    Cookie cookie = new Cookie(props.getProperty(&quot;cookie_name&quot; + i), 
-    		  props.getProperty(&quot;cookie_value&quot; + i),
-            props.getProperty(&quot;cookie_domain&quot; + i), 
-            props.getProperty(&quot;cookie_path&quot; + i),
-            Boolean.parseBoolean(props.getProperty(&quot;cookie_secure&quot; + i)),
-            Long.parseLong(props.getProperty(&quot;cookie_expires&quot; + i)));
-    manager.add(cookie);
-}</stringProp>
-        </BeanShellPreProcessor>
-        <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_GetSavedSearchID_PrepareTestingData" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value"></stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/UserSearches?$d=y&amp;$m=y&amp;$t=listsavedsearches(ContentID=-7001)</stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="49586">200</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">8</intProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Get and Put Saved Search ID" enabled="true">
-            <stringProp name="scriptLanguage">javascript</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="cacheKey"></stringProp>
-            <stringProp name="script">eval(&apos;var QueryingResponse = &apos; + prev.getResponseDataAsString());
-
-var responseObject = JSON.parse(JSON.stringify(QueryingResponse));
-responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;All Contacts&quot;; }).map(function (x) { vars.put(&quot;savedSearchID&quot;, x.SearchID); });
-// vars.put(&quot;savedSearch&quot;, JSON.stringify(queryResult));</stringProp>
-          </JSR223PostProcessor>
-          <hashTree/>
-        </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_Contact_Filter&amp;Paging" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_Contact_FilterAndPaging" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -3777,7 +3627,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Contact/search?$d=y&amp;$m=y&amp;$s=${savedSearchID}</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Contact/search?$d=y&amp;$m=y&amp;$s=${savedSearchID}&amp;$c=-100010001</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3799,7 +3649,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           <hashTree/>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_ContactAddress_ListAll" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_ContactAddress_Query" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -3917,7 +3767,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/ContactAddress/search?$d=y&amp;$m=y&amp;$s=${savedSearchID}</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/ContactAddress/search?$d=y&amp;$m=y&amp;$s=${savedSearchID}&amp;$c=-110011001</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3938,95 +3788,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-      </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_ContactAddress_ListAllButPaging" enabled="true">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">${LoopCount}</stringProp>
-        </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${NumberOfThreads}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${RampUpSeconds}</stringProp>
-        <longProp name="ThreadGroup.start_time">1479261680000</longProp>
-        <longProp name="ThreadGroup.end_time">1479261680000</longProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-      </ThreadGroup>
-      <hashTree>
-        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
-          <boolProp name="resetInterpreter">false</boolProp>
-          <stringProp name="parameters"></stringProp>
-          <stringProp name="filename"></stringProp>
-          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
-import org.apache.jmeter.protocol.http.control.Cookie;
-import org.apache.jmeter.testelement.property.JMeterProperty;
-  
-CookieManager manager = ctx.getCurrentSampler().getCookieManager();
-int count = Integer.parseInt(props.getProperty(&quot;cookiecount&quot;));
-
-for (int i = 0; i &lt; count; i++) {
-    Cookie cookie = new Cookie(props.getProperty(&quot;cookie_name&quot; + i), 
-    		  props.getProperty(&quot;cookie_value&quot; + i),
-            props.getProperty(&quot;cookie_domain&quot; + i), 
-            props.getProperty(&quot;cookie_path&quot; + i),
-            Boolean.parseBoolean(props.getProperty(&quot;cookie_secure&quot; + i)),
-            Long.parseLong(props.getProperty(&quot;cookie_expires&quot; + i)));
-    manager.add(cookie);
-}</stringProp>
-        </BeanShellPreProcessor>
-        <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_GetSavedSearchID_PrepareTestingData" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value"></stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/UserSearches?$d=y&amp;$m=y&amp;$t=listsavedsearches(ContentID=-7027)</stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="49586">200</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">8</intProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Get and Put Saved Search ID" enabled="true">
-            <stringProp name="scriptLanguage">javascript</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="cacheKey"></stringProp>
-            <stringProp name="script">eval(&apos;var QueryingResponse = &apos; + prev.getResponseDataAsString());
-
-var responseObject = JSON.parse(JSON.stringify(QueryingResponse));
-responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;All Contact Addresses&quot;; }).map(function (x) { vars.put(&quot;savedSearchID&quot;, x.SearchID); });
-// vars.put(&quot;savedSearch&quot;, JSON.stringify(queryResult));</stringProp>
-          </JSR223PostProcessor>
-          <hashTree/>
-        </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_ContactAddress_ListAllButPaging" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_ContactAddress_ListAllAndPaging" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -4057,7 +3819,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/ContactAddress/search?$d=y&amp;$m=y&amp;$s=${savedSearchID}</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/ContactAddress/search?$d=y&amp;$m=y&amp;$s=${savedSearchID}&amp;$c=-110011001</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -4078,95 +3840,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-      </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_ContactAddress_Filter&amp;Paging" enabled="true">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">${LoopCount}</stringProp>
-        </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${NumberOfThreads}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${RampUpSeconds}</stringProp>
-        <longProp name="ThreadGroup.start_time">1479261680000</longProp>
-        <longProp name="ThreadGroup.end_time">1479261680000</longProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-      </ThreadGroup>
-      <hashTree>
-        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
-          <boolProp name="resetInterpreter">false</boolProp>
-          <stringProp name="parameters"></stringProp>
-          <stringProp name="filename"></stringProp>
-          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
-import org.apache.jmeter.protocol.http.control.Cookie;
-import org.apache.jmeter.testelement.property.JMeterProperty;
-  
-CookieManager manager = ctx.getCurrentSampler().getCookieManager();
-int count = Integer.parseInt(props.getProperty(&quot;cookiecount&quot;));
-
-for (int i = 0; i &lt; count; i++) {
-    Cookie cookie = new Cookie(props.getProperty(&quot;cookie_name&quot; + i), 
-    		  props.getProperty(&quot;cookie_value&quot; + i),
-            props.getProperty(&quot;cookie_domain&quot; + i), 
-            props.getProperty(&quot;cookie_path&quot; + i),
-            Boolean.parseBoolean(props.getProperty(&quot;cookie_secure&quot; + i)),
-            Long.parseLong(props.getProperty(&quot;cookie_expires&quot; + i)));
-    manager.add(cookie);
-}</stringProp>
-        </BeanShellPreProcessor>
-        <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_GetSavedSearchID_PrepareTestingData" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value"></stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/UserSearches?$d=y&amp;$m=y&amp;$t=listsavedsearches(ContentID=-7027)</stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="49586">200</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">8</intProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Get and Put Saved Search ID" enabled="true">
-            <stringProp name="scriptLanguage">javascript</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="cacheKey"></stringProp>
-            <stringProp name="script">eval(&apos;var QueryingResponse = &apos; + prev.getResponseDataAsString());
-
-var responseObject = JSON.parse(JSON.stringify(QueryingResponse));
-responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;All Contact Addresses&quot;; }).map(function (x) { vars.put(&quot;savedSearchID&quot;, x.SearchID); });
-// vars.put(&quot;savedSearch&quot;, JSON.stringify(queryResult));</stringProp>
-          </JSR223PostProcessor>
-          <hashTree/>
-        </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_ContactAddress_Filter&amp;Paging" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_ContactAddress_FilterAndPaging" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -4209,7 +3883,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/ContactAddress/search?$d=y&amp;$m=y&amp;$s=${savedSearchID}</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/ContactAddress/search?$d=y&amp;$m=y&amp;$s=${savedSearchID}&amp;$c=-110011001</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -4349,7 +4023,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/ContactPhone/search?$d=y&amp;$m=y&amp;$s=${savedSearchID}</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/ContactPhone/search?$d=y&amp;$m=y&amp;$s=${savedSearchID}&amp;$c=-111011101</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -4370,95 +4044,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-      </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_ContactPhone_ListAllButPaging" enabled="true">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">${LoopCount}</stringProp>
-        </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${NumberOfThreads}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${RampUpSeconds}</stringProp>
-        <longProp name="ThreadGroup.start_time">1479261680000</longProp>
-        <longProp name="ThreadGroup.end_time">1479261680000</longProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-      </ThreadGroup>
-      <hashTree>
-        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
-          <boolProp name="resetInterpreter">false</boolProp>
-          <stringProp name="parameters"></stringProp>
-          <stringProp name="filename"></stringProp>
-          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
-import org.apache.jmeter.protocol.http.control.Cookie;
-import org.apache.jmeter.testelement.property.JMeterProperty;
-  
-CookieManager manager = ctx.getCurrentSampler().getCookieManager();
-int count = Integer.parseInt(props.getProperty(&quot;cookiecount&quot;));
-
-for (int i = 0; i &lt; count; i++) {
-    Cookie cookie = new Cookie(props.getProperty(&quot;cookie_name&quot; + i), 
-    		  props.getProperty(&quot;cookie_value&quot; + i),
-            props.getProperty(&quot;cookie_domain&quot; + i), 
-            props.getProperty(&quot;cookie_path&quot; + i),
-            Boolean.parseBoolean(props.getProperty(&quot;cookie_secure&quot; + i)),
-            Long.parseLong(props.getProperty(&quot;cookie_expires&quot; + i)));
-    manager.add(cookie);
-}</stringProp>
-        </BeanShellPreProcessor>
-        <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_GetSavedSearchID_PrepareTestingData" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value"></stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/UserSearches?$d=y&amp;$m=y&amp;$t=listsavedsearches(ContentID=-7028)</stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="49586">200</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">8</intProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Get and Put Saved Search ID" enabled="true">
-            <stringProp name="scriptLanguage">javascript</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="cacheKey"></stringProp>
-            <stringProp name="script">eval(&apos;var QueryingResponse = &apos; + prev.getResponseDataAsString());
-
-var responseObject = JSON.parse(JSON.stringify(QueryingResponse));
-responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;All Contacts and All Phone Numbers&quot;; }).map(function (x) { vars.put(&quot;savedSearchID&quot;, x.SearchID); });
-// vars.put(&quot;savedSearch&quot;, JSON.stringify(queryResult));</stringProp>
-          </JSR223PostProcessor>
-          <hashTree/>
-        </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_ContactPhone_ListAllButPaging" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_ContactPhone_ListAllAndPaging" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -4489,7 +4075,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/ContactPhone/search?$d=y&amp;$m=y&amp;$s=${savedSearchID}</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/ContactPhone/search?$d=y&amp;$m=y&amp;$s=${savedSearchID}&amp;$c=-111011101</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -4510,95 +4096,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-      </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_ContactPhone_Filter&amp;Paging" enabled="true">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">${LoopCount}</stringProp>
-        </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${NumberOfThreads}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${RampUpSeconds}</stringProp>
-        <longProp name="ThreadGroup.start_time">1479261680000</longProp>
-        <longProp name="ThreadGroup.end_time">1479261680000</longProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-      </ThreadGroup>
-      <hashTree>
-        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
-          <boolProp name="resetInterpreter">false</boolProp>
-          <stringProp name="parameters"></stringProp>
-          <stringProp name="filename"></stringProp>
-          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
-import org.apache.jmeter.protocol.http.control.Cookie;
-import org.apache.jmeter.testelement.property.JMeterProperty;
-  
-CookieManager manager = ctx.getCurrentSampler().getCookieManager();
-int count = Integer.parseInt(props.getProperty(&quot;cookiecount&quot;));
-
-for (int i = 0; i &lt; count; i++) {
-    Cookie cookie = new Cookie(props.getProperty(&quot;cookie_name&quot; + i), 
-    		  props.getProperty(&quot;cookie_value&quot; + i),
-            props.getProperty(&quot;cookie_domain&quot; + i), 
-            props.getProperty(&quot;cookie_path&quot; + i),
-            Boolean.parseBoolean(props.getProperty(&quot;cookie_secure&quot; + i)),
-            Long.parseLong(props.getProperty(&quot;cookie_expires&quot; + i)));
-    manager.add(cookie);
-}</stringProp>
-        </BeanShellPreProcessor>
-        <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_GetSavedSearchID_PrepareTestingData" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value"></stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/UserSearches?$d=y&amp;$m=y&amp;$t=listsavedsearches(ContentID=-7028)</stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="49586">200</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">8</intProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Get and Put Saved Search ID" enabled="true">
-            <stringProp name="scriptLanguage">javascript</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="cacheKey"></stringProp>
-            <stringProp name="script">eval(&apos;var QueryingResponse = &apos; + prev.getResponseDataAsString());
-
-var responseObject = JSON.parse(JSON.stringify(QueryingResponse));
-responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;All Contacts and All Phone Numbers&quot;; }).map(function (x) { vars.put(&quot;savedSearchID&quot;, x.SearchID); });
-// vars.put(&quot;savedSearch&quot;, JSON.stringify(queryResult));</stringProp>
-          </JSR223PostProcessor>
-          <hashTree/>
-        </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_ContactPhone_Filter&amp;Paging" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_ContactPhone_FilterAndPaging" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -4641,7 +4139,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/ContactPhone/search?$d=y&amp;$m=y&amp;$s=${savedSearchID}</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/ContactPhone/search?$d=y&amp;$m=y&amp;$s=${savedSearchID}&amp;$c=-111011101</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -6096,7 +5594,7 @@ for (int i = 0; i &lt; count; i++) {
         </HTTPSamplerProxy>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="ReportingAPI_RunPortfolioApparisal" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="ReportingAPI_RunPortfolioApparisal" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -6627,6 +6125,42 @@ for (int i = 0; i &lt; count; i++) {
             <bytes>true</bytes>
             <threadCounts>true</threadCounts>
             <idleTime>true</idleTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="false">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
           </value>
         </objProp>
         <stringProp name="filename"></stringProp>
