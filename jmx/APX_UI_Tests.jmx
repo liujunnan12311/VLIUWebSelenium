@@ -171,7 +171,7 @@ try {
           <stringProp name="WebDriverSampler.language">javascript</stringProp>
         </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
         <hashTree/>
-        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_PortfolioDetail" enabled="true">
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_PortfolioDetail" enabled="false">
           <stringProp name="WebDriverSampler.script">// JavaScript source code
 
 var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
@@ -248,7 +248,7 @@ try {
           <stringProp name="WebDriverSampler.language">javascript</stringProp>
         </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
         <hashTree/>
-        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_PortfolioList" enabled="true">
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_PortfolioList" enabled="false">
           <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
 var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
 var timeout = &apos;${timeoutSec}&apos;;
@@ -1008,7 +1008,7 @@ try {
           <stringProp name="WebDriverSampler.language">javascript</stringProp>
         </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
         <hashTree/>
-        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_CountryWithHoldingTax" enabled="true">
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_CountryWithHoldingTax" enabled="false">
           <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
 var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
 var timeout = &apos;${timeoutSec}&apos;;
@@ -1215,9 +1215,10 @@ try {
     var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//th[1]//div/input&apos;));
     countryCodeFilter.sendKeys(countryCode);
     countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);
+    java.lang.Thread.sleep(3000);
 
     var filteredResultXPath = &quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//div[normalize-space(.)=&apos;&quot; + countryCode + &quot;&apos; and @class=&apos;apx-label-textbox-widget-value-display&apos;]&quot;;
-    if (WDS.browser.findElements(pkg.By.xpath(filteredResultXPath)).size() != 0) {
+    if (WDS.browser.findElements(pkg.By.xpath(filteredResultXPath)).size() != 0) { // delete if exists
         var action = new interaction.Actions(WDS.browser);
         var filteredCountry = WDS.browser.findElement(pkg.By.xpath(filteredResultXPath));
         action.contextClick(filteredCountry).perform();
@@ -1227,20 +1228,27 @@ try {
 
         wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxnotificationwidget//div[@class=&apos;notification__msg&apos;]&quot;)));
         WDS.browser.navigate().refresh();
+        java.lang.Thread.sleep(3000);
     }
 
     wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_newBtn&quot;]/button&apos;)));
     var addCountryButton = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_newBtn&quot;]/button&apos;));
     addCountryButton.click();
 
+    wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_CountryCode&quot;]//input&apos;)));
     WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_CountryCode&quot;]//input&apos;)).sendKeys(countryCode);
     WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_CountryName&quot;]//input&apos;)).sendKeys(countryCode);
 
     WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_tabs&quot;]//div[@class=&quot;apx-tabstrip-tab-wrap&quot; and normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//button[normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)));
     WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//button[normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)).click();
 
     // Select Issuing Country
+    wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//td[2]&apos;)));
     WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//td[2]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&quot;//kendo-popup//li[normalize-space(.)=&apos;Norway&apos;]&quot;)));
     WDS.browser.findElement(pkg.By.xpath(&quot;//kendo-popup//li[normalize-space(.)=&apos;Norway&apos;]&quot;)).click();
 
     // Dividend Tax %
@@ -1254,8 +1262,9 @@ try {
 
     // Interest Reclaim %
     WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//td[7]//input&apos;)).sendKeys(&apos;1&apos;);
+    
+ 
     wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_saveBtn&quot;]/button&apos;)));
-
     WDS.sampleResult.sampleStart();
     WDS.sampleResult.getLatency();
 
@@ -1397,7 +1406,7 @@ try {
           </elementProp>
           <elementProp name="timeoutSec" elementType="Argument">
             <stringProp name="Argument.name">timeoutSec</stringProp>
-            <stringProp name="Argument.value">30</stringProp>
+            <stringProp name="Argument.value">60</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
