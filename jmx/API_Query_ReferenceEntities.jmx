@@ -7469,7 +7469,7 @@ for (int i = 0; i &lt; count; i++) {
           </elementProp>
           <elementProp name="Protocol" elementType="Argument">
             <stringProp name="Argument.name">Protocol</stringProp>
-            <stringProp name="Argument.value">http</stringProp>
+            <stringProp name="Argument.value">https</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>

@@ -9,7 +9,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="ServerName" elementType="Argument">
             <stringProp name="Argument.name">ServerName</stringProp>
-            <stringProp name="Argument.value">${__P(envTarget, vmw12apxcloud07.gencos.com)}</stringProp>
+            <stringProp name="Argument.value">${__P(envTarget, vmw12apxcldprf1.gencos.com)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
