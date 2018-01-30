@@ -1451,38 +1451,28 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_Portfolio_FilteredList" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_Portfolio_ListAndPaging" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
-    &quot;Search&quot;: {&#xd;
-        &quot;Query&quot;: {&#xd;
-            &quot;Joins&quot;: [],&#xd;
-            &quot;CriteriaList&quot;: [&#xd;
-                {&#xd;
-                    &quot;CriteriaList&quot;: null,&#xd;
-                    &quot;ExistsSubquery&quot;: null,&#xd;
-                    &quot;Filter&quot;: {&#xd;
-                        &quot;Field&quot;: &quot;PortfolioCode&quot;,&#xd;
-                        &quot;ComparisonOperator&quot;: 8,&#xd;
-                        &quot;Value&quot;: &quot;Port_&quot;&#xd;
-                    },&#xd;
-                    &quot;LogicalOperator&quot;: 0,&#xd;
-                    &quot;IsNegated&quot;: false&#xd;
-                }&#xd;
-            ],&#xd;
-            &quot;Entity&quot;: &quot;Portfolio&quot;&#xd;
-        },&#xd;
-        &quot;Options&quot;: {&#xd;
-            &quot;PageNumber&quot;: 0,&#xd;
-            &quot;PageSize&quot;: 0,&#xd;
-            &quot;OrderBy&quot;: [],&#xd;
-            &quot;UseDistinct&quot;: false&#xd;
-        }&#xd;
+  &quot;Search&quot;: {&#xd;
+    &quot;Query&quot;: {&#xd;
+      &quot;Joins&quot;: [],&#xd;
+      &quot;CriteriaList&quot;: [],&#xd;
+      &quot;Entity&quot;: &quot;Portfolio&quot;&#xd;
+    },&#xd;
+    &quot;Options&quot;: {&#xd;
+      &quot;PageSize&quot;: 50,&#xd;
+      &quot;PageNumber&quot;: 0,&#xd;
+      &quot;OrderBy&quot;: [&#xd;
+        &quot;PortfolioCode&quot;&#xd;
+      ],&#xd;
+      &quot;UseDistinct&quot;: false&#xd;
     }&#xd;
+  }&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
@@ -1494,7 +1484,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Portfolio/search?$d=y&amp;$m=y&amp;$c=-200020001&amp;$s=${savedSearchID}</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Portfolio/search?$d=y&amp;$m=y&amp;$s=${savedSearchID}&amp;$c=-200020001</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -4905,7 +4895,7 @@ for (int i = 0; i &lt; count; i++) {
 }</stringProp>
         </BeanShellPreProcessor>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_UserPermission_Portfolio_QueryOneEntity_AllClasses" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="_#ignore API_GetSavedSearchID_PrepareTestingData" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -4922,7 +4912,7 @@ for (int i = 0; i &lt; count; i++) {
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Portfolio?$metadata=n&amp;$permission=all&amp;portfolioid=390379</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/UserSearches?$d=y&amp;$m=y&amp;$t=listsavedsearches(ContentID=-7031)</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -4942,8 +4932,84 @@ for (int i = 0; i &lt; count; i++) {
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
           <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Added JSON Object" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">eval(&apos;var QueryingResponse = &apos; + prev.getResponseDataAsString());
+
+var responseObject = JSON.parse(JSON.stringify(QueryingResponse));
+responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;All Portfolios&quot;; }).map(function (x) { vars.put(&quot;savedSearchID&quot;, x.SearchID); });
+// vars.put(&quot;savedSearch&quot;, JSON.stringify(queryResult));</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_UserPermission_Portfolio_QueryOneEntity_PartOfClasses" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_UserPermission_Portfolio_QueryOneEntity_AllClasses" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;Search&quot;: {&#xd;
+        &quot;Query&quot;: {&#xd;
+            &quot;Joins&quot;: [],&#xd;
+            &quot;CriteriaList&quot;: [&#xd;
+                {&#xd;
+                    &quot;CriteriaList&quot;: null,&#xd;
+                    &quot;ExistsSubquery&quot;: null,&#xd;
+                    &quot;Filter&quot;: {&#xd;
+                        &quot;Field&quot;: &quot;PortfolioID&quot;,&#xd;
+                        &quot;ComparisonOperator&quot;: 1,&#xd;
+                        &quot;Value&quot;: &quot;390379&quot;&#xd;
+                    },&#xd;
+                    &quot;LogicalOperator&quot;: 0,&#xd;
+                    &quot;IsNegated&quot;: false&#xd;
+                }&#xd;
+            ],&#xd;
+            &quot;Entity&quot;: &quot;Portfolio&quot;&#xd;
+        },&#xd;
+        &quot;Options&quot;: {&#xd;
+            &quot;PageNumber&quot;: 0,&#xd;
+            &quot;PageSize&quot;: 50,&#xd;
+            &quot;OrderBy&quot;: [],&#xd;
+            &quot;UseDistinct&quot;: false&#xd;
+        }&#xd;
+    }&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Portfolio/search?$d=y&amp;$m=y&amp;$r=all&amp;$s=${savedSearchID}&amp;$c=-200020001</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_UserPermission_Portfolio_QueryOneEntity_PartOfClasses" enabled="false">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -4987,7 +5053,21 @@ for (int i = 0; i &lt; count; i++) {
             <collectionProp name="Arguments.arguments">
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value"></stringProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;Search&quot;: {&#xd;
+        &quot;Query&quot;: {&#xd;
+            &quot;Joins&quot;: [],&#xd;
+            &quot;CriteriaList&quot;: [],&#xd;
+            &quot;Entity&quot;: &quot;Portfolio&quot;&#xd;
+        },&#xd;
+        &quot;Options&quot;: {&#xd;
+            &quot;PageNumber&quot;: 0,&#xd;
+            &quot;PageSize&quot;: 50,&#xd;
+            &quot;OrderBy&quot;: [],&#xd;
+            &quot;UseDistinct&quot;: false&#xd;
+        }&#xd;
+    }&#xd;
+}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
@@ -4998,8 +5078,8 @@ for (int i = 0; i &lt; count; i++) {
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Portfolio?$metadata=n&amp;$permission=(76,77,78)</stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Portfolio/search?$d=y&amp;$m=y&amp;$r=76,77,78&amp;$s=${savedSearchID}&amp;$c=-200020001</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
