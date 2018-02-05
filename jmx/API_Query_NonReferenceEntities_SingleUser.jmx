@@ -1338,7 +1338,7 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/UserFieldSet/relationships/201</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/UserFieldSet/relationships/202</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3754,6 +3754,400 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
           <stringProp name="HTTPSampler.path">/APXlogin/api/internal/IndustryGroupAndSector/search?$d=y&amp;$m=y</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_Search_QueryRelationships" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value"></stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Search/relationships/202</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="_#ignore API_Search_CreatePromptParametersSearch_PrepareTestingData" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+    {&#xd;
+        &quot;Name&quot;: &quot;APITestParameterDefinition&quot;,&#xd;
+        &quot;Description&quot;: &quot;&quot;,&#xd;
+        &quot;CriteriaPageID&quot;: -4136,&#xd;
+        &quot;HasSubSearch&quot;: false,&#xd;
+        &quot;IsParameterizedSearch&quot;: true,&#xd;
+        &quot;IsSystemSearch&quot;: false,&#xd;
+        &quot;IsValid&quot;: true,&#xd;
+        &quot;OutputRowType&quot;: 201,&#xd;
+        &quot;OwnedBy&quot;: -1001,&#xd;
+        &quot;OwnerCode&quot;: &quot;admin&quot;,&#xd;
+        &quot;OwnerName&quot;: &quot;Admin&quot;,&#xd;
+        &quot;SearchCriteria&quot;: {&#xd;
+            &quot;ParameterDefinitions&quot;: {&#xd;
+                &quot;LastUsedVariableNumber&quot;: 2,&#xd;
+                &quot;ParameterDefinitionList&quot;: [&#xd;
+                    {&#xd;
+                        &quot;ParameterName&quot;: &quot;PARM1&quot;,&#xd;
+                        &quot;Prompt&quot;: &quot;Input Contact Code:&quot;,&#xd;
+                        &quot;IsList&quot;: false,&#xd;
+                        &quot;BasicTypeID&quot;: 300,&#xd;
+                        &quot;RowDef&quot;: 201,&#xd;
+                        &quot;FieldTag&quot;: &quot;ContactCode&quot;&#xd;
+                    },&#xd;
+                    {&#xd;
+                        &quot;ParameterName&quot;: &quot;PARM2&quot;,&#xd;
+                        &quot;Prompt&quot;: &quot;Input Portfolio Code:&quot;,&#xd;
+                        &quot;IsList&quot;: false,&#xd;
+                        &quot;BasicTypeID&quot;: 300,&#xd;
+                        &quot;RowDef&quot;: 202,&#xd;
+                        &quot;FieldTag&quot;: &quot;PortfolioCode&quot;&#xd;
+                    }&#xd;
+                ]&#xd;
+            },&#xd;
+            &quot;_entity&quot;: 201,&#xd;
+            &quot;Joins&quot;: [],&#xd;
+            &quot;EntityAlias&quot;: &quot;Contact&quot;,&#xd;
+            &quot;CriteriaList&quot;: {&#xd;
+                &quot;CriteriaList&quot;: [&#xd;
+                    {&#xd;
+                        &quot;LogicalOperator&quot;: 0,&#xd;
+                        &quot;IsNegated&quot;: false,&#xd;
+                        &quot;RHSOperand&quot;: {&#xd;
+                            &quot;Alias&quot;: &quot;Contact&quot;,&#xd;
+                            &quot;_entity&quot;: 201,&#xd;
+                            &quot;Field&quot;: &quot;ContactCode&quot;,&#xd;
+                            &quot;ComparisonOperator&quot;: 1,&#xd;
+                            &quot;Value&quot;: null,&#xd;
+                            &quot;FieldID&quot;: -201289,&#xd;
+                            &quot;ParameterName&quot;: &quot;PARM1&quot;,&#xd;
+                            &quot;FilterFunction&quot;: 1001&#xd;
+                        }&#xd;
+                    },&#xd;
+                    {&#xd;
+                        &quot;LogicalOperator&quot;: 0,&#xd;
+                        &quot;IsNegated&quot;: false,&#xd;
+                        &quot;RHSOperand&quot;: {&#xd;
+                            &quot;_outerEntity&quot;: 201,&#xd;
+                            &quot;_entity&quot;: 202,&#xd;
+                            &quot;Joins&quot;: [],&#xd;
+                            &quot;OuterEntityAlias&quot;: &quot;Contact&quot;,&#xd;
+                            &quot;_joinID&quot;: 320,&#xd;
+                            &quot;EntityAlias&quot;: &quot;Portfolio&quot;,&#xd;
+                            &quot;AliasList&quot;: [&#xd;
+                                &quot;Portfolio&quot;&#xd;
+                            ],&#xd;
+                            &quot;CriteriaList&quot;: [&#xd;
+                                {&#xd;
+                                    &quot;LogicalOperator&quot;: 0,&#xd;
+                                    &quot;IsNegated&quot;: false,&#xd;
+                                    &quot;RHSOperand&quot;: {&#xd;
+                                        &quot;Alias&quot;: &quot;Portfolio&quot;,&#xd;
+                                        &quot;_entity&quot;: 202,&#xd;
+                                        &quot;Field&quot;: &quot;PortfolioCode&quot;,&#xd;
+                                        &quot;ComparisonOperator&quot;: 1,&#xd;
+                                        &quot;Value&quot;: null,&#xd;
+                                        &quot;FieldID&quot;: -202002,&#xd;
+                                        &quot;ParameterName&quot;: &quot;PARM2&quot;,&#xd;
+                                        &quot;FilterFunction&quot;: 1001&#xd;
+                                    }&#xd;
+                                }&#xd;
+                            ],&#xd;
+                            &quot;UseMaskingViewVariant&quot;: false&#xd;
+                        }&#xd;
+                    }&#xd;
+                ],&#xd;
+                &quot;_queryEntity&quot;: 201,&#xd;
+                &quot;QueryEntityAlias&quot;: &quot;Contact&quot;,&#xd;
+                &quot;AliasList&quot;: [&#xd;
+                    &quot;Portfolio&quot;&#xd;
+                ]&#xd;
+            },&#xd;
+            &quot;AliasList&quot;: [&#xd;
+                &quot;Contact&quot;&#xd;
+            ],&#xd;
+            &quot;UseMaskingViewVariant&quot;: false&#xd;
+        },&#xd;
+        &quot;SearchOutputDesc&quot;: &quot;Contacts&quot;,&#xd;
+        &quot;SearchOutputName&quot;: &quot;Contact&quot;,&#xd;
+        &quot;_Action&quot;: &quot;Insert&quot;,&#xd;
+        &quot;Type&quot;: 2,&#xd;
+        &quot;ValidationErrorMessage&quot;: &quot;&quot;&#xd;
+    }&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Search</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Added JSON Object" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">eval(&apos;var AddingResponse = &apos; + prev.getResponseDataAsString());
+
+var dataObject = JSON.parse(JSON.stringify(AddingResponse.Data[0]));
+var searchID = dataObject.SearchID;
+var searchAuditEventID = dataObject.AuditEventID
+
+vars.put(&quot;parmsSearchID&quot;, searchID);
+vars.put(&quot;parmsSearchAuditEventID&quot;, searchAuditEventID);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_Search_GetParameterDefinition" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value"></stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Search/parameterdefinition?$t=getDetailedDefinition(searchID=${parmsSearchID})</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="_#ignore API_Search_DeletePromptParametersSearch_CleanupTestingData" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+    {&#xd;
+        &quot;AuditEventID&quot;: ${parmsSearchAuditEventID},&#xd;
+        &quot;SearchID&quot;: ${parmsSearchID},&#xd;
+        &quot;_Action&quot;: &quot;Delete&quot;,&#xd;
+    }&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Search</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Added JSON Object" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">eval(&apos;var AddingResponse = &apos; + prev.getResponseDataAsString());
+
+var dataObject = JSON.parse(JSON.stringify(AddingResponse.Data[0]));
+var searchID = dataObject.SearchID
+
+vars.put(&quot;parmsSearchID&quot;, searchID);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_LookupList_Query" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;Search&quot;: {&#xd;
+        &quot;Query&quot;: {&#xd;
+            &quot;Joins&quot;: [],&#xd;
+            &quot;CriteriaList&quot;: [&#xd;
+                {&#xd;
+                    &quot;CriteriaList&quot;: null,&#xd;
+                    &quot;ExistsSubquery&quot;: null,&#xd;
+                    &quot;Filter&quot;: {&#xd;
+                        &quot;Field&quot;: &quot;ListID&quot;,&#xd;
+                        &quot;ComparisonOperator&quot;: 1,&#xd;
+                        &quot;Value&quot;: -57&#xd;
+                    },&#xd;
+                    &quot;LogicalOperator&quot;: 0,&#xd;
+                    &quot;IsNegated&quot;: false&#xd;
+                }&#xd;
+            ],&#xd;
+            &quot;Entity&quot;: &quot;LookupList&quot;&#xd;
+        },&#xd;
+        &quot;Options&quot;: {&#xd;
+            &quot;PageSize&quot;: 0,&#xd;
+            &quot;PageNumber&quot;: 0,&#xd;
+            &quot;OrderBy&quot;: [&#xd;
+                &quot;DisplayValue&quot;&#xd;
+            ],&#xd;
+            &quot;UseDistinct&quot;: false&#xd;
+        }&#xd;
+    }&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/LookupList/search?$d=y&amp;$m=n</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_LookupList_GetItems" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value"></stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/LookupList?$t=GetItems(rowDef=1052&amp;fieldTag=CategoryId)</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
