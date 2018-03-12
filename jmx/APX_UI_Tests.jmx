@@ -120,7 +120,7 @@ try{
     wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*[contains(., &apos;Showing&apos;)]&quot;)));
 
 
-    var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//th[1]//div/input&apos;));
+    var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//td[1]//div/input&apos;));
     countryCodeFilter.sendKeys(&apos;us&apos;);
     countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);
     java.lang.Thread.sleep(3000);
@@ -364,7 +364,7 @@ try {
     WDS.log.info(&quot;Wait until Country summary page is loaded...&quot;);
     wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*[contains(., &apos;Showing&apos;)]&quot;)));
 
-    var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//th[1]//div/input&apos;));
+    var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//td[1]//div/input&apos;));
     countryCodeFilter.sendKeys(&apos;us&apos;);
     countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);    
 
@@ -426,7 +426,7 @@ try {
     java.lang.Thread.sleep(3000);
  
     WDS.log.info(&quot;Search us country...&quot;);
-    var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//th[1]//div/input&apos;));
+    var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//td[1]//div/input&apos;));
     countryCodeFilter.sendKeys(&apos;us&apos;);
     countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);   
     
@@ -503,7 +503,7 @@ try {
     WDS.log.info(&quot;Wait until Country summary page is loaded...&quot;);
     wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*[contains(., &apos;Showing&apos;)]&quot;)));
 
-    var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//th[1]//div/input&apos;));
+    var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//td[1]//div/input&apos;));
     countryCodeFilter.sendKeys(&apos;us&apos;);
     countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);
     WDS.log.info(&quot;Wait until Country is filtered...&quot;);
@@ -576,7 +576,7 @@ try {
     WDS.log.info(&quot;Wait until Country summary page is loaded...&quot;);
     wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*[contains(., &apos;Showing&apos;)]&quot;)));
 
-    var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//th[1]//div/input&apos;));
+    var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//td[1]//div/input&apos;));
     countryCodeFilter.sendKeys(&apos;us&apos;);
     countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);
 
@@ -651,7 +651,7 @@ try {
     WDS.sampleResult.sampleStart();
     WDS.sampleResult.getLatency();
 
-    var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//th[1]//div/input&apos;));
+    var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//td[1]//div/input&apos;));
     countryCodeFilter.sendKeys(&apos;us&apos;);
     countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);
 
@@ -763,7 +763,7 @@ try {
     wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*[contains(., &apos;Showing&apos;)]&quot;)));
 
     var countryCode = &apos;xx&apos;;
-    var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//th[1]//div/input&apos;));
+    var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//td[1]//div/input&apos;));
     countryCodeFilter.sendKeys(countryCode);
     countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);
     java.lang.Thread.sleep(3000);
@@ -845,11 +845,11 @@ try {
     wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxbreadcrumb//a[.=&apos;Activities&apos;]&quot;)));
     WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/PRTSummary&apos;);
 
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;PRTSummary_portfolioSummaryTile&quot;]//div/input&apos;)));
-    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;PRTSummary_portfolioSummaryTile&quot;]//div/input&apos;)).click();
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxsavedsearchlist[@id=&apos;PRTSummary_portfolioSummaryTile&apos;]/div[@class=&apos;searchbox&apos;]&quot;)));
+    WDS.browser.findElement(pkg.By.xpath(&quot;//apxsavedsearchlist[@id=&apos;PRTSummary_portfolioSummaryTile&apos;]/div[@class=&apos;searchbox&apos;]&quot;)).click();
        
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(@class,&apos;apx-label-textbox-widget-value-display&apos;) and .=&apos;All Portfolios&apos;]&quot;)));
-    WDS.browser.findElement(pkg.By.xpath(&quot;//div[contains(@class,&apos;apx-label-textbox-widget-value-display&apos;) and .=&apos;All Portfolios&apos;]&quot;)).click();
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;PRTSummary_portfolioSummaryTile&quot;]//div[.=&quot;All Portfolios&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;PRTSummary_portfolioSummaryTile&quot;]//div[.=&quot;All Portfolios&quot;]&apos;)).click();
     
     WDS.sampleResult.sampleStart();
     WDS.sampleResult.getLatency();
@@ -883,15 +883,15 @@ try {
     wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxbreadcrumb//a[.=&apos;Activities&apos;]&quot;)));
     WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/PRTSummary&apos;);
 
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;PRTSummary_portfolioSummaryTile&quot;]//div/input&apos;)));
-    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;PRTSummary_portfolioSummaryTile&quot;]//div/input&apos;)).click();
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxsavedsearchlist[@id=&apos;PRTSummary_portfolioSummaryTile&apos;]/div[@class=&apos;searchbox&apos;]&quot;)));
+    WDS.browser.findElement(pkg.By.xpath(&quot;//apxsavedsearchlist[@id=&apos;PRTSummary_portfolioSummaryTile&apos;]/div[@class=&apos;searchbox&apos;]&quot;)).click();
        
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(@class,&apos;apx-label-textbox-widget-value-display&apos;) and .=&apos;All Portfolios&apos;]&quot;)));
-    WDS.browser.findElement(pkg.By.xpath(&quot;//div[contains(@class,&apos;apx-label-textbox-widget-value-display&apos;) and .=&apos;All Portfolios&apos;]&quot;)).click();
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;PRTSummary_portfolioSummaryTile&quot;]//div[.=&quot;All Portfolios&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;PRTSummary_portfolioSummaryTile&quot;]//div[.=&quot;All Portfolios&quot;]&apos;)).click();
     wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxgridwidget[@id=&apos;PRTSummary_grid&apos;]//*[.=&apos;MOAdvPosition_Port_386674&apos;]&quot;)));
     
     // Search portfolio 
-    var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;PRTSummary_grid&quot;]//th[2]//input&apos;));
+    var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;PRTSummary_grid&quot;]//td[2]//input&apos;));
     countryCodeFilter.sendKeys(&apos;Port_385420&apos;);
     countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);
 
@@ -1004,27 +1004,6 @@ try {
           <stringProp name="WebDriverSampler.language">javascript</stringProp>
         </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
         <hashTree/>
-        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="_#ignore UI_Logout" enabled="true">
-          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
-var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
-var interaction = JavaImporter(org.openqa.selenium.interactions);
-var timeout = &apos;${timeoutSec}&apos;;
-var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
-var serverName = &apos;${server}&apos;
-var userName = &apos;${userName}&apos;;
-var password = &apos;${password}&apos;;
-var protocol = &apos;${protocol}&apos;;
-    
-WDS.log.info(&quot;Log out APX Cloud...&quot;);
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;topnavbar_user&quot;]/apxiconsvgwidget/i&apos;)));
-WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;topnavbar_user&quot;]/apxiconsvgwidget/i&apos;)).click();
-
-wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)));
-WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)).click();</stringProp>
-          <stringProp name="WebDriverSampler.parameters"></stringProp>
-          <stringProp name="WebDriverSampler.language">javascript</stringProp>
-        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
-        <hashTree/>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
@@ -1059,41 +1038,64 @@ WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="false">
-          <boolProp name="ResultCollector.error_logging">false</boolProp>
-          <objProp>
-            <name>saveConfig</name>
-            <value class="SampleSaveConfiguration">
-              <time>true</time>
-              <latency>true</latency>
-              <timestamp>true</timestamp>
-              <success>true</success>
-              <label>true</label>
-              <code>true</code>
-              <message>true</message>
-              <threadName>true</threadName>
-              <dataType>true</dataType>
-              <encoding>false</encoding>
-              <assertions>true</assertions>
-              <subresults>true</subresults>
-              <responseData>false</responseData>
-              <samplerData>false</samplerData>
-              <xml>false</xml>
-              <fieldNames>true</fieldNames>
-              <responseHeaders>false</responseHeaders>
-              <requestHeaders>false</requestHeaders>
-              <responseDataOnError>false</responseDataOnError>
-              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-              <assertionsResultsToSave>0</assertionsResultsToSave>
-              <bytes>true</bytes>
-              <threadCounts>true</threadCounts>
-              <idleTime>true</idleTime>
-            </value>
-          </objProp>
-          <stringProp name="filename"></stringProp>
-        </ResultCollector>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="_#ignore UI_Logout" enabled="true">
+          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
+var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
+var interaction = JavaImporter(org.openqa.selenium.interactions);
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
+var serverName = &apos;${server}&apos;
+var userName = &apos;${userName}&apos;;
+var password = &apos;${password}&apos;;
+var protocol = &apos;${protocol}&apos;;
+
+java.lang.Thread.sleep(3000);
+WDS.log.info(&quot;Log out APX Cloud...&quot;);
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;topnavbar_user&quot;]/apxiconsvgwidget/i&apos;)));
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;topnavbar_user&quot;]/apxiconsvgwidget/i&apos;)).click();
+
+wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)));
+WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*/a[.=&quot;Log out&quot;]&apos;)).click();
+java.lang.Thread.sleep(3000);</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
         <hashTree/>
       </hashTree>
+      <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="false">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
       <com.googlecode.jmeter.plugins.webdriver.config.ChromeDriverConfig guiclass="com.googlecode.jmeter.plugins.webdriver.config.gui.ChromeDriverConfigGui" testclass="com.googlecode.jmeter.plugins.webdriver.config.ChromeDriverConfig" testname="jp@gc - Chrome Driver Config" enabled="true">
         <stringProp name="WebDriverConfig.proxy_type">SYSTEM</stringProp>
         <stringProp name="WebDriverConfig.proxy_pac_url"></stringProp>
@@ -1134,7 +1136,7 @@ WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//
           </elementProp>
           <elementProp name="loopCount" elementType="Argument">
             <stringProp name="Argument.name">loopCount</stringProp>
-            <stringProp name="Argument.value">1</stringProp>
+            <stringProp name="Argument.value">2</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="timeoutSec" elementType="Argument">
