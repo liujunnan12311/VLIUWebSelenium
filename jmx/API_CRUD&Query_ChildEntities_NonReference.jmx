@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="3.1" jmeter="3.1 r1770033">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="API_CRUD_ChildEntities_NonReference" enabled="true">
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="API_CRUD&amp;Query_ChildEntities_NonReference" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
@@ -82,210 +82,6 @@ for (int i = 0; i &lt; manager.getCookieCount(); i++) {
     props.put(&quot;cookie_secure&quot; + i, String.valueOf(manager.get(i).getSecure()));
 }</stringProp>
         </BeanShellPostProcessor>
-        <hashTree/>
-      </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_APXReport_CRUD" enabled="false">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">${LoopCount}</stringProp>
-        </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${NumberOfThreads}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${RampUpSeconds}</stringProp>
-        <longProp name="ThreadGroup.start_time">1497848643000</longProp>
-        <longProp name="ThreadGroup.end_time">1497848643000</longProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-      </ThreadGroup>
-      <hashTree>
-        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
-          <boolProp name="resetInterpreter">false</boolProp>
-          <stringProp name="parameters"></stringProp>
-          <stringProp name="filename"></stringProp>
-          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
-import org.apache.jmeter.protocol.http.control.Cookie;
-import org.apache.jmeter.testelement.property.JMeterProperty;
-  
-CookieManager manager = ctx.getCurrentSampler().getCookieManager();
-int count = Integer.parseInt(props.getProperty(&quot;cookiecount&quot;));
-
-for (int i = 0; i &lt; count; i++) {
-    Cookie cookie = new Cookie(props.getProperty(&quot;cookie_name&quot; + i), 
-    		  props.getProperty(&quot;cookie_value&quot; + i),
-            props.getProperty(&quot;cookie_domain&quot; + i), 
-            props.getProperty(&quot;cookie_path&quot; + i),
-            Boolean.parseBoolean(props.getProperty(&quot;cookie_secure&quot; + i)),
-            Long.parseLong(props.getProperty(&quot;cookie_expires&quot; + i)));
-    manager.add(cookie);
-}</stringProp>
-        </BeanShellPreProcessor>
-        <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_AddAPXReport" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">[&#xd;
-    {&#xd;
-        &quot;ReportType&quot;: 0,&#xd;
-        &quot;_Action&quot;: &quot;Insert&quot;,&#xd;
-        &quot;ReportList&quot;: [&#xd;
-            {&#xd;
-                &quot;CategoryId&quot;: 10,&#xd;
-                &quot;ClassId&quot;: 135,&#xd;
-                &quot;Description&quot;: &quot;An API Test Rep Report&quot;,&#xd;
-                &quot;DisplayName&quot;: &quot;APITestRep${__threadNum}&quot;,&#xd;
-                &quot;IsAccessibleToAllRoles&quot;: true,&#xd;
-                &quot;IsHidden&quot;: false,&#xd;
-                &quot;Name&quot;: &quot;APITestRep${__threadNum}&quot;,&#xd;
-                &quot;OwnedById&quot;: -14,&#xd;
-                &quot;ReportFileName&quot;: &quot;${__threadNum}.rep&quot;,&#xd;
-                &quot;ReportMode&quot;: &quot; &quot;,&#xd;
-                &quot;_Action&quot;: &quot;Insert&quot;&#xd;
-            }&#xd;
-        ]&#xd;
-    }&#xd;
-]</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/APXReport</stringProp>
-          <stringProp name="HTTPSampler.method">POST</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Added JSON Object" enabled="true">
-            <stringProp name="scriptLanguage">javascript</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="cacheKey"></stringProp>
-            <stringProp name="script">// Turn API response JSON into an object called &apos;AddingResponse&apos;
-eval(&apos;var AddingResponse = &apos; + prev.getResponseDataAsString());
-
-var dataObject = JSON.parse(JSON.stringify(AddingResponse.Data[0]));
-dataObject.Description = &quot;Updated Description&quot;;
-dataObject._Action = &quot;Update&quot;;
-dataObject.ReportList[0].Description = &quot;Updated Description&quot;;
-dataObject.ReportList[0]._Action = &quot;Update&quot;;
-
-vars.put(&quot;updatingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);
-
-
-
-/*
-for (var counter = 1; counter &lt;= SearchResponse.responseData.results.length; counter++)	
-{		
-    var x = SearchResponse.responseData.results[counter - 1];
-   vars.put(&quot;haveBoots&quot; + counter, x.unescapedUrl);
-}
-*/</stringProp>
-          </JSR223PostProcessor>
-          <hashTree/>
-        </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_UpdateAPXReport" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">${updatingBody}</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/APXReport</stringProp>
-          <stringProp name="HTTPSampler.method">POST</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Updated JSON Object" enabled="true">
-            <stringProp name="scriptLanguage">javascript</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="cacheKey"></stringProp>
-            <stringProp name="script">eval(&apos;var UpdatingResponse = &apos; + prev.getResponseDataAsString());
-
-var dataObject = JSON.parse(JSON.stringify(UpdatingResponse.Data[0]));
-dataObject._Action = &quot;Delete&quot;;
-
-vars.put(&quot;deletingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);</stringProp>
-          </JSR223PostProcessor>
-          <hashTree/>
-        </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_DeleteAPXReport" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">${deletingBody}</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/APXReport</stringProp>
-          <stringProp name="HTTPSampler.method">POST</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse Deleted JSON Object" enabled="true">
-            <stringProp name="scriptLanguage">javascript</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="cacheKey"></stringProp>
-            <stringProp name="script">eval(&apos;var deletingResponse = &apos; + prev.getResponseDataAsString());
-
-vars.put(&quot;deletedBody&quot;, JSON.stringify(deletingResponse));</stringProp>
-          </JSR223PostProcessor>
-          <hashTree/>
-        </hashTree>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-          <collectionProp name="Asserion.test_strings">
-            <stringProp name="49586">200</stringProp>
-          </collectionProp>
-          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <boolProp name="Assertion.assume_success">false</boolProp>
-          <intProp name="Assertion.test_type">8</intProp>
-        </ResponseAssertion>
         <hashTree/>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_APXReport_SSRSReportParm_CRUD" enabled="true">
@@ -542,6 +338,1330 @@ vars.put(&quot;deletingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + 
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
+        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="false">
+          <boolProp name="displayJMeterProperties">true</boolProp>
+          <boolProp name="displayJMeterVariables">true</boolProp>
+          <boolProp name="displaySystemProperties">false</boolProp>
+        </DebugSampler>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Macro_SSRSMacro_CRUD&amp;Query" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${LoopCount}</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${NumberOfThreads}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${RampUpSeconds}</stringProp>
+        <longProp name="ThreadGroup.start_time">1497848643000</longProp>
+        <longProp name="ThreadGroup.end_time">1497848643000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+          <boolProp name="resetInterpreter">false</boolProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
+import org.apache.jmeter.protocol.http.control.Cookie;
+import org.apache.jmeter.testelement.property.JMeterProperty;
+  
+CookieManager manager = ctx.getCurrentSampler().getCookieManager();
+int count = Integer.parseInt(props.getProperty(&quot;cookiecount&quot;));
+
+for (int i = 0; i &lt; count; i++) {
+    Cookie cookie = new Cookie(props.getProperty(&quot;cookie_name&quot; + i), 
+    		  props.getProperty(&quot;cookie_value&quot; + i),
+            props.getProperty(&quot;cookie_domain&quot; + i), 
+            props.getProperty(&quot;cookie_path&quot; + i),
+            Boolean.parseBoolean(props.getProperty(&quot;cookie_secure&quot; + i)),
+            Long.parseLong(props.getProperty(&quot;cookie_expires&quot; + i)));
+    manager.add(cookie);
+}</stringProp>
+        </BeanShellPreProcessor>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="_#ignore API_Macro_SSRSMacro_PrepareData" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value"></stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/APXReport?ClassId=326&amp;DisplayName=Fixed Income Distribution (SSRS)&amp;$fieldset=m&amp;$metadata=n</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Insert A Style Set As Prepare Data" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">eval(&apos;var gettingPrepareDataResponse = &apos; + prev.getResponseDataAsString());
+
+var prepareDataObject = JSON.parse(JSON.stringify(gettingPrepareDataResponse.Data[0]));
+vars.put(&quot;ssrsReportID&quot;, prepareDataObject.Id);
+vars.put(&quot;parameterSetID&quot;, 925);
+var xml = &apos;&lt;ParameterValueSet&gt;&lt;Parameter name=\\&quot;SessionGuid\\&quot; primitiveType=\\&quot;1\\&quot; /&gt;&lt;Parameter name=\\&quot;Portfolios\\&quot; primitiveType=\\&quot;1\\&quot;&gt;&lt;Value dataValue=\\&quot;useq1\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;Date\\&quot; primitiveType=\\&quot;2\\&quot;&gt;&lt;Value dataText=\\&quot;last day of last quarter\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;ReportingCurrencyCode\\&quot; primitiveType=\\&quot;1\\&quot;&gt;&lt;Value dataValue=\\&quot;us\\&quot; dataText=\\&quot;us - US Dollar\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;Options\\&quot; primitiveType=\\&quot;1\\&quot;&gt;&lt;Value dataValue=\\&quot;Equity\\&quot; dataText=\\&quot;Equity\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;ClassificationID1\\&quot; primitiveType=\\&quot;3\\&quot;&gt;&lt;Value dataValue=\\&quot;-6\\&quot; dataText=\\&quot;Industry Sector\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;TopOrBottom\\&quot; primitiveType=\\&quot;1\\&quot;&gt;&lt;Value dataValue=\\&quot;top\\&quot; dataText=\\&quot;Top\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;NumItems\\&quot; primitiveType=\\&quot;3\\&quot;&gt;&lt;Value dataValue=\\&quot;10\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;ChartTypeID\\&quot; primitiveType=\\&quot;3\\&quot;&gt;&lt;Value dataValue=\\&quot;1\\&quot; dataText=\\&quot;Pie Chart\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;ReportTitle\\&quot; primitiveType=\\&quot;1\\&quot;&gt;&lt;Value dataValue=\\&quot;Equity Overview\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;ShowCurrencyFullPrecision\\&quot; primitiveType=\\&quot;3\\&quot;&gt;&lt;Value dataValue=\\&quot;1\\&quot; dataText=\\&quot;Use Full Precision\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;AccruedInterestID\\&quot; primitiveType=\\&quot;3\\&quot;&gt;&lt;Value dataValue=\\&quot;4\\&quot; dataText=\\&quot;All Reports as of Settle Date AM\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;MFBasisIncludeReinvest\\&quot; primitiveType=\\&quot;3\\&quot;&gt;&lt;Value dataValue=\\&quot;1\\&quot; dataText=\\&quot;Include Reinvested Dividends\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;UseSettlementDate\\&quot; primitiveType=\\&quot;3\\&quot;&gt;&lt;Value dataValue=\\&quot;0\\&quot; dataText=\\&quot;Trade Date\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;LocaleID\\&quot; primitiveType=\\&quot;3\\&quot;&gt;&lt;Value dataValue=\\&quot;1033\\&quot; dataText=\\&quot;English (United States)\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;PriceTypeID\\&quot; primitiveType=\\&quot;3\\&quot;&gt;&lt;Value dataValue=\\&quot;1\\&quot; dataText=\\&quot;Standard Prices\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;OverridePortfolioSettings\\&quot; primitiveType=\\&quot;5\\&quot;&gt;&lt;Value dataValue=\\&quot;True\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;ServerURL\\&quot; primitiveType=\\&quot;1\\&quot;&gt;&lt;Value dataValue=\\&quot;http://scdemo2008r2/APX/\\&quot; /&gt;&lt;/Parameter&gt;&lt;/ParameterValueSet&gt;&apos;
+vars.put(&quot;parameterSetXML&quot;, xml);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_AddSSRSMacro" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+  {&#xd;
+    &quot;ClassID&quot;: 338,&#xd;
+    &quot;_Action&quot;: &quot;Insert&quot;,&#xd;
+    &quot;SSRSMacroList&quot;: [&#xd;
+      {&#xd;
+        &quot;Description&quot;: &quot;API Test SSRS Macro ${__threadNum}&quot;,&#xd;
+        &quot;Name&quot;: &quot;APITestSSRSMacro${__threadNum}&quot;,&#xd;
+        &quot;OwnerID&quot;: -1001,&#xd;
+        &quot;ShortName&quot;: &quot;APITestSSRSMacro${__threadNum}&quot;,&#xd;
+        &quot;SSRSParameterSetID&quot;: ${parameterSetID},&#xd;
+        &quot;SSRSReportID&quot;: ${ssrsReportID},&#xd;
+        &quot;_Action&quot;: &quot;Insert&quot;,&#xd;
+        &quot;ParameterSetXML&quot;: &quot;${parameterSetXML}&quot;&#xd;
+      }&#xd;
+    ]&#xd;
+  }&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Macro</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Added JSON Object" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">// Turn API response JSON into an object called &apos;AddingResponse&apos;
+eval(&apos;var AddingResponse = &apos; + prev.getResponseDataAsString());
+
+var dataObject = JSON.parse(JSON.stringify(AddingResponse.Data[0]));
+dataObject.Description = dataObject.Description + &quot; (New)&quot;;
+dataObject.SSRSMacroList[0].Description = dataObject.SSRSMacroList[0].Description + &quot; (New)&quot;;
+dataObject._Action = &quot;Update&quot;;
+dataObject.SSRSMacroList[0]._Action = &quot;Update&quot;;
+
+vars.put(&quot;ssrsMacroId&quot;, dataObject.MacroID)
+vars.put(&quot;updatingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_QuerySSRSMacro" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;Search&quot;: {&#xd;
+        &quot;Query&quot;: {&#xd;
+            &quot;Joins&quot;: [],&#xd;
+            &quot;CriteriaList&quot;: [&#xd;
+                {&#xd;
+                    &quot;Filter&quot;: {&#xd;
+                        &quot;Field&quot;: &quot;MacroID&quot;,&#xd;
+                        &quot;ComparisonOperator&quot;: 1,&#xd;
+                        &quot;Value&quot;: &quot;${ssrsMacroId}&quot;&#xd;
+                    },&#xd;
+                    &quot;LogicalOperator&quot;: 0,&#xd;
+                    &quot;IsNegated&quot;: false&#xd;
+                }&#xd;
+            ],&#xd;
+            &quot;Entity&quot;: &quot;Macro&quot;&#xd;
+        },&#xd;
+        &quot;Options&quot;: {&#xd;
+            &quot;PageNumber&quot;: 0,&#xd;
+            &quot;PageSize&quot;: 0,&#xd;
+            &quot;OrderBy&quot;: [],&#xd;
+            &quot;UseDistinct&quot;: false&#xd;
+        }&#xd;
+    }&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Macro/search?$d=y&amp;$m=y&amp;$r=338&amp;$e=SSRSMacro</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_UpdateSSRSMacro" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${updatingBody}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Macro</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Updated JSON Object" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">eval(&apos;var UpdatingResponse = &apos; + prev.getResponseDataAsString());
+
+var dataObject = JSON.parse(JSON.stringify(UpdatingResponse.Data[0]));      
+dataObject._Action = &quot;Delete&quot;;
+
+vars.put(&quot;deletingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_DeleteSSRSMacro" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${deletingBody}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Macro</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Remove useless local variables" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">vars.remove(&quot;deletingBody&quot;);
+vars.remove(&quot;updatingBody&quot;);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Portfolio_PortfolioBaseLabel_CRUD" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${LoopCount}</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${NumberOfThreads}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${RampUpSeconds}</stringProp>
+        <longProp name="ThreadGroup.start_time">1497848643000</longProp>
+        <longProp name="ThreadGroup.end_time">1497848643000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+          <boolProp name="resetInterpreter">false</boolProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
+import org.apache.jmeter.protocol.http.control.Cookie;
+import org.apache.jmeter.testelement.property.JMeterProperty;
+  
+CookieManager manager = ctx.getCurrentSampler().getCookieManager();
+int count = Integer.parseInt(props.getProperty(&quot;cookiecount&quot;));
+
+for (int i = 0; i &lt; count; i++) {
+    Cookie cookie = new Cookie(props.getProperty(&quot;cookie_name&quot; + i), 
+    		  props.getProperty(&quot;cookie_value&quot; + i),
+            props.getProperty(&quot;cookie_domain&quot; + i), 
+            props.getProperty(&quot;cookie_path&quot; + i),
+            Boolean.parseBoolean(props.getProperty(&quot;cookie_secure&quot; + i)),
+            Long.parseLong(props.getProperty(&quot;cookie_expires&quot; + i)));
+    manager.add(cookie);
+}</stringProp>
+        </BeanShellPreProcessor>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_AddPortfolioBaseLabel" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+  {&#xd;
+    &quot;AccruedInterestID&quot;: 0,&#xd;
+    &quot;AccruedInterestPMCode&quot;: &quot;&quot;,&#xd;
+    &quot;AccruedInterestShowCode&quot;: &quot;&quot;,&#xd;
+    &quot;AccruedInterestTDCode&quot;: &quot;&quot;,&#xd;
+    &quot;AverageCostCode&quot;: &quot;n&quot;,&#xd;
+    &quot;ClosingMethodCode&quot;: &quot;l&quot;,&#xd;
+    &quot;HoldingsStatus&quot;: &quot;U&quot;,&#xd;
+    &quot;InternalClosingMethodCode&quot;: &quot;lifo&quot;,&#xd;
+    &quot;InvestmentGoal&quot;: &quot;&quot;,&#xd;
+    &quot;IsIncomplete&quot;: true,&#xd;
+    &quot;IsPositionOnly&quot;: false,&#xd;
+    &quot;LastHoldingsUpdate&quot;: &quot;2017-05-09T19:27:09.787&quot;,&#xd;
+    &quot;MaintainCalcData&quot;: false,&#xd;
+    &quot;NextTranID&quot;: 110,&#xd;
+    &quot;NumOfCopies&quot;: 1,&#xd;
+    &quot;OwnerClassID&quot;: 53,&#xd;
+    &quot;OwnerCode&quot;: &quot;Default Owners&quot;,&#xd;
+    &quot;OwnerID&quot;: -14,&#xd;
+    &quot;OwnerName&quot;: &quot;Default Owners&quot;,&#xd;
+    &quot;PerfCloseDate&quot;: &quot;2025-12-31T00:00:00&quot;,&#xd;
+    &quot;PortfolioBaseCurrencyISOCode&quot;: &quot;USD&quot;,&#xd;
+    &quot;PortfolioCode&quot;: &quot;APITestPort${__threadNum}&quot;,&#xd;
+    &quot;PortfolioID&quot;: 0,&#xd;
+    &quot;PortfolioTypeCode&quot;: &quot;&quot;,&#xd;
+    &quot;ProcessingGroupCode&quot;: &quot;Default Owners&quot;,&#xd;
+    &quot;ProcessingGroupID&quot;: -14,&#xd;
+    &quot;ReinvestCapitalGains&quot;: true,&#xd;
+    &quot;ReinvestDividends&quot;: true,&#xd;
+    &quot;ReportHeading&quot;: &quot;API Test Port&quot;,&#xd;
+    &quot;ReportHeading1&quot;: &quot;API Test Port Heading ${__threadNum}&quot;,&#xd;
+    &quot;ReportHeadingDetail&quot;: &quot;API Test Port ${__threadNum}\n\n\n&quot;,&#xd;
+    &quot;StartDate&quot;: &quot;2000-03-01T00:00:00&quot;,&#xd;
+    &quot;SyntheticIndexDesc&quot;: &quot;EST&quot;,&#xd;
+    &quot;UseAverageCost&quot;: false,&#xd;
+    &quot;_Action&quot;: &quot;Insert&quot;,&#xd;
+    &quot;PortfolioBaseLabelList&quot;: [&#xd;
+      {&#xd;
+        &quot;DataType&quot;: &quot;Text&quot;,&#xd;
+        &quot;PortfolioBaseCode&quot;: &quot;APITestPort${__threadNum}&quot;,&#xd;
+        &quot;PortfolioBaseID&quot;: 0,&#xd;
+        &quot;_Action&quot;: &quot;Insert&quot;,&#xd;
+        &quot;PropertyID&quot;: 176,&#xd;
+        &quot;PropertyName&quot;: &quot;$patherr&quot;,&#xd;
+        &quot;PropertyValue&quot;: &quot;API Test&quot;&#xd;
+      },&#xd;
+      {&#xd;
+        &quot;DataType&quot;: &quot;Date&quot;,&#xd;
+        &quot;PortfolioBaseCode&quot;: &quot;APITestPort${__threadNum}&quot;,&#xd;
+        &quot;PortfolioBaseID&quot;: 0,&#xd;
+        &quot;_Action&quot;: &quot;Insert&quot;,&#xd;
+        &quot;PropertyID&quot;: 284,&#xd;
+        &quot;PropertyName&quot;: &quot;%prfprec&quot;,&#xd;
+        &quot;PropertyValue&quot;: &quot;20100101&quot;&#xd;
+      }&#xd;
+    ]&#xd;
+  }&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Portfolio</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Added JSON Object" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">// Turn API response JSON into an object called &apos;AddingResponse&apos;
+eval(&apos;var addingResponse = &apos; + prev.getResponseDataAsString());
+
+var dataObject = JSON.parse(JSON.stringify(addingResponse.Data[0]));
+delete dataObject[&apos;PortfolioBaseCashClosingList&apos;];
+delete dataObject[&apos;PortfolioBaseClosingList&apos;];
+// delete dataObject[&apos;PortfolioBaseLabelList&apos;];
+
+dataObject._Action = &quot;Update&quot;;
+dataObject.PortfolioBaseLabelList[0].PropertyValue = dataObject.PortfolioBaseLabelList[0].PropertyValue + &quot; (New)&quot;;
+dataObject.PortfolioBaseLabelList[0]._Action = &quot;Update&quot;;
+dataObject.PortfolioBaseLabelList[1].PropertyValue = &quot;20100131&quot;;
+dataObject.PortfolioBaseLabelList[1]._Action = &quot;Update&quot;;
+
+vars.put(&quot;updatingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_UpdatePortfolioBaseLabel" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${updatingBody}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Portfolio</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Updated JSON Object" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">eval(&apos;var updatingResponse = &apos; + prev.getResponseDataAsString());
+
+var dataObject = JSON.parse(JSON.stringify(updatingResponse.Data[0]));
+delete dataObject[&apos;PortfolioBaseCashClosingList&apos;];
+delete dataObject[&apos;PortfolioBaseClosingList&apos;];
+   
+dataObject._Action = &quot;Update&quot;;
+dataObject.PortfolioBaseLabelList[0]._Action = &quot;Delete&quot;;
+dataObject.PortfolioBaseLabelList[1]._Action = &quot;Delete&quot;;
+
+vars.put(&quot;deletingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_DeletePortfolioBaseLabel" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${deletingBody}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Portfolio</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Remove useless local variables" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">eval(&apos;var deletingResponse = &apos; + prev.getResponseDataAsString());
+
+var dataObject = JSON.parse(JSON.stringify(deletingResponse.Data[0]));
+delete dataObject[&apos;PortfolioBaseCashClosingList&apos;];
+delete dataObject[&apos;PortfolioBaseClosingList&apos;];
+   
+dataObject._Action = &quot;Delete&quot;;
+vars.put(&quot;deletingParentBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_DeletePortfolio" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${deletingParentBody}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Portfolio</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse Deleted JSON Object" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">vars.remove(&quot;deletingParentBody&quot;);
+vars.remove(&quot;deletingBody&quot;);
+vars.remove(&quot;updatingBody&quot;);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Contact_ContactAddress_CRUD" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${LoopCount}</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${NumberOfThreads}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${RampUpSeconds}</stringProp>
+        <longProp name="ThreadGroup.start_time">1497848643000</longProp>
+        <longProp name="ThreadGroup.end_time">1497848643000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+          <boolProp name="resetInterpreter">false</boolProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
+import org.apache.jmeter.protocol.http.control.Cookie;
+import org.apache.jmeter.testelement.property.JMeterProperty;
+  
+CookieManager manager = ctx.getCurrentSampler().getCookieManager();
+int count = Integer.parseInt(props.getProperty(&quot;cookiecount&quot;));
+
+for (int i = 0; i &lt; count; i++) {
+    Cookie cookie = new Cookie(props.getProperty(&quot;cookie_name&quot; + i), 
+    		  props.getProperty(&quot;cookie_value&quot; + i),
+            props.getProperty(&quot;cookie_domain&quot; + i), 
+            props.getProperty(&quot;cookie_path&quot; + i),
+            Boolean.parseBoolean(props.getProperty(&quot;cookie_secure&quot; + i)),
+            Long.parseLong(props.getProperty(&quot;cookie_expires&quot; + i)));
+    manager.add(cookie);
+}</stringProp>
+        </BeanShellPreProcessor>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_AddContactAddress" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+  {&#xd;
+    &quot;BestTimeToCall&quot;: &quot;&quot;,&#xd;
+    &quot;CallInterval&quot;: 0,&#xd;
+    &quot;ClassID&quot;: 191,&#xd;
+    &quot;Company&quot;: &quot;&quot;,&#xd;
+    &quot;ContactCode&quot;: &quot;LMessi${__threadNum}&quot;,&#xd;
+    &quot;ContactGroupType&quot;: 5,&#xd;
+    &quot;ContactName&quot;: &quot;Messi, Lionel ${__threadNum}&quot;,&#xd;
+    &quot;ContactType&quot;: 5,&#xd;
+    &quot;DeliveryName&quot;: &quot;Lionel Messi ${__threadNum}&quot;,&#xd;
+    &quot;DriversLicense&quot;: &quot;&quot;,&#xd;
+    &quot;Email&quot;: &quot;MessiGoalGoalGoal@gmail.com&quot;,&#xd;
+    &quot;Email2&quot;: &quot;&quot;,&#xd;
+    &quot;Email3&quot;: &quot;&quot;,&#xd;
+    &quot;EmailForCommunication&quot;: &quot;MessiGoalGoalGoal@gmail.com&quot;,&#xd;
+    &quot;FirstName&quot;: &quot;Lionel&quot;,&#xd;
+    &quot;Folder&quot;: &quot;&quot;,&#xd;
+    &quot;Gender&quot;: &quot;Male&quot;,&#xd;
+    &quot;IsBusnOwner&quot;: false,&#xd;
+    &quot;IsDeliveryNameEdited&quot;: true,&#xd;
+    &quot;IsIRA&quot;: false,&#xd;
+    &quot;IsLifeInsurance&quot;: false,&#xd;
+    &quot;IsOnSyncList&quot;: false,&#xd;
+    &quot;IsOwnedByUser&quot;: true,&#xd;
+    &quot;IsPerson&quot;: true,&#xd;
+    &quot;IsReferralRequest&quot;: false,&#xd;
+    &quot;IsRetired&quot;: false,&#xd;
+    &quot;IsSalutationEdited&quot;: true,&#xd;
+    &quot;IsTrustFund&quot;: false,&#xd;
+    &quot;LastName&quot;: &quot;Messi&quot;,&#xd;
+    &quot;MiddleName&quot;: &quot;&quot;,&#xd;
+    &quot;Occupation&quot;: &quot;&quot;,&#xd;
+    &quot;OwnerCode&quot;: &quot;Admin&quot;,&#xd;
+    &quot;OwnerID&quot;: -1001,&#xd;
+    &quot;OwnerName&quot;: &quot;Admin&quot;,&#xd;
+    &quot;Prefix&quot;: &quot;&quot;,&#xd;
+    &quot;PrimaryContactGUID&quot;: &quot;00000000-0000-0000-0000-000000000000&quot;,&#xd;
+    &quot;QuickInfo&quot;: &quot;Messi, Lionel&lt;br/&gt;&lt;br/&gt;(   )  12-3456&lt;br/&gt;&lt;a href=\&quot;mailto:Messi@gmail.com\&quot;&gt;MessiGoalGoalGoal@gmail.com&lt;/a&gt;&quot;,&#xd;
+    &quot;Salutation&quot;: &quot;&quot;,&#xd;
+    &quot;Status&quot;: &quot;&quot;,&#xd;
+    &quot;Suffix&quot;: &quot;&quot;,&#xd;
+    &quot;TaxBracket&quot;: 0,&#xd;
+    &quot;TaxNumber&quot;: &quot;&quot;,&#xd;
+    &quot;Title&quot;: &quot;&quot;,&#xd;
+    &quot;URL&quot;: &quot;&quot;,&#xd;
+    &quot;ContactAddressList&quot;: [&#xd;
+      {&#xd;
+        &quot;AddrCustom01&quot;: &quot;&quot;,&#xd;
+        &quot;AddrCustom02&quot;: &quot;&quot;,&#xd;
+        &quot;AddrCustom03&quot;: &quot;&quot;,&#xd;
+        &quot;AddrCustom04&quot;: &quot;&quot;,&#xd;
+        &quot;AddressCity&quot;: &quot;Ideal City&quot;,&#xd;
+        &quot;AddressCountry&quot;: &quot;Utopia&quot;,&#xd;
+        &quot;AddressLabel&quot;: &quot;Winter Home&quot;,&#xd;
+        &quot;AddressLine1&quot;: &quot;Big House&quot;,&#xd;
+        &quot;AddressLine2&quot;: &quot;Happy Street&quot;,&#xd;
+        &quot;AddressLine3&quot;: &quot;&quot;,&#xd;
+        &quot;AddressLine4&quot;: &quot;&quot;,&#xd;
+        &quot;AddressState&quot;: &quot;IC&quot;,&#xd;
+        &quot;AddressZip&quot;: &quot;000000&quot;,&#xd;
+        &quot;ContactCode&quot;: &quot;LMessi${__threadNum}&quot;,&#xd;
+        &quot;ContactFullName&quot;: &quot;Messi, Lionel ${__threadNum}&quot;,&#xd;
+        &quot;ContactType&quot;: 5,&#xd;
+        &quot;Duration&quot;: &quot;Always Current&quot;,&#xd;
+        &quot;DurationCode&quot;: 0,&#xd;
+        &quot;DurationFrom&quot;: 0,&#xd;
+        &quot;DurationFromByDayOfMonth&quot;: &quot;0&quot;,&#xd;
+        &quot;DurationFromByDayOfYear&quot;: &quot;0&quot;,&#xd;
+        &quot;DurationFromByMonth&quot;: &quot;0&quot;,&#xd;
+        &quot;DurationFromByWeekday&quot;: &quot;0&quot;,&#xd;
+        &quot;DurationTo&quot;: 0,&#xd;
+        &quot;DurationToByDayOfMonth&quot;: &quot;0&quot;,&#xd;
+        &quot;DurationToByDayOfYear&quot;: &quot;0&quot;,&#xd;
+        &quot;DurationToByMonth&quot;: &quot;0&quot;,&#xd;
+        &quot;DurationToByWeekday&quot;: &quot;0&quot;,&#xd;
+        &quot;HasAttr01&quot;: false,&#xd;
+        &quot;HasAttr02&quot;: false,&#xd;
+        &quot;HasAttr03&quot;: false,&#xd;
+        &quot;HasAttr04&quot;: false,&#xd;
+        &quot;IsDefaultAddress&quot;: true,&#xd;
+        &quot;IsSendExpress&quot;: false,&#xd;
+        &quot;IsSendMail&quot;: false,&#xd;
+        &quot;OwnerContactCode&quot;: &quot;LMessi${__threadNum}&quot;,&#xd;
+        &quot;OwnerContactFullName&quot;: &quot;Messi, Lionel ${__threadNum}&quot;,&#xd;
+        &quot;OwnerContactType&quot;: 5,&#xd;
+        &quot;_Action&quot;: &quot;Insert&quot;&#xd;
+      }&#xd;
+    ],&#xd;
+    &quot;_Action&quot;: &quot;Insert&quot;&#xd;
+  }&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Contact</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Added JSON Object" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">// Turn API response JSON into an object called &apos;AddingResponse&apos;
+eval(&apos;var addingResponse = &apos; + prev.getResponseDataAsString());
+
+var dataObject = JSON.parse(JSON.stringify(addingResponse.Data[0]));
+// dataObject._Action = &quot;Update&quot;;
+// dataObject.ContactAddressList[0].IsDefaultAddress = false;
+dataObject.ContactAddressList[0]._Action = &quot;Delete&quot;;
+
+vars.put(&quot;deletingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);
+vars.put(&quot;contactID&quot;, dataObject.ContactID);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_QueryContact" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;Search&quot;: {&#xd;
+        &quot;Query&quot;: {&#xd;
+            &quot;Joins&quot;: [],&#xd;
+            &quot;CriteriaList&quot;: [&#xd;
+                {&#xd;
+                    &quot;Filter&quot;: {&#xd;
+                        &quot;Field&quot;: &quot;ContactID&quot;,&#xd;
+                        &quot;ComparisonOperator&quot;: 1,&#xd;
+                        &quot;Value&quot;: &quot;${contactID}&quot;&#xd;
+                    },&#xd;
+                    &quot;LogicalOperator&quot;: 0,&#xd;
+                    &quot;IsNegated&quot;: false&#xd;
+                }&#xd;
+            ],&#xd;
+            &quot;Entity&quot;: &quot;Contact&quot;&#xd;
+        },&#xd;
+        &quot;Options&quot;: {&#xd;
+            &quot;PageNumber&quot;: 0,&#xd;
+            &quot;PageSize&quot;: 0,&#xd;
+            &quot;OrderBy&quot;: [],&#xd;
+            &quot;UseDistinct&quot;: false&#xd;
+        }&#xd;
+    }&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Contact/search?$d=y&amp;$m=y&amp;$e=ContactAddress</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_DeleteContactAddress" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${deletingBody}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Contact</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Remove useless local variables" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">eval(&apos;var deletingResponse = &apos; + prev.getResponseDataAsString());
+
+var dataObject = JSON.parse(JSON.stringify(deletingResponse.Data[0]));   
+dataObject._Action = &quot;Delete&quot;;
+
+vars.put(&quot;deletingParentBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_DeleteContact" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${deletingParentBody}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Contact</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse Deleted JSON Object" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">vars.remove(&quot;deletingParentBody&quot;);
+vars.remove(&quot;deletingBody&quot;);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Configuration_PortfolioBaseCashClosing_CRUD" enabled="false">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${LoopCount}</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${NumberOfThreads}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${RampUpSeconds}</stringProp>
+        <longProp name="ThreadGroup.start_time">1497848643000</longProp>
+        <longProp name="ThreadGroup.end_time">1497848643000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+          <boolProp name="resetInterpreter">false</boolProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
+import org.apache.jmeter.protocol.http.control.Cookie;
+import org.apache.jmeter.testelement.property.JMeterProperty;
+  
+CookieManager manager = ctx.getCurrentSampler().getCookieManager();
+int count = Integer.parseInt(props.getProperty(&quot;cookiecount&quot;));
+
+for (int i = 0; i &lt; count; i++) {
+    Cookie cookie = new Cookie(props.getProperty(&quot;cookie_name&quot; + i), 
+    		  props.getProperty(&quot;cookie_value&quot; + i),
+            props.getProperty(&quot;cookie_domain&quot; + i), 
+            props.getProperty(&quot;cookie_path&quot; + i),
+            Boolean.parseBoolean(props.getProperty(&quot;cookie_secure&quot; + i)),
+            Long.parseLong(props.getProperty(&quot;cookie_expires&quot; + i)));
+    manager.add(cookie);
+}</stringProp>
+        </BeanShellPreProcessor>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="_#ignore API_GetConfigurationAuditEventID_PrepareData" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value"></stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Configuration?ConfigurationCode=GlobalSettings&amp;$expand=PortfolioBaseCashClosing&amp;$metadata=n</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Insert A Style Set As Prepare Data" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">eval(&apos;var gettingPrepareDataResponse = &apos; + prev.getResponseDataAsString());
+
+var prepareDataObject = JSON.parse(JSON.stringify(gettingPrepareDataResponse.Data[0]));
+vars.put(&quot;globalConfigurationAuditEventID&quot;, prepareDataObject.AuditEventID);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_AddPortfolioBaseCashClosing" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+  {&#xd;
+    &quot;AuditEventID&quot;: ${globalConfigurationAuditEventID},&#xd;
+    &quot;ConfigurationCode&quot;: &quot;GlobalSettings&quot;,&#xd;
+    &quot;ConfigurationID&quot;: -31,&#xd;
+    &quot;_Action&quot;: &quot;Update&quot;,&#xd;
+    &quot;PortfolioBaseCashClosingList&quot;: [&#xd;
+      {&#xd;
+        &quot;AccrualClosingMethodCode&quot;: &quot;g&quot;,&#xd;
+        &quot;CashClosingMethodCode&quot;: &quot;f&quot;,&#xd;
+        &quot;ClassID&quot;: 76,&#xd;
+        &quot;EffectiveDate&quot;: &quot;2010-01-01T00:00:00&quot;,&#xd;
+        &quot;IsBeginningDate&quot;: false,&#xd;
+        &quot;PortfolioBaseCode&quot;: &quot;GlobalSettings&quot;,&#xd;
+        &quot;PortfolioBaseID&quot;: -31,&#xd;
+        &quot;_Action&quot;: &quot;Insert&quot;&#xd;
+      }&#xd;
+    ]&#xd;
+  }&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Configuration</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Added JSON Object" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">// Turn API response JSON into an object called &apos;AddingResponse&apos;
+eval(&apos;var addingResponse = &apos; + prev.getResponseDataAsString());
+
+var addedObject = JSON.parse(JSON.stringify(addingResponse.Data[0]));
+var dataObject = {};
+var child = JSON.parse(JSON.stringify(addedObject.PortfolioBaseCashClosingList.filter(function (x) { x.EffectiveDate == &quot;2010-01-01T00:00:00&quot; })));
+vars.put(&quot;child&quot;, child);
+child._Action = &quot;Update&quot;;
+var children = [];
+children.push(child);
+dataObject.AuditEventID = addedObject.AuditEventID;
+dataObject.ConfigurationCode = addedObject.ConfigurationCode;
+dataObject.ConfigurationID = addedObject.ConfigurationID;
+dataObject.PortfolioBaseCashClosingList = children;
+dataObject._Action = &quot;Update&quot;;
+
+vars.put(&quot;updatingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_QueryPortfolioBaseCashClosing" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;Search&quot;: {&#xd;
+        &quot;Query&quot;: {&#xd;
+            &quot;Joins&quot;: [],&#xd;
+            &quot;CriteriaList&quot;: [&#xd;
+                {&#xd;
+                    &quot;Filter&quot;: {&#xd;
+                        &quot;Field&quot;: &quot;ConfigurationID&quot;,&#xd;
+                        &quot;ComparisonOperator&quot;: 1,&#xd;
+                        &quot;Value&quot;: &quot;-31&quot;&#xd;
+                    },&#xd;
+                    &quot;LogicalOperator&quot;: 0,&#xd;
+                    &quot;IsNegated&quot;: false&#xd;
+                }&#xd;
+            ],&#xd;
+            &quot;Entity&quot;: &quot;Configuration&quot;&#xd;
+        },&#xd;
+        &quot;Options&quot;: {&#xd;
+            &quot;PageNumber&quot;: 0,&#xd;
+            &quot;PageSize&quot;: 0,&#xd;
+            &quot;OrderBy&quot;: [],&#xd;
+            &quot;UseDistinct&quot;: false&#xd;
+        }&#xd;
+    }&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Configuration/search?$d=y&amp;$m=y&amp;$r=338&amp;$e=PortfolioBaseCashClosing</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_UpdatePortfolioBaseCashClosing" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${updatingBody}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Configuration</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Updated JSON Object" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">eval(&apos;var updatingResponse = &apos; + prev.getResponseDataAsString());
+
+var updatedObject = JSON.parse(JSON.stringify(updatingResponse.Data[0]));
+
+var dataObject = {};
+var child = JSON.parse(JSON.stringify(updatedObject.PortfolioBaseCashClosingList.filter(function (x) { x.EffectiveDate == &quot;2010-01-01T00:00:00&quot; })));
+child._Action = &quot;Delete&quot;;
+var children = [];
+children.push(child);
+dataObject.AuditEventID = updatedObject.AuditEventID;
+dataObject.ConfigurationCode = updatedObject.ConfigurationCode;
+dataObject.ConfigurationID = updatedObject.ConfigurationID;
+dataObject.PortfolioBaseCashClosingList = children;
+dataObject._Action = &quot;Update&quot;;
+
+vars.put(&quot;deletingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_DeletePortfolioBaseCashClosing" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${deletingBody}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Configuration</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Updated JSON Object" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">// vars.remove(&quot;updatingBody&quot;); 
+// vars.remove(&quot;deletedBody&quot;);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
         <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
           <boolProp name="displayJMeterProperties">true</boolProp>
           <boolProp name="displayJMeterVariables">true</boolProp>
@@ -756,268 +1876,6 @@ vars.put(&quot;deletingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + 
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
-        </hashTree>
-      </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Macro_SSRSMacro_CRUD" enabled="false">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">${LoopCount}</stringProp>
-        </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${NumberOfThreads}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${RampUpSeconds}</stringProp>
-        <longProp name="ThreadGroup.start_time">1497848643000</longProp>
-        <longProp name="ThreadGroup.end_time">1497848643000</longProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-      </ThreadGroup>
-      <hashTree>
-        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
-          <boolProp name="resetInterpreter">false</boolProp>
-          <stringProp name="parameters"></stringProp>
-          <stringProp name="filename"></stringProp>
-          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
-import org.apache.jmeter.protocol.http.control.Cookie;
-import org.apache.jmeter.testelement.property.JMeterProperty;
-  
-CookieManager manager = ctx.getCurrentSampler().getCookieManager();
-int count = Integer.parseInt(props.getProperty(&quot;cookiecount&quot;));
-
-for (int i = 0; i &lt; count; i++) {
-    Cookie cookie = new Cookie(props.getProperty(&quot;cookie_name&quot; + i), 
-    		  props.getProperty(&quot;cookie_value&quot; + i),
-            props.getProperty(&quot;cookie_domain&quot; + i), 
-            props.getProperty(&quot;cookie_path&quot; + i),
-            Boolean.parseBoolean(props.getProperty(&quot;cookie_secure&quot; + i)),
-            Long.parseLong(props.getProperty(&quot;cookie_expires&quot; + i)));
-    manager.add(cookie);
-}</stringProp>
-        </BeanShellPreProcessor>
-        <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="_#ignore API_Macro_SSRSMacro_PrepareData" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value"></stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/APXReport?ClassId=326&amp;DisplayName=Fixed Income Distribution (SSRS)&amp;$fieldset=m&amp;$metadata=n</stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="49586">200</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">8</intProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Insert A Style Set As Prepare Data" enabled="true">
-            <stringProp name="scriptLanguage">javascript</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="cacheKey"></stringProp>
-            <stringProp name="script">// Turn API response JSON into an object called &apos;AddingResponse&apos;
-eval(&apos;var AddingPrepareDataResponse = &apos; + prev.getResponseDataAsString());
-
-var prepareDataObject = JSON.parse(JSON.stringify(AddingPrepareDataResponse.Data[0]));
-vars.put(&quot;ssrsReportID&quot;, prepareDataObject.Id);
-vars.put(&quot;parameterSetID&quot;, 925);
-var xml = &apos;&lt;ParameterValueSet&gt;&lt;Parameter name=\\&quot;SessionGuid\\&quot; primitiveType=\\&quot;1\\&quot; /&gt;&lt;Parameter name=\\&quot;Portfolios\\&quot; primitiveType=\\&quot;1\\&quot;&gt;&lt;Value dataValue=\\&quot;useq1\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;Date\\&quot; primitiveType=\\&quot;2\\&quot;&gt;&lt;Value dataText=\\&quot;last day of last quarter\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;ReportingCurrencyCode\\&quot; primitiveType=\\&quot;1\\&quot;&gt;&lt;Value dataValue=\\&quot;us\\&quot; dataText=\\&quot;us - US Dollar\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;Options\\&quot; primitiveType=\\&quot;1\\&quot;&gt;&lt;Value dataValue=\\&quot;Equity\\&quot; dataText=\\&quot;Equity\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;ClassificationID1\\&quot; primitiveType=\\&quot;3\\&quot;&gt;&lt;Value dataValue=\\&quot;-6\\&quot; dataText=\\&quot;Industry Sector\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;TopOrBottom\\&quot; primitiveType=\\&quot;1\\&quot;&gt;&lt;Value dataValue=\\&quot;top\\&quot; dataText=\\&quot;Top\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;NumItems\\&quot; primitiveType=\\&quot;3\\&quot;&gt;&lt;Value dataValue=\\&quot;10\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;ChartTypeID\\&quot; primitiveType=\\&quot;3\\&quot;&gt;&lt;Value dataValue=\\&quot;1\\&quot; dataText=\\&quot;Pie Chart\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;ReportTitle\\&quot; primitiveType=\\&quot;1\\&quot;&gt;&lt;Value dataValue=\\&quot;Equity Overview\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;ShowCurrencyFullPrecision\\&quot; primitiveType=\\&quot;3\\&quot;&gt;&lt;Value dataValue=\\&quot;1\\&quot; dataText=\\&quot;Use Full Precision\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;AccruedInterestID\\&quot; primitiveType=\\&quot;3\\&quot;&gt;&lt;Value dataValue=\\&quot;4\\&quot; dataText=\\&quot;All Reports as of Settle Date AM\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;MFBasisIncludeReinvest\\&quot; primitiveType=\\&quot;3\\&quot;&gt;&lt;Value dataValue=\\&quot;1\\&quot; dataText=\\&quot;Include Reinvested Dividends\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;UseSettlementDate\\&quot; primitiveType=\\&quot;3\\&quot;&gt;&lt;Value dataValue=\\&quot;0\\&quot; dataText=\\&quot;Trade Date\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;LocaleID\\&quot; primitiveType=\\&quot;3\\&quot;&gt;&lt;Value dataValue=\\&quot;1033\\&quot; dataText=\\&quot;English (United States)\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;PriceTypeID\\&quot; primitiveType=\\&quot;3\\&quot;&gt;&lt;Value dataValue=\\&quot;1\\&quot; dataText=\\&quot;Standard Prices\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;OverridePortfolioSettings\\&quot; primitiveType=\\&quot;5\\&quot;&gt;&lt;Value dataValue=\\&quot;True\\&quot; /&gt;&lt;/Parameter&gt;&lt;Parameter name=\\&quot;ServerURL\\&quot; primitiveType=\\&quot;1\\&quot;&gt;&lt;Value dataValue=\\&quot;http://scdemo2008r2/APX/\\&quot; /&gt;&lt;/Parameter&gt;&lt;/ParameterValueSet&gt;&apos;
-vars.put(&quot;parameterSetXML&quot;, xml);</stringProp>
-          </JSR223PostProcessor>
-          <hashTree/>
-        </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_AddSSRSMacro" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">[&#xd;
-  {&#xd;
-    &quot;ClassID&quot;: 338,&#xd;
-    &quot;_Action&quot;: &quot;Insert&quot;,&#xd;
-    &quot;SSRSMacroList&quot;: [&#xd;
-      {&#xd;
-        &quot;Description&quot;: &quot;API Test SSRS Macro ${__threadNum}&quot;,&#xd;
-        &quot;Name&quot;: &quot;APITestSSRSMacro${__threadNum}&quot;,&#xd;
-        &quot;OwnerID&quot;: -1001,&#xd;
-        &quot;ShortName&quot;: &quot;APITestSSRSMacro${__threadNum}&quot;,&#xd;
-        &quot;SSRSParameterSetID&quot;: ${parameterSetID},&#xd;
-        &quot;SSRSReportID&quot;: ${ssrsReportID},&#xd;
-        &quot;_Action&quot;: &quot;Insert&quot;,&#xd;
-        &quot;ParameterSetXML&quot;: &quot;${parameterSetXML}&quot;&#xd;
-      }&#xd;
-    ]&#xd;
-  }&#xd;
-]</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Macro</stringProp>
-          <stringProp name="HTTPSampler.method">POST</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="49586">200</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">8</intProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Added JSON Object" enabled="true">
-            <stringProp name="scriptLanguage">javascript</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="cacheKey"></stringProp>
-            <stringProp name="script">// Turn API response JSON into an object called &apos;AddingResponse&apos;
-eval(&apos;var AddingResponse = &apos; + prev.getResponseDataAsString());
-
-var dataObject = JSON.parse(JSON.stringify(AddingResponse.Data[0]));
-dataObject.Description = dataObject.Description + &quot; (New)&quot;;
-dataObject.SSRSMacroList[0].Description = dataObject.SSRSMacroList[0].Description + &quot; (New)&quot;;
-dataObject._Action = &quot;Update&quot;;
-dataObject.SSRSMacroList[0]._Action = &quot;Update&quot;;
-
-vars.put(&quot;updatingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);</stringProp>
-          </JSR223PostProcessor>
-          <hashTree/>
-        </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_UpdateSSRSMacro" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">${updatingBody}</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Macro</stringProp>
-          <stringProp name="HTTPSampler.method">POST</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="49586">200</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">8</intProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Updated JSON Object" enabled="true">
-            <stringProp name="scriptLanguage">javascript</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="cacheKey"></stringProp>
-            <stringProp name="script">eval(&apos;var UpdatingResponse = &apos; + prev.getResponseDataAsString());
-
-var dataObject = JSON.parse(JSON.stringify(UpdatingResponse.Data[0]));      
-dataObject._Action = &quot;Delete&quot;;
-
-vars.put(&quot;deletingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);</stringProp>
-          </JSR223PostProcessor>
-          <hashTree/>
-        </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_DeleteSSRSMacro" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">${deletingBody}</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Macro</stringProp>
-          <stringProp name="HTTPSampler.method">POST</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="49586">200</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">8</intProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Remove useless local variables" enabled="true">
-            <stringProp name="scriptLanguage">groovy</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="cacheKey"></stringProp>
-            <stringProp name="script">vars.remove(&quot;ssrsReportID&quot;);
-vars.remove(&quot;parameterSetXML&quot;);
-vars.remove(&quot;parameterSetID&quot;);</stringProp>
-          </JSR223PostProcessor>
           <hashTree/>
         </hashTree>
       </hashTree>
@@ -4361,6 +5219,210 @@ responseObject.Data.filter(function (x) { return x.SearchDescription == &quot;Al
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_APXReport_CRUD" enabled="false">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${LoopCount}</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${NumberOfThreads}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${RampUpSeconds}</stringProp>
+        <longProp name="ThreadGroup.start_time">1497848643000</longProp>
+        <longProp name="ThreadGroup.end_time">1497848643000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+          <boolProp name="resetInterpreter">false</boolProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
+import org.apache.jmeter.protocol.http.control.Cookie;
+import org.apache.jmeter.testelement.property.JMeterProperty;
+  
+CookieManager manager = ctx.getCurrentSampler().getCookieManager();
+int count = Integer.parseInt(props.getProperty(&quot;cookiecount&quot;));
+
+for (int i = 0; i &lt; count; i++) {
+    Cookie cookie = new Cookie(props.getProperty(&quot;cookie_name&quot; + i), 
+    		  props.getProperty(&quot;cookie_value&quot; + i),
+            props.getProperty(&quot;cookie_domain&quot; + i), 
+            props.getProperty(&quot;cookie_path&quot; + i),
+            Boolean.parseBoolean(props.getProperty(&quot;cookie_secure&quot; + i)),
+            Long.parseLong(props.getProperty(&quot;cookie_expires&quot; + i)));
+    manager.add(cookie);
+}</stringProp>
+        </BeanShellPreProcessor>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_AddAPXReport" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+    {&#xd;
+        &quot;ReportType&quot;: 0,&#xd;
+        &quot;_Action&quot;: &quot;Insert&quot;,&#xd;
+        &quot;ReportList&quot;: [&#xd;
+            {&#xd;
+                &quot;CategoryId&quot;: 10,&#xd;
+                &quot;ClassId&quot;: 135,&#xd;
+                &quot;Description&quot;: &quot;An API Test Rep Report&quot;,&#xd;
+                &quot;DisplayName&quot;: &quot;APITestRep${__threadNum}&quot;,&#xd;
+                &quot;IsAccessibleToAllRoles&quot;: true,&#xd;
+                &quot;IsHidden&quot;: false,&#xd;
+                &quot;Name&quot;: &quot;APITestRep${__threadNum}&quot;,&#xd;
+                &quot;OwnedById&quot;: -14,&#xd;
+                &quot;ReportFileName&quot;: &quot;${__threadNum}.rep&quot;,&#xd;
+                &quot;ReportMode&quot;: &quot; &quot;,&#xd;
+                &quot;_Action&quot;: &quot;Insert&quot;&#xd;
+            }&#xd;
+        ]&#xd;
+    }&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/APXReport</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Added JSON Object" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">// Turn API response JSON into an object called &apos;AddingResponse&apos;
+eval(&apos;var AddingResponse = &apos; + prev.getResponseDataAsString());
+
+var dataObject = JSON.parse(JSON.stringify(AddingResponse.Data[0]));
+dataObject.Description = &quot;Updated Description&quot;;
+dataObject._Action = &quot;Update&quot;;
+dataObject.ReportList[0].Description = &quot;Updated Description&quot;;
+dataObject.ReportList[0]._Action = &quot;Update&quot;;
+
+vars.put(&quot;updatingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);
+
+
+
+/*
+for (var counter = 1; counter &lt;= SearchResponse.responseData.results.length; counter++)	
+{		
+    var x = SearchResponse.responseData.results[counter - 1];
+   vars.put(&quot;haveBoots&quot; + counter, x.unescapedUrl);
+}
+*/</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_UpdateAPXReport" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${updatingBody}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/APXReport</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Updated JSON Object" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">eval(&apos;var UpdatingResponse = &apos; + prev.getResponseDataAsString());
+
+var dataObject = JSON.parse(JSON.stringify(UpdatingResponse.Data[0]));
+dataObject._Action = &quot;Delete&quot;;
+
+vars.put(&quot;deletingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_DeleteAPXReport" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${deletingBody}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/APXReport</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse Deleted JSON Object" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">eval(&apos;var deletingResponse = &apos; + prev.getResponseDataAsString());
+
+vars.put(&quot;deletedBody&quot;, JSON.stringify(deletingResponse));</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+          <collectionProp name="Asserion.test_strings">
+            <stringProp name="49586">200</stringProp>
+          </collectionProp>
+          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+          <boolProp name="Assertion.assume_success">false</boolProp>
+          <intProp name="Assertion.test_type">8</intProp>
+        </ResponseAssertion>
+        <hashTree/>
       </hashTree>
       <PostThreadGroup guiclass="PostThreadGroupGui" testclass="PostThreadGroup" testname="tearDown Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
