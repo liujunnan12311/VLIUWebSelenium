@@ -84,7 +84,7 @@ for (int i = 0; i &lt; manager.getCookieCount(); i++) {
         </BeanShellPostProcessor>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_APXReport_SSRSReportParm_CRUD" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_APXReport_SSRSReportParm_CRUD" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -339,7 +339,7 @@ vars.put(&quot;deletingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + 
           <hashTree/>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Contact_ContactAddress_CRUD" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Contact_ContactAddress_CRUD" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -683,7 +683,7 @@ vars.remove(&quot;deletingBody&quot;);</stringProp>
           <hashTree/>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_ContactRelationship_InterestedParty_CRUD&amp;Query" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_ContactRelationship_InterestedParty_CRUD&amp;Query" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -1119,7 +1119,7 @@ vars.remove(&quot;deletingBody&quot;);</stringProp>
           <hashTree/>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Macro_SSRSMacro_CRUD&amp;Query" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Macro_SSRSMacro_CRUD&amp;Query" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -1442,7 +1442,7 @@ vars.remove(&quot;updatingBody&quot;);</stringProp>
           <hashTree/>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Portfolio_PortfolioBaseLabel_CRUD" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Portfolio_PortfolioBaseLabel_CRUD" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -1755,7 +1755,7 @@ vars.remove(&quot;updatingBody&quot;);</stringProp>
           <hashTree/>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_PortfolioGroup_PortfolioGroupMember_CRUD&amp;Query" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_PortfolioGroup_PortfolioGroupMember_CRUD&amp;Query" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -2187,7 +2187,7 @@ vars.remove(&quot;deletingBody&quot;);</stringProp>
           <hashTree/>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Security_CouponPaymentDateRateSchedule&amp;CouponResetDateRateSchedule_CRUD&amp;Query" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Security_DividendRate_CRUD&amp;Query" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -2224,16 +2224,7 @@ for (int i = 0; i &lt; count; i++) {
 }</stringProp>
         </BeanShellPreProcessor>
         <hashTree/>
-        <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
-          <stringProp name="cacheKey"></stringProp>
-          <stringProp name="filename"></stringProp>
-          <stringProp name="parameters"></stringProp>
-          <stringProp name="script">vars.put(&quot;secType&quot;, &quot;pf&quot;);
-</stringProp>
-          <stringProp name="scriptLanguage">javascript</stringProp>
-        </JSR223PreProcessor>
-        <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_AddCouponPaymentDateRateSchedule&amp;CouponResetDateRateSchedule" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_AddDividendRate" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -2241,118 +2232,36 @@ for (int i = 0; i &lt; count; i++) {
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">[&#xd;
   {&#xd;
-    &quot;AlternativeAssetCode&quot;: &quot; &quot;,&#xd;
-    &quot;CanMature&quot;: true,&#xd;
-    &quot;CanSplit&quot;: false,&#xd;
-    &quot;CUSIP&quot;: &quot;apitest${secType}us${__threadNum}&quot;,&#xd;
-    &quot;ExchangeID&quot;: 0,&#xd;
-    &quot;FIBondInsurerID&quot;: 0,&#xd;
-    &quot;FIBondRevenueSourceID&quot;: 0,&#xd;
-    &quot;FICouponDelayHolidayRuleCode&quot;: &quot;u&quot;,&#xd;
-    &quot;FICouponDelayRuleCode&quot;: &quot;c&quot;,&#xd;
-    &quot;FIFirstCouponDate&quot;: &quot;2017-05-11T00:00:00&quot;,&#xd;
-    &quot;FIFitchRating&quot;: &quot;&quot;,&#xd;
-    &quot;FIMaturityDate&quot;: &quot;2037-05-10T00:00:00&quot;,&#xd;
-    &quot;FIMoodyRating&quot;: &quot;&quot;,&#xd;
-    &quot;FISPRating&quot;: &quot;&quot;,&#xd;
-    &quot;FIStateCode&quot;: &quot;&quot;,&#xd;
-    &quot;FitchRating&quot;: &quot;&quot;,&#xd;
-    &quot;FixedIncomeTypeCode&quot;: &quot;B&quot;,&#xd;
-    &quot;FlowMethodCode&quot;: &quot; &quot;,&#xd;
-    &quot;FullName&quot;: &quot;An API test security ${__threadNum} - ${secType}us&quot;,&#xd;
-    &quot;HasUnderlyingSecurity&quot;: false,&#xd;
-    &quot;HideIndustryGroup&quot;: true,&#xd;
-    &quot;IsAZeroCoupon&quot;: false,&#xd;
-    &quot;IsBillable&quot;: true,&#xd;
-    &quot;IsBond&quot;: true,&#xd;
-    &quot;IsCashAccount&quot;: false,&#xd;
-    &quot;ISIN&quot;: &quot;&quot;,&#xd;
-    &quot;IsIncomplete&quot;: false,&#xd;
-    &quot;IsInternal&quot;: false,&#xd;
-    &quot;IsStockEquityAccount&quot;: false,&#xd;
-    &quot;IssueCountryCode&quot;: &quot;  &quot;,&#xd;
-    &quot;IsSystem&quot;: false,&#xd;
-    &quot;IsVRS&quot;: true,&#xd;
-    &quot;MaturityDate&quot;: &quot;2037-05-10T00:00:00&quot;,&#xd;
-    &quot;MoodyRating&quot;: &quot;&quot;,&#xd;
-    &quot;OptionSymbol&quot;: &quot;&quot;,&#xd;
-    &quot;PrincipalCurrencyCode&quot;: &quot;us&quot;,&#xd;
+    &quot;FullName&quot;: &quot;An API Test Security ${__threadNum} - CSNO&quot;,&#xd;
+    &quot;PrincipalCurrencyCode&quot;: &quot;no&quot;,&#xd;
     &quot;PriceThruCode&quot;: &quot;&quot;,&#xd;
-    &quot;ProprietarySymbol&quot;: &quot;&quot;,&#xd;
-    &quot;SecType&quot;: &quot;${secType}us&quot;,&#xd;
-    &quot;SecTypeBaseCode&quot;: &quot;${secType}&quot;,&#xd;
-    &quot;SEDOL&quot;: &quot;&quot;,&#xd;
-    &quot;SourceID&quot;: 0,&#xd;
-    &quot;SecurityID&quot;: 0,&#xd;
-    &quot;SPRating&quot;: &quot;&quot;,&#xd;
-    &quot;StateCode&quot;: &quot;&quot;,&#xd;
-    &quot;StrategyID&quot;: 0,&#xd;
-    &quot;STValuationFactor&quot;: 0.01,&#xd;
-    &quot;Symbol&quot;: &quot;apitest${secType}us${__threadNum}&quot;,&#xd;
-    &quot;SymbolNameSpace&quot;: &quot;    &quot;,&#xd;
-    &quot;SymbolTypeCode&quot;: &quot;C&quot;,&#xd;
-    &quot;SymbolValidFromDate&quot;: &quot;1753-01-02T00:00:00&quot;,&#xd;
-    &quot;SymbolValidThruDate&quot;: &quot;9999-12-31T00:00:00&quot;,&#xd;
-    &quot;Ticker&quot;: &quot;&quot;,&#xd;
+    &quot;SecType&quot;: &quot;csno&quot;,&#xd;
+    &quot;SecTypeBaseCode&quot;: &quot;cs&quot;,&#xd;
+    &quot;Symbol&quot;: &quot;apitestcsno${__threadNum}&quot;,&#xd;
+    &quot;Ticker&quot;: &quot;apitestcsno${__threadNum}&quot;,&#xd;
+    &quot;SymbolTypeCode&quot;: &quot;T&quot;,&#xd;
     &quot;_Action&quot;: &quot;Insert&quot;,&#xd;
-    &quot;UseConversionFactor&quot;: false,&#xd;
-    &quot;SecurityFixedIncomeVRSList&quot;: [&#xd;
+    &quot;DividendRateList&quot;: [&#xd;
         {&#xd;
-            &quot;CouponPaymentHolidayRuleCode&quot;: &quot; &quot;,&#xd;
-            &quot;CouponPaymentMethodID&quot;: 2,&#xd;
-            &quot;CouponPaymentRuleID&quot;: 0,&#xd;
-            &quot;CouponResetAsOfDateFrom&quot;: &quot;2018-01-01T00:00:00&quot;,&#xd;
-            &quot;CouponResetAsOfDateTo&quot;: &quot;2018-01-01T00:00:00&quot;,&#xd;
-            &quot;CouponResetFrequency&quot;: 253,&#xd;
-            &quot;CouponResetHolidayRuleCode&quot;: &quot; &quot;,&#xd;
-            &quot;CouponResetMethodID&quot;: 6,&#xd;
-            &quot;CouponResetRuleID&quot;: 0,&#xd;
-            &quot;IsPerpetual&quot;: false,&#xd;
-            &quot;PutScheduleFirstDate&quot;: &quot;2017-04-26T00:00:00&quot;,&#xd;
-            &quot;PutScheduleHolidayRuleCode&quot;: &quot;s&quot;,&#xd;
-            &quot;PutScheduleMethodID&quot;: 27,&#xd;
+            &quot;AsOfDate&quot;: &quot;2017-05-12T00:00:00&quot;,&#xd;
+            &quot;DividendRate&quot;: 4,&#xd;
             &quot;_Action&quot;: &quot;Insert&quot;,&#xd;
             &quot;SecurityID&quot;: 0,&#xd;
-            &quot;PutScheduleRuleID&quot;: 9,&#xd;
-            &quot;CouponPaymentDateRateScheduleList&quot;: [&#xd;
-                {&#xd;
-                    &quot;AsOfDate&quot;: &quot;2018-04-01T00:00:00&quot;,&#xd;
-                    &quot;DateRateTypeID&quot;: 3,&#xd;
-                    &quot;Rate&quot;: 0,&#xd;
-                    &quot;_Action&quot;: &quot;Insert&quot;,&#xd;
-                    &quot;SourceID&quot;: 0&#xd;
-                },&#xd;
-                {&#xd;
-                    &quot;AsOfDate&quot;: &quot;2018-10-01T00:00:00&quot;,&#xd;
-                    &quot;DateRateTypeID&quot;: 3,&#xd;
-                    &quot;Rate&quot;: 0,&#xd;
-                    &quot;_Action&quot;: &quot;Insert&quot;,&#xd;
-                    &quot;SourceID&quot;: 0&#xd;
-                },&#xd;
-                {&#xd;
-                    &quot;AsOfDate&quot;: &quot;2019-06-30T00:00:00&quot;,&#xd;
-                    &quot;DateRateTypeID&quot;: 3,&#xd;
-                    &quot;Rate&quot;: 0,&#xd;
-                    &quot;_Action&quot;: &quot;Insert&quot;,&#xd;
-                    &quot;SourceID&quot;: 0&#xd;
-                },&#xd;
-                {&#xd;
-                    &quot;AsOfDate&quot;: &quot;2020-12-31T00:00:00&quot;,&#xd;
-                    &quot;DateRateTypeID&quot;: 3,&#xd;
-                    &quot;Rate&quot;: 0,&#xd;
-                    &quot;_Action&quot;: &quot;Insert&quot;,&#xd;
-                    &quot;SourceID&quot;: 0&#xd;
-                }&#xd;
-            ],&#xd;
-            &quot;CouponResetDateRateScheduleList&quot;: [&#xd;
-                {&#xd;
-                    &quot;AsOfDate&quot;: &quot;2018-04-01T00:00:00&quot;,&#xd;
-                    &quot;DateRateTypeID&quot;: 2,&#xd;
-                    &quot;Rate&quot;: 4.75,&#xd;
-                    &quot;_Action&quot;: &quot;Insert&quot;,&#xd;
-                    &quot;SourceID&quot;: 0&#xd;
-                }&#xd;
-            ]&#xd;
+            &quot;IsBeginningDate&quot;: true&#xd;
+        },&#xd;
+        {&#xd;
+            &quot;AsOfDate&quot;: &quot;2018-05-12T00:00:00&quot;,&#xd;
+            &quot;DividendRate&quot;: 4.5,&#xd;
+            &quot;_Action&quot;: &quot;Insert&quot;,&#xd;
+            &quot;SecurityID&quot;: 0,&#xd;
+            &quot;IsBeginningDate&quot;: false&#xd;
+        },&#xd;
+        {&#xd;
+            &quot;AsOfDate&quot;: &quot;2019-05-12T00:00:00&quot;,&#xd;
+            &quot;DividendRate&quot;: 5,&#xd;
+            &quot;_Action&quot;: &quot;Insert&quot;,&#xd;
+            &quot;SecurityID&quot;: 0,&#xd;
+            &quot;IsBeginningDate&quot;: false&#xd;
         }&#xd;
     ]&#xd;
   }&#xd;
@@ -2400,19 +2309,10 @@ var dataObject = JSON.parse(JSON.stringify(addingResponse.Data[0]));
 dataObject._Action = &quot;Update&quot;;
 delete dataObject[&apos;SecurityPropertyDerivedList&apos;];
 
-/*
-dataObject.SecurityFixedIncomeVRSList[0]._Action = &quot;Update&quot;;
-dataObject.SecurityFixedIncomeVRSList[0].CouponPaymentHolidayRuleCode = &quot;u&quot;;
-dataObject.SecurityFixedIncomeVRSList[0].CouponResetFrequency = 2;
-dataObject.SecurityFixedIncomeVRSList[0].CouponResetHolidayRuleCode = &quot;s&quot;;
-dataObject.SecurityFixedIncomeVRSList[0].CouponResetHolidayRuleCode = 28;
-
-dataObject.SecurityFixedIncomeVRSList[0].CouponPaymentDateRateScheduleList[1]._Action = &quot;Update&quot;;
-dataObject.SecurityFixedIncomeVRSList[0].CouponPaymentDateRateScheduleList[1].Rate = 0.25;
-
-dataObject.SecurityFixedIncomeVRSList[0].CouponResetDateRateScheduleList[1]._Action = &quot;Update&quot;;
-dataObject.SecurityFixedIncomeVRSList[0].CouponResetDateRateScheduleList[1].Rate = 1.25;
-*/
+dataObject.DividendRateList[1].DividentRate = 5;
+dataObject.DividendRateList[1]._Action = &quot;Update&quot;;
+dataObject.DividendRateList[2].DividentRate = 5.5;
+dataObject.DividendRateList[2]._Action = &quot;Update&quot;;
 
 vars.put(&quot;symbol&quot;, dataObject.Symbol);
 vars.put(&quot;securityID&quot;, dataObject.SecurityID);
@@ -2420,13 +2320,7 @@ vars.put(&quot;updatingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + 
           </JSR223PostProcessor>
           <hashTree/>
         </hashTree>
-        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
-          <boolProp name="displayJMeterProperties">true</boolProp>
-          <boolProp name="displayJMeterVariables">true</boolProp>
-          <boolProp name="displaySystemProperties">false</boolProp>
-        </DebugSampler>
-        <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_UpdateCouponPaymentDateRateSchedule&amp;CouponResetDateRateSchedule" enabled="false">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_UpdateDividendRate" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -2454,7 +2348,7 @@ vars.put(&quot;updatingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + 
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="false">
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
             </collectionProp>
@@ -2464,7 +2358,7 @@ vars.put(&quot;updatingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + 
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_QueryAllChildrenOfSecurity" enabled="false">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_QueryAllChildrenOfSecurity" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -2516,7 +2410,7 @@ vars.put(&quot;updatingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + 
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="false">
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
             </collectionProp>
@@ -2525,7 +2419,7 @@ vars.put(&quot;updatingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + 
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
           <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Updated JSON Object" enabled="false">
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Updated JSON Object" enabled="true">
             <stringProp name="scriptLanguage">javascript</stringProp>
             <stringProp name="parameters"></stringProp>
             <stringProp name="filename"></stringProp>
@@ -2535,17 +2429,15 @@ vars.put(&quot;updatingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + 
 var dataObject = JSON.parse(JSON.stringify(queryinggResponse.Data[0]));      
 dataObject._Action = &quot;Update&quot;;
 delete dataObject[&quot;SecurityPropertyDerivedList&quot;];
-
-dataObject.SecurityFixedIncomeVRSList[0]._Action = &quot;Update&quot;;
-
-dataObject.SecurityFixedIncomeVRSList[0].CouponPaymentDateRateScheduleList[1]._Action = &quot;Delete&quot;;
-dataObject.SecurityFixedIncomeVRSList[0].CouponResetDateRateScheduleList[1]._Action = &quot;Delete&quot;;
+dataObject.DividendRateList[0]._Action = &quot;Delete&quot;;
+dataObject.DividendRateList[1]._Action = &quot;Delete&quot;;
+dataObject.DividendRateList[2]._Action = &quot;Delete&quot;;
 
 vars.put(&quot;deletingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);</stringProp>
           </JSR223PostProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_DeleteCouponPaymentDateRateSchedule&amp;CouponResetDateRateSchedule" enabled="false">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_DeleteDividendRate" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -2573,7 +2465,7 @@ vars.put(&quot;deletingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + 
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="false">
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
             </collectionProp>
@@ -2582,7 +2474,7 @@ vars.put(&quot;deletingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + 
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
           <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Remove useless local variables" enabled="false">
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Remove useless local variables" enabled="true">
             <stringProp name="scriptLanguage">javascript</stringProp>
             <stringProp name="parameters"></stringProp>
             <stringProp name="filename"></stringProp>
@@ -2594,13 +2486,12 @@ var dataObject = JSON.parse(JSON.stringify(deletingResponse.Data[0]));
 
 dataObject._Action = &quot;Delete&quot;;
 delete dataObject[&quot;SecurityPropertyDerivedList&quot;];
-delete dataObject[&quot;SecurityFixedIncomeVRSList&quot;];
 
 vars.put(&quot;deletingParentBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);</stringProp>
           </JSR223PostProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_DeleteSecurity" enabled="false">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_DeleteSecurity" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -2642,9 +2533,9 @@ vars.put(&quot;deletingParentBody&quot;, &quot;[&quot; + JSON.stringify(dataObje
             <stringProp name="parameters"></stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="cacheKey"></stringProp>
-            <stringProp name="script">// vars.remove(&quot;deletingParentBody&quot;);
-// vars.remove(&quot;updatingBody&quot;);
-// vars.remove(&quot;deletingBody&quot;);</stringProp>
+            <stringProp name="script">vars.remove(&quot;deletingParentBody&quot;);
+vars.remove(&quot;updatingBody&quot;);
+vars.remove(&quot;deletingBody&quot;);</stringProp>
           </JSR223PostProcessor>
           <hashTree/>
         </hashTree>
@@ -4801,7 +4692,7 @@ for (int i = 0; i &lt; count; i++) {
           </elementProp>
           <elementProp name="NumberOfThreads" elementType="Argument">
             <stringProp name="Argument.name">NumberOfThreads</stringProp>
-            <stringProp name="Argument.value">1</stringProp>
+            <stringProp name="Argument.value">3</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">20</stringProp>
           </elementProp>
