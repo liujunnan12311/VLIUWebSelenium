@@ -521,10 +521,457 @@ vars.put(&quot;deletingParentBody&quot;, &quot;[&quot; + JSON.stringify(dataObje
             <stringProp name="parameters"></stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="cacheKey"></stringProp>
-            <stringProp name="script">//vars.remove(&quot;updatingBody&quot;);
-//vars.remove(&quot;deletingBody&quot;);
-//vars.remove(&quot;deletingParentBody&quot;);
-//vars.remove(&quot;insertingBody&quot;);</stringProp>
+            <stringProp name="script">vars.remove(&quot;updatingBody&quot;);
+vars.remove(&quot;deletingBody&quot;);
+vars.remove(&quot;deletingParentBody&quot;);
+vars.remove(&quot;insertingBody&quot;);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="API_Activity_ActivityRecurrence_CRUD&amp;Query" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${LoopCount}</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${NumberOfThreads}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${RampUpSeconds}</stringProp>
+        <longProp name="ThreadGroup.start_time">1497848643000</longProp>
+        <longProp name="ThreadGroup.end_time">1497848643000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+          <boolProp name="resetInterpreter">false</boolProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
+import org.apache.jmeter.protocol.http.control.Cookie;
+import org.apache.jmeter.testelement.property.JMeterProperty;
+  
+CookieManager manager = ctx.getCurrentSampler().getCookieManager();
+int count = Integer.parseInt(props.getProperty(&quot;cookiecount&quot;));
+
+for (int i = 0; i &lt; count; i++) {
+    Cookie cookie = new Cookie(props.getProperty(&quot;cookie_name&quot; + i), 
+    		  props.getProperty(&quot;cookie_value&quot; + i),
+            props.getProperty(&quot;cookie_domain&quot; + i), 
+            props.getProperty(&quot;cookie_path&quot; + i),
+            Boolean.parseBoolean(props.getProperty(&quot;cookie_secure&quot; + i)),
+            Long.parseLong(props.getProperty(&quot;cookie_expires&quot; + i)));
+    manager.add(cookie);
+}</stringProp>
+        </BeanShellPreProcessor>
+        <hashTree/>
+        <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
+          <stringProp name="cacheKey"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script">vars.put(&quot;activityDescription&quot;, &quot;API Test Task &quot; + ${__threadNum});
+
+var now = new Date();
+var dateNow = now.getFullYear() + &quot;-&quot; + (now.getMonth() + 1) + &quot;-&quot; + now.getDate();
+vars.put(&quot;dateNow&quot;, dateNow);
+
+vars.put(&quot;dailyInterval&quot;, 0);
+vars.put(&quot;isNoEndEndDateType&quot;, false);
+vars.put(&quot;isNumOccurrenceEndDateType&quot;, true);
+vars.put(&quot;endType&quot;, 2);
+vars.put(&quot;isOnFriday&quot;, true);
+vars.put(&quot;isOnWeekDay&quot;, false);
+vars.put(&quot;monthlyNthDayOfWeekMask&quot;, 5);
+vars.put(&quot;monthlyNthInterval&quot;, 1);
+vars.put(&quot;monthlyNthWeekIndex&quot;, 2);
+vars.put(&quot;numOccurrences&quot;, 12);
+vars.put(&quot;isRecurDailyOnWeekDays&quot;, false);
+vars.put(&quot;isRecurMonthlyNth&quot;, true);
+vars.put(&quot;recurrenceType&quot;, 3);
+vars.put(&quot;weekIndex&quot;, 2);</stringProp>
+          <stringProp name="scriptLanguage">javascript</stringProp>
+        </JSR223PreProcessor>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_AddActivityRecurrence" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+  {&#xd;
+    &quot;ActivityStatus&quot;: 1,&#xd;
+    &quot;ActivityTypeID&quot;: 2,&#xd;
+    &quot;AssignedByID&quot;: -1001,&#xd;
+    &quot;AssignedDate&quot;: &quot;${dateNow}&quot;,&#xd;
+    &quot;AssignedUserID&quot;: -1001,&#xd;
+    &quot;CreatedByID&quot;: -1001,&#xd;
+    &quot;CreatedDate&quot;: &quot;2017-02-19T22:32:01.777&quot;,&#xd;
+    &quot;Description&quot;: &quot;${activityDescription}&quot;,&#xd;
+    &quot;DueDate&quot;: &quot;${dateNow}&quot;,&#xd;
+    &quot;IsOnSyncList&quot;: false,&#xd;
+    &quot;IsReminderOn&quot;: false,&#xd;
+    &quot;OwnerID&quot;: -1001,&#xd;
+    &quot;Priority&quot;: 2,&#xd;
+    &quot;SequenceNo&quot;: 1,&#xd;
+    &quot;StartDate&quot;: &quot;${dateNow}&quot;,&#xd;
+    &quot;_Action&quot;: &quot;Insert&quot;,&#xd;
+    &quot;EndDate&quot;: &quot;${dateNow}&quot;,&#xd;
+    &quot;CreateDate&quot;: &quot;${dateNow}&quot;,&#xd;
+    &quot;ActivityRecurrenceList&quot;: [&#xd;
+      {&#xd;
+        &quot;DailyInterval&quot;: 1,&#xd;
+        &quot;DailyRegenerateInterval&quot;: 0,&#xd;
+        &quot;DayOfMonth&quot;: 0,&#xd;
+        &quot;EndDateTypeIsDate&quot;: false,&#xd;
+        &quot;EndDateTypeIsNoEnd&quot;: true,&#xd;
+        &quot;EndDateTypeIsNumOccurrences&quot;: false,&#xd;
+        &quot;EndType&quot;: 1,&#xd;
+        &quot;Interval&quot;: 1,&#xd;
+        &quot;IsOnDay&quot;: false,&#xd;
+        &quot;IsOnFriday&quot;: false,&#xd;
+        &quot;IsOnMonday&quot;: false,&#xd;
+        &quot;IsOnSaturday&quot;: false,&#xd;
+        &quot;IsOnSunday&quot;: false,&#xd;
+        &quot;IsOnThursday&quot;: false,&#xd;
+        &quot;IsOnTuesday&quot;: false,&#xd;
+        &quot;IsOnWednesday&quot;: false,&#xd;
+        &quot;IsOnWeekday&quot;: true,&#xd;
+        &quot;IsOnWeekendDay&quot;: false,&#xd;
+        &quot;Month&quot;: 0,&#xd;
+        &quot;MonthlyDayOfMonth&quot;: 0,&#xd;
+        &quot;MonthlyInterval&quot;: 0,&#xd;
+        &quot;MonthlyNthDayOfWeekMask&quot;: 0,&#xd;
+        &quot;MonthlyNthInterval&quot;: 0,&#xd;
+        &quot;MonthlyNthWeekIndex&quot;: 0,&#xd;
+        &quot;MonthlyRegenerateInterval&quot;: 0,&#xd;
+        &quot;NumOccurrences&quot;: 0,&#xd;
+        &quot;PatternStartDate&quot;: &quot;2010-06-03T00:00:00&quot;,&#xd;
+        &quot;RecurDailyOnWeekdays&quot;: true,&#xd;
+        &quot;RecurDailyPerDay&quot;: false,&#xd;
+        &quot;RecurMonthly&quot;: false,&#xd;
+        &quot;RecurMonthlyNth&quot;: false,&#xd;
+        &quot;RecurrenceTypeID&quot;: 6,&#xd;
+        &quot;RecurWeekly&quot;: false,&#xd;
+        &quot;RecurYearly&quot;: false,&#xd;
+        &quot;RecurYearlyNth&quot;: false,&#xd;
+        &quot;RegenerateDaily&quot;: false,&#xd;
+        &quot;RegenerateMonthly&quot;: false,&#xd;
+        &quot;RegenerateWeekly&quot;: false,&#xd;
+        &quot;RegenerateYearly&quot;: false,&#xd;
+        &quot;WeekIndex&quot;: 0,&#xd;
+        &quot;WeeklyInterval&quot;: 0,&#xd;
+        &quot;WeeklyOnFriday&quot;: false,&#xd;
+        &quot;WeeklyOnMonday&quot;: false,&#xd;
+        &quot;WeeklyOnSaturday&quot;: false,&#xd;
+        &quot;WeeklyOnSunday&quot;: false,&#xd;
+        &quot;WeeklyOnThursday&quot;: false,&#xd;
+        &quot;WeeklyOnTuesday&quot;: false,&#xd;
+        &quot;WeeklyOnWednesday&quot;: false,&#xd;
+        &quot;WeeklyRegenerateInterval&quot;: 0,&#xd;
+        &quot;YearlyDayOfMonth&quot;: 0,&#xd;
+        &quot;YearlyMonth&quot;: 0,&#xd;
+        &quot;YearlyNthDayOfWeekMask&quot;: 0,&#xd;
+        &quot;YearlyNthMonth&quot;: 0,&#xd;
+        &quot;YearlyNthWeekIndex&quot;: 0,&#xd;
+        &quot;YearlyRegenerateInterval&quot;: 0,&#xd;
+        &quot;_Action&quot;: &quot;Insert&quot;&#xd;
+      }&#xd;
+    ]&#xd;
+  }&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Activity</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_QueryActivityRecurrence" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;Search&quot;: {&#xd;
+        &quot;Query&quot;: {&#xd;
+            &quot;Joins&quot;: [],&#xd;
+            &quot;CriteriaList&quot;: [&#xd;
+                {&#xd;
+                    &quot;Filter&quot;: {&#xd;
+                        &quot;Field&quot;: &quot;Description&quot;,&#xd;
+                        &quot;ComparisonOperator&quot;: 1,&#xd;
+                        &quot;Value&quot;: &quot;${activityDescription}&quot;&#xd;
+                    },&#xd;
+                    &quot;LogicalOperator&quot;: 0,&#xd;
+                    &quot;IsNegated&quot;: false&#xd;
+                }&#xd;
+            ],&#xd;
+            &quot;Entity&quot;: &quot;Activity&quot;&#xd;
+        },&#xd;
+        &quot;Options&quot;: {&#xd;
+            &quot;PageNumber&quot;: 0,&#xd;
+            &quot;PageSize&quot;: 0,&#xd;
+            &quot;OrderBy&quot;: [],&#xd;
+            &quot;UseDistinct&quot;: false&#xd;
+        }&#xd;
+    }&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Activity/search?$d=y&amp;$m=y&amp;$e=all</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Added JSON Object" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">// Turn API response JSON into an object called &apos;AddingResponse&apos;
+eval(&apos;var queryingResponse = &apos; + prev.getResponseDataAsString());
+
+var dataObject = JSON.parse(JSON.stringify(queryingResponse.Data[0]));
+dataObject._Action = &quot;Update&quot;;
+
+var child = dataObject.ActivityRecurrenceList[0]; //.filter(function(x) { return x.HolidayName == &quot;${holidayName1}&quot;; })[0];
+child._Action = &quot;Update&quot;;
+child.DailyInterval = ${dailyInterval};
+child.EndDateTypeIsNoEnd = ${isNoEndEndDateType};
+child.EndDateTypeIsNumOccurrences = ${isNumOccurrenceEndDateType};
+child.EndType = ${endType};
+child.IsOnFriday = ${isOnFriday};
+child.IsOnWeekday = ${isOnWeekDay};
+child.MonthlyNthDayOfWeekMask = ${monthlyNthDayOfWeekMask};
+child.MonthlyNthInterval = ${monthlyNthInterval};
+child.MonthlyNthWeekIndex = ${monthlyNthWeekIndex};
+child.NumOccurrences = ${numOccurrences};
+child.RecurDailyOnWeekdays = ${isRecurDailyOnWeekDays};
+child.RecurMonthlyNth = ${isRecurMonthlyNth};
+child.RecurrenceTypeID = ${recurrenceType};
+child.WeekIndex = ${weekIndex};
+vars.put(&quot;child&quot;, JSON.stringify(child));
+
+var children = [];
+children.push(child);
+
+delete dataObject[&quot;ActivityRecurrenceList&quot;];
+dataObject.ActivityRecurrenceList = children;
+
+vars.put(&quot;updatingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_UpdateActivityRecurrence" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${updatingBody}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Activity</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Parse and Configure Updated JSON Object" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">eval(&apos;var updatingResponse = &apos; + prev.getResponseDataAsString());
+
+var dataObject = JSON.parse(JSON.stringify(updatingResponse.Data[0]));
+dataObject._Action = &quot;Update&quot;;
+dataObject.IsRecurring = false;
+
+var child = dataObject.ActivityRecurrenceList[0]; //.filter(function(x) { return x.HolidayName == &quot;${holidayName1}&quot;; })[0];
+child._Action = &quot;Delete&quot;;
+child.RecurrenceID = null;
+
+var children = [];
+children.push(child);
+
+delete dataObject[&quot;ActivityRecurrenceList&quot;];
+dataObject.ActivityRecurrenceList = children;
+dataObject.RecurrenceID = null;
+
+vars.put(&quot;deletingBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_DeleteActivityRecurrence" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${deletingBody}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Activity</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Remove useless local variables" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">eval(&apos;var deletingResponse = &apos; + prev.getResponseDataAsString());
+
+var dataObject = JSON.parse(JSON.stringify(deletingResponse.Data[0]));
+dataObject._Action = &quot;Delete&quot;;
+delete dataObject[&quot;ActivityRecurrenceList&quot;];
+
+vars.put(&quot;deletingParentBody&quot;, &quot;[&quot; + JSON.stringify(dataObject) + &quot;]&quot;);</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_DeleteActivity" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${deletingParentBody}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${ServerName}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/apxlogin/api/internal/Activity</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient3.1</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - API Responses Without Exception" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor - Remove useless local variables" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="script">vars.remove(&quot;updatingBody&quot;);
+vars.remove(&quot;deletingBody&quot;);
+vars.remove(&quot;deletingParentBody&quot;);</stringProp>
           </JSR223PostProcessor>
           <hashTree/>
         </hashTree>
@@ -1796,7 +2243,7 @@ for (int i = 0; i &lt; count; i++) {
           </elementProp>
           <elementProp name="RampUpSeconds" elementType="Argument">
             <stringProp name="Argument.name">RampUpSeconds</stringProp>
-            <stringProp name="Argument.value">30</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="Protocol" elementType="Argument">
@@ -1868,6 +2315,42 @@ for (int i = 0; i &lt; count; i++) {
           </collectionProp>
         </collectionProp>
       </kg.apc.jmeter.perfmon.PerfMonCollector>
+      <hashTree/>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
       <hashTree/>
     </hashTree>
   </hashTree>
