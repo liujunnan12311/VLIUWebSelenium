@@ -5869,18 +5869,18 @@ for (int i = 0; i &lt; count; i++) {
           </elementProp>
           <elementProp name="LoopCount" elementType="Argument">
             <stringProp name="Argument.name">LoopCount</stringProp>
-            <stringProp name="Argument.value">2</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="NumberOfThreads" elementType="Argument">
             <stringProp name="Argument.name">NumberOfThreads</stringProp>
-            <stringProp name="Argument.value">3</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">20</stringProp>
           </elementProp>
           <elementProp name="RampUpSeconds" elementType="Argument">
             <stringProp name="Argument.name">RampUpSeconds</stringProp>
-            <stringProp name="Argument.value">1</stringProp>
+            <stringProp name="Argument.value">0</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="Protocol" elementType="Argument">

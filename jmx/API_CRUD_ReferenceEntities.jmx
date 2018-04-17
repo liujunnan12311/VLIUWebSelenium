@@ -3187,7 +3187,33 @@ for (int i = 0; i &lt; count; i++) {
 }</stringProp>
         </BeanShellPreProcessor>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="_#ignore API_QuerySecurityBySymbol_PrepareTestData" enabled="true">
+        <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
+          <stringProp name="scriptLanguage">javascript</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey"></stringProp>
+          <stringProp name="script">vars.put(&quot;securityID&quot;, 26 + (${__threadNum} -1));
+
+Date.prototype.toAPIDateString = function() {
+  var mm = this.getMonth() + 1; // getMonth() is zero-based
+  var dd = this.getDate();
+
+  return [this.getFullYear(), (mm &gt; 9 ? &apos;&apos; : &apos;0&apos;) + mm, (dd &gt; 9 ? &apos;&apos; : &apos;0&apos;) + dd].join(&apos;-&apos;);
+}
+
+Date.prototype.addDays = function addDays(date, days) {
+  var result = new Date(date);
+  result.setDate(result.getDate() + days);
+  
+  return result;
+}
+
+var now = Date.now();
+var date = new Date();
+vars.put(&quot;executionDate&quot;, date.addDays(now, ${__threadNum}).toAPIDateString());</stringProp>
+        </JSR223PreProcessor>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="_#ignore API_QuerySecurityBySymbol_PrepareTestData" enabled="false">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -4662,18 +4688,18 @@ for (int i = 0; i &lt; count; i++) {
           </elementProp>
           <elementProp name="LoopCount" elementType="Argument">
             <stringProp name="Argument.name">LoopCount</stringProp>
-            <stringProp name="Argument.value">3</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="NumberOfThreads" elementType="Argument">
             <stringProp name="Argument.name">NumberOfThreads</stringProp>
-            <stringProp name="Argument.value">5</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">20</stringProp>
           </elementProp>
           <elementProp name="RampUpSeconds" elementType="Argument">
             <stringProp name="Argument.name">RampUpSeconds</stringProp>
-            <stringProp name="Argument.value">30</stringProp>
+            <stringProp name="Argument.value">0</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="Protocol" elementType="Argument">
@@ -4745,6 +4771,42 @@ for (int i = 0; i &lt; count; i++) {
           </collectionProp>
         </collectionProp>
       </kg.apc.jmeter.perfmon.PerfMonCollector>
+      <hashTree/>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
       <hashTree/>
     </hashTree>
   </hashTree>
