@@ -9,7 +9,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="server" elementType="Argument">
             <stringProp name="Argument.name">server</stringProp>
-            <stringProp name="Argument.value">${__P(envTarget, vmw12apxcldprf1.gencos.com)}</stringProp>
+            <stringProp name="Argument.value">${__P(envTarget, apxcloudui.advent.com)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -75,7 +75,7 @@ var userName = &apos;${userName}&apos;;
 var password = &apos;${password}&apos;;
 var protocol = &apos;${protocol}&apos;;
 
-WDS.log.info(&quot;Navigate to APX Cloud Login page&quot;);
+WDS.log.info(&quot;Navigate to APX Cloud Login page: &quot; + protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#&apos;);
 WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#&apos;);
 
 WDS.log.info(&quot;Wait until Login page is loaded...&quot;);
@@ -91,8 +91,54 @@ var pwdField = WDS.browser.findElement(pkg.By.xpath(&apos;//input[@placeholder=&
 pwdField.click();
 pwdField.sendKeys(password);
 
+WDS.log.info(&quot;Clicking log in button...&quot;);
 var button = WDS.browser.findElement(pkg.By.xpath(&apos;//button[text()=&quot;LOG IN&quot;]&apos;));
 button.click();</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_CountryList" enabled="true">
+          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
+var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
+var serverName = &apos;${server}&apos;;
+var userName = &apos;${userName}&apos;;
+var password = &apos;${password}&apos;;
+var protocol = &apos;${protocol}&apos;;
+
+try {
+    WDS.log.info(&quot;Wait for menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+    
+    java.lang.Thread.sleep(3000);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*[normalize-space(.)=&quot;MENU&quot;]&apos;)).click();
+    
+    WDS.log.info(&quot;Wait for Information menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Information&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Information&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reference&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reference&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Countries&quot;]&apos;)));
+
+    WDS.sampleResult.sampleStart();
+    WDS.sampleResult.getLatency();
+
+    WDS.log.info(&quot;Go to country summary page...&quot;);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Countries&quot;]&apos;)).click();
+
+    //WDS.log.info(&quot;Wait until Country page is loaded...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxtitlewidget[@id=&apos;SecInfoCountry_title&apos;]//*[.=&apos;Countries&apos;]&quot;)));
+
+    //WDS.log.info(&quot;Sample ended&quot;);
+    WDS.sampleResult.sampleEnd();
+} catch (ex) {
+    WDS.log.info(&apos;Error occured.&apos;);
+    throw ex;
+}</stringProp>
           <stringProp name="WebDriverSampler.parameters"></stringProp>
           <stringProp name="WebDriverSampler.language">javascript</stringProp>
         </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
@@ -109,17 +155,27 @@ var password = &apos;${password}&apos;;
 var protocol = &apos;${protocol}&apos;;
 
 try{
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/home&apos;);
-    WDS.log.info(&quot;Wait until home page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxbreadcrumb//a[.=&apos;Activities&apos;]&quot;)));
+    WDS.log.info(&quot;Wait for menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+    
+    java.lang.Thread.sleep(3000);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*[normalize-space(.)=&quot;MENU&quot;]&apos;)).click();
+    
+    WDS.log.info(&quot;Wait for Information menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Information&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Information&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reference&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reference&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Countries&quot;]&apos;)));
 
-    WDS.log.info(&quot;Navigate to APX Cloud Country page&quot;);
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
+    WDS.log.info(&quot;Go to country page...&quot;);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Countries&quot;]&apos;)).click();
 
     WDS.log.info(&quot;Wait until Country summary page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*[contains(., &apos;Showing&apos;)]&quot;)));
-
-
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxtitlewidget[@id=&apos;SecInfoCountry_title&apos;]//*[.=&apos;Countries&apos;]&quot;)));
+    
     var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//td[1]//div/input&apos;));
     countryCodeFilter.sendKeys(&apos;us&apos;);
     countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);
@@ -163,12 +219,21 @@ var password = &apos;${password}&apos;;
 var protocol = &apos;${protocol}&apos;;
 
 try {
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/home&apos;);
-    WDS.log.info(&quot;Wait until home page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxbreadcrumb//a[.=&apos;Activities&apos;]&quot;)));
-
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/s/MacroSummary&apos;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;MacroSummary_macroSummaryGrid&apos;]/*[contains(., &apos;Showing&apos;)]&quot;)));
+    WDS.log.info(&quot;Wait for menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+    
+    java.lang.Thread.sleep(3000);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*[normalize-space(.)=&quot;MENU&quot;]&apos;)).click();
+    
+    WDS.log.info(&quot;Wait for Information menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reports&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reports&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Manage All Macros&quot;]&apos;)));
+    
+    WDS.log.info(&quot;Go to Macros summary page...&quot;);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Manage All Macros&quot;]&apos;)).click();
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxtitlewidget[@id=&apos;MacroSummary_title&apos;]//div[.=&apos;Manage All Macros&apos;]&quot;)));
 
     var macroXPath = &quot;//*[@id=&apos;MacroSummary_macroSummaryGrid&apos;]/*//kendo-grid-list//apxgridcontrolwidget/apxlabeltextboxwidget/div[normalize-space(.)=&apos;Appraisal&apos;]&quot;;
     wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(macroXPath)));
@@ -193,6 +258,76 @@ try {
           <stringProp name="WebDriverSampler.language">javascript</stringProp>
         </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
         <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_CountryEditTax" enabled="true">
+          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
+var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
+var interaction = JavaImporter(org.openqa.selenium.interactions);
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
+var serverName = &apos;${server}&apos;
+var userName = &apos;${userName}&apos;;
+var password = &apos;${password}&apos;;
+var protocol = &apos;${protocol}&apos;;
+
+try {
+    WDS.log.info(&quot;Wait for menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+    
+    java.lang.Thread.sleep(3000);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*[normalize-space(.)=&quot;MENU&quot;]&apos;)).click();
+    
+    WDS.log.info(&quot;Wait for Information menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Information&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Information&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reference&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reference&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Countries&quot;]&apos;)));
+
+    WDS.log.info(&quot;Go to country summary page...&quot;);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Countries&quot;]&apos;)).click();
+
+    WDS.log.info(&quot;Wait until Country summary page is loaded...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxtitlewidget[@id=&apos;SecInfoCountry_title&apos;]//*[.=&apos;Countries&apos;]&quot;)));
+
+    var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//td[1]//div/input&apos;));
+    countryCodeFilter.sendKeys(&apos;us&apos;);
+    countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);    
+
+    var usCellXpath = &quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//div[normalize-space(.)=&apos;us&apos; and contains(@class,&apos;apx-label-textbox-widget-value-display&apos;)]&quot;;
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(usCellXpath)));
+    java.lang.Thread.sleep(3000);
+    var usCountryRowInSummaryPanel = WDS.browser.findElement(pkg.By.xpath(usCellXpath)); 
+    //usCountryRowInSummaryPanel.click();
+    var action = new interaction.Actions(WDS.browser);   
+    action.click(usCountryRowInSummaryPanel).perform();
+
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_edit&quot;]/button&apos;)));
+    java.lang.Thread.sleep(3000);
+    
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_tabs&quot;]//div[contains(@class,&quot;apx-tabstrip-tab-wrap&quot;) and normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)).click();
+    java.lang.Thread.sleep(3000);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_edit&quot;]/button&apos;)).click();
+
+    WDS.sampleResult.sampleStart();
+    WDS.sampleResult.getLatency();
+
+    wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_cancel&quot;]/button&apos;)));
+    WDS.sampleResult.sampleEnd();
+
+    WDS.log.info(&quot;Click clear filter...&quot;);
+    wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//button[normalize-space(.)=&quot;Clear filters&quot;]&apos;)));
+    java.lang.Thread.sleep(3000);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//button[normalize-space(.)=&quot;Clear filters&quot;]&apos;)).click();
+} catch (ex) {
+    WDS.log.info(&apos;Error occured.&apos;);
+    throw ex;
+}</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
         <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_ReportDetail" enabled="true">
           <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
 var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
@@ -205,15 +340,21 @@ var password = &apos;${password}&apos;;
 var protocol = &apos;${protocol}&apos;;
 
 try {
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/home&apos;);
-    WDS.log.info(&quot;Wait until home page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxbreadcrumb//a[.=&apos;Activities&apos;]&quot;)));
+    WDS.log.info(&quot;Wait for menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+    
+    java.lang.Thread.sleep(3000);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*[normalize-space(.)=&quot;MENU&quot;]&apos;)).click();
+    
+    WDS.log.info(&quot;Wait for Information menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reports&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reports&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Manage All Reports&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Manage All Reports&quot;]&apos;)).click();
 
-    //WDS.log.info(&quot;Navigate to APX Cloud Report summary page&quot;);
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/s/ReportSummary&apos;);
-
-    //WDS.log.info(&quot;Wait until Report summary page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;ReportSummary_reportGrid&apos;]/*[contains(., &apos;Showing&apos;)]&quot;)));
+    WDS.log.info(&quot;Wait until Report summary page is loaded...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxtitlewidget[@id=&apos;ReportSummary_title&apos;]//*[.=&apos;Manage All Reports&apos;]&quot;)));
 
     var Report13FXPath = &quot;//*[@id=&apos;ReportSummary_reportGrid&apos;]/*//kendo-grid-list//apxgridcontrolwidget/apxlabeltextboxwidget/div[normalize-space(.)=&apos;13F Report&apos;]&quot;;
     wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(Report13FXPath)));
@@ -240,168 +381,6 @@ try {
           <stringProp name="WebDriverSampler.language">javascript</stringProp>
         </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
         <hashTree/>
-        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_CountryList" enabled="true">
-          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
-var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
-var timeout = &apos;${timeoutSec}&apos;;
-var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
-var serverName = &apos;${server}&apos;;
-var userName = &apos;${userName}&apos;;
-var password = &apos;${password}&apos;;
-var protocol = &apos;${protocol}&apos;;
-
-try {
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/home&apos;);
-    WDS.log.info(&quot;Wait until home page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxbreadcrumb//a[.=&apos;Activities&apos;]&quot;)));
-
-    WDS.sampleResult.sampleStart();
-    WDS.sampleResult.getLatency();
-
-    //WDS.log.info(&quot;Navigate to APX Cloud Country page&quot;);
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
-
-    //WDS.log.info(&quot;Wait until Country page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*[contains(., &apos;Showing&apos;)]&quot;)));
-
-    //WDS.log.info(&quot;Sample ended&quot;);
-    WDS.sampleResult.sampleEnd();
-} catch (ex) {
-    WDS.log.info(&apos;Error occured.&apos;);
-    throw ex;
-}</stringProp>
-          <stringProp name="WebDriverSampler.parameters"></stringProp>
-          <stringProp name="WebDriverSampler.language">javascript</stringProp>
-        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
-        <hashTree/>
-        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_ReportList" enabled="true">
-          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
-var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
-var timeout = &apos;${timeoutSec}&apos;;
-var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
-var serverName = &apos;${server}&apos;;
-var userName = &apos;${userName}&apos;;
-var password = &apos;${password}&apos;;
-var protocol = &apos;${protocol}&apos;;
-
-try{
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/home&apos;);
-    WDS.log.info(&quot;Wait until home page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxbreadcrumb//a[.=&apos;Activities&apos;]&quot;)));
-
-    //WDS.log.info(&quot;Sample started on report summary page...&quot;);
-    WDS.sampleResult.sampleStart();
-    WDS.sampleResult.getLatency();
-
-    //WDS.log.info(&quot;Navigate to APX Cloud Report summary page&quot;);
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/s/ReportSummary&apos;);
-
-    //WDS.log.info(&quot;Wait until Report summary page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;ReportSummary_reportGrid&apos;]/*[contains(., &apos;Showing&apos;)]&quot;)));
-
-    //WDS.log.info(&quot;Sample ended&quot;);
-    WDS.sampleResult.sampleEnd();
-} catch (ex) {
-    //WDS.log.error(ex.message);
-    WDS.log.info(&apos;Error occured.&apos;);
-
-    throw ex;
-}</stringProp>
-          <stringProp name="WebDriverSampler.parameters"></stringProp>
-          <stringProp name="WebDriverSampler.language">javascript</stringProp>
-        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
-        <hashTree/>
-        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_MacroList" enabled="true">
-          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
-var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
-var timeout = &apos;${timeoutSec}&apos;;
-var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
-var serverName = &apos;${server}&apos;;
-var userName = &apos;${userName}&apos;;
-var password = &apos;${password}&apos;;
-var protocol = &apos;${protocol}&apos;;
-
-try {
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/home&apos;);
-    WDS.log.info(&quot;Wait until home page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxbreadcrumb//a[.=&apos;Activities&apos;]&quot;)));
-
-    WDS.sampleResult.sampleStart();
-    WDS.sampleResult.getLatency();
-
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/s/MacroSummary&apos;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;MacroSummary_macroSummaryGrid&apos;]/*[contains(., &apos;Showing&apos;)]&quot;)));
-
-    WDS.sampleResult.sampleEnd();
-} catch (ex) {
-    //WDS.log.error(ex.message);
-    WDS.log.info(&apos;Error occured.&apos;);
-    throw ex;
-}</stringProp>
-          <stringProp name="WebDriverSampler.parameters"></stringProp>
-          <stringProp name="WebDriverSampler.language">javascript</stringProp>
-        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
-        <hashTree/>
-        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_CountryEditTax" enabled="true">
-          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
-var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
-var interaction = JavaImporter(org.openqa.selenium.interactions);
-var timeout = &apos;${timeoutSec}&apos;;
-var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
-var serverName = &apos;${server}&apos;
-var userName = &apos;${userName}&apos;;
-var password = &apos;${password}&apos;;
-var protocol = &apos;${protocol}&apos;;
-
-try {
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/home&apos;);
-    WDS.log.info(&quot;Wait until home page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxbreadcrumb//a[.=&apos;Activities&apos;]&quot;)));
-
-    WDS.log.info(&quot;Navigate to APX Cloud Country page&quot;);
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
-
-    WDS.log.info(&quot;Wait until Country summary page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*[contains(., &apos;Showing&apos;)]&quot;)));
-
-    var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//td[1]//div/input&apos;));
-    countryCodeFilter.sendKeys(&apos;us&apos;);
-    countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);    
-
-    var usCellXpath = &quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//div[normalize-space(.)=&apos;us&apos; and contains(@class,&apos;apx-label-textbox-widget-value-display&apos;)]&quot;;
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(usCellXpath)));
-    java.lang.Thread.sleep(3000);
-    var usCountryRowInSummaryPanel = WDS.browser.findElement(pkg.By.xpath(usCellXpath)); 
-    //usCountryRowInSummaryPanel.click();
-    var action = new interaction.Actions(WDS.browser);   
-    action.click(usCountryRowInSummaryPanel).perform();
-
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_editBtn&quot;]/button&apos;)));
-    java.lang.Thread.sleep(3000);
-    
-    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_tabs&quot;]//div[contains(@class,&quot;apx-tabstrip-tab-wrap&quot;) and normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)).click();
-    java.lang.Thread.sleep(3000);
-    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_editBtn&quot;]/button&apos;)).click();
-
-    WDS.sampleResult.sampleStart();
-    WDS.sampleResult.getLatency();
-
-    wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_cancelBtn&quot;]/button&apos;)));
-    WDS.sampleResult.sampleEnd();
-
-    WDS.log.info(&quot;Click clear filter...&quot;);
-    wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//button[normalize-space(.)=&quot;Clear filters&quot;]&apos;)));
-    java.lang.Thread.sleep(3000);
-    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//button[normalize-space(.)=&quot;Clear filters&quot;]&apos;)).click();
-} catch (ex) {
-    //WDS.log.error(ex.message);
-    WDS.log.info(&apos;Error occured.&apos;);
-    throw ex;
-}</stringProp>
-          <stringProp name="WebDriverSampler.parameters"></stringProp>
-          <stringProp name="WebDriverSampler.language">javascript</stringProp>
-        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
-        <hashTree/>
         <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_CountryAddTax" enabled="true">
           <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
 var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
@@ -414,15 +393,26 @@ var password = &apos;${password}&apos;;
 var protocol = &apos;${protocol}&apos;;
 
 try {
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/home&apos;);
-    WDS.log.info(&quot;Wait until home page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxbreadcrumb//a[.=&apos;Activities&apos;]&quot;)));
+    WDS.log.info(&quot;Wait for menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+    
+    java.lang.Thread.sleep(3000);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*[normalize-space(.)=&quot;MENU&quot;]&apos;)).click();
+    
+    WDS.log.info(&quot;Wait for Information menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Information&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Information&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reference&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reference&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Countries&quot;]&apos;)));
 
-    WDS.log.info(&quot;Navigate to APX Cloud Country page&quot;);
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
+    WDS.log.info(&quot;Go to country summary page...&quot;);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Countries&quot;]&apos;)).click();
 
     WDS.log.info(&quot;Wait until Country summary page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*[contains(., &apos;Showing&apos;)]&quot;)));
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxtitlewidget[@id=&apos;SecInfoCountry_title&apos;]//*[.=&apos;Countries&apos;]&quot;)));
     java.lang.Thread.sleep(3000);
  
     WDS.log.info(&quot;Search us country...&quot;);
@@ -440,7 +430,7 @@ try {
     action.click(usCountryRowInSummaryPanel).perform();
 
     WDS.log.info(&quot;Wait until Country is filtered...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_editBtn&quot;]/button&apos;)));
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_edit&quot;]/button&apos;)));
     java.lang.Thread.sleep(3000);
     
     WDS.log.info(&quot;Click Withholding Tax tab...&quot;);
@@ -448,7 +438,7 @@ try {
     java.lang.Thread.sleep(3000);
     
     WDS.log.info(&quot;Click edit button...&quot;);
-    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_editBtn&quot;]/button&apos;)).click();
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_edit&quot;]/button&apos;)).click();
     wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_tabs&quot;]//div[contains(@class,&quot;apx-tabstrip-tab-wrap&quot;) and normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)));
 
     java.lang.Thread.sleep(3000);
@@ -463,7 +453,7 @@ try {
 
     java.lang.Thread.sleep(3000);
     WDS.log.info(&quot;Click cancel button...&quot;);
-    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_cancelBtn&quot;]/button&apos;)).click();
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_cancel&quot;]/button&apos;)).click();
     java.lang.Thread.sleep(3000);
     WDS.log.info(&quot;Click Discard Changes button...&quot;);
     WDS.browser.findElement(pkg.By.xpath(&quot;//kendo-dialog-actions//button[normalize-space(.)=&apos;Discard Changes&apos;]&quot;)).click();
@@ -473,8 +463,54 @@ try {
     java.lang.Thread.sleep(3000);
     WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//button[normalize-space(.)=&quot;Clear filters&quot;]&apos;)).click();
 } catch (ex) {
-    WDS.log.info(&apos;Error occured.&apos;);
+    WDS.log.info(&apos;Error occured.&apos;);   
+    throw ex;
+}</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_ReportList" enabled="true">
+          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
+var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
+var serverName = &apos;${server}&apos;;
+var userName = &apos;${userName}&apos;;
+var password = &apos;${password}&apos;;
+var protocol = &apos;${protocol}&apos;;
+
+try{
+    WDS.log.info(&quot;Wait for menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
     
+    java.lang.Thread.sleep(3000);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*[normalize-space(.)=&quot;MENU&quot;]&apos;)).click();
+    
+    WDS.log.info(&quot;Wait for Information menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reports&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reports&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Manage All Reports&quot;]&apos;)));
+
+    WDS.log.info(&quot;Sample started on report summary page...&quot;);
+    WDS.sampleResult.sampleStart();
+    WDS.sampleResult.getLatency();
+
+    WDS.log.info(&quot;Go to report summary page...&quot;);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Manage All Reports&quot;]&apos;)).click();
+
+    WDS.log.info(&quot;Wait until Report summary page is loaded...&quot;);
+    var firstReport = &quot;1099 Reconciliation&quot;;
+
+    // Wait until report page is loaded
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxgridwidget[@id=&apos;ReportSummary_reportGrid&apos;]//tr[1]/td[normalize-space(.)=&apos;&quot; + firstReport + &quot;&apos;]&quot;)));
+
+    //WDS.log.info(&quot;Sample ended&quot;);
+    WDS.sampleResult.sampleEnd();
+} catch (ex) {
+    WDS.log.info(&apos;Error occured.&apos;);
+
     throw ex;
 }</stringProp>
           <stringProp name="WebDriverSampler.parameters"></stringProp>
@@ -493,15 +529,25 @@ var password = &apos;${password}&apos;;
 var protocol = &apos;${protocol}&apos;;
 
 try {
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/home&apos;);
-    WDS.log.info(&quot;Wait until home page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxbreadcrumb//a[.=&apos;Activities&apos;]&quot;)));
+    WDS.log.info(&quot;Wait for menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+    
+    java.lang.Thread.sleep(3000);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*[normalize-space(.)=&quot;MENU&quot;]&apos;)).click();
+    
+    WDS.log.info(&quot;Wait for Information menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Information&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Information&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reference&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reference&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Countries&quot;]&apos;)));
 
-    WDS.log.info(&quot;Navigate to APX Cloud Country page&quot;);
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
-
+    WDS.log.info(&quot;Go to country summary page...&quot;);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Countries&quot;]&apos;)).click();
     WDS.log.info(&quot;Wait until Country summary page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*[contains(., &apos;Showing&apos;)]&quot;)));
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxtitlewidget[@id=&apos;SecInfoCountry_title&apos;]//*[.=&apos;Countries&apos;]&quot;)));
 
     var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//td[1]//div/input&apos;));
     countryCodeFilter.sendKeys(&apos;us&apos;);
@@ -516,12 +562,12 @@ try {
     var action = new interaction.Actions(WDS.browser);   
     action.click(usCountryRowInSummaryPanel).perform();
 
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_editBtn&quot;]/button&apos;)));
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_edit&quot;]/button&apos;)));
     wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_tabs&quot;]//div[contains(@class,&quot;apx-tabstrip-tab-wrap&quot;) and normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)));
 
     java.lang.Thread.sleep(3000);
     WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_tabs&quot;]//div[contains(@class,&quot;apx-tabstrip-tab-wrap&quot;) and normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)).click();
-    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_editBtn&quot;]/button&apos;)).click();
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_edit&quot;]/button&apos;)).click();
 
     wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//button[normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)));
     java.lang.Thread.sleep(3000);
@@ -537,7 +583,7 @@ try {
 
     WDS.sampleResult.sampleEnd();
 
-    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_cancelBtn&quot;]/button&apos;)).click();
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_cancel&quot;]/button&apos;)).click();
     java.lang.Thread.sleep(3000);
     WDS.browser.findElement(pkg.By.xpath(&quot;//kendo-dialog-actions//button[normalize-space(.)=&apos;Discard Changes&apos;]&quot;)).click();
 
@@ -547,7 +593,46 @@ try {
     WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//button[normalize-space(.)=&quot;Clear filters&quot;]&apos;)).click();
 } catch (ex) {
     WDS.log.info(&apos;Error occured.&apos;);
+    throw ex;
+}</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_MacroList" enabled="true">
+          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
+var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
+var serverName = &apos;${server}&apos;;
+var userName = &apos;${userName}&apos;;
+var password = &apos;${password}&apos;;
+var protocol = &apos;${protocol}&apos;;
 
+try {
+    WDS.log.info(&quot;Wait for menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+    
+    java.lang.Thread.sleep(3000);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*[normalize-space(.)=&quot;MENU&quot;]&apos;)).click();
+    
+    WDS.log.info(&quot;Wait for Information menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reports&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reports&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Manage All Macros&quot;]&apos;)));
+    
+    WDS.log.info(&quot;Go to Macros summary page...&quot;);   
+    WDS.sampleResult.sampleStart();
+    WDS.sampleResult.getLatency();
+
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Manage All Macros&quot;]&apos;)).click();
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxtitlewidget[@id=&apos;MacroSummary_title&apos;]//div[.=&apos;Manage All Macros&apos;]&quot;)));
+
+    WDS.sampleResult.sampleEnd();
+} catch (ex) {
+    //WDS.log.error(ex.message);
+    WDS.log.info(&apos;Error occured.&apos;);
     throw ex;
 }</stringProp>
           <stringProp name="WebDriverSampler.parameters"></stringProp>
@@ -566,15 +651,26 @@ var password = &apos;${password}&apos;;
 var protocol = &apos;${protocol}&apos;;
 
 try {
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/home&apos;);
-    WDS.log.info(&quot;Wait until home page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxbreadcrumb//a[.=&apos;Activities&apos;]&quot;)));
+    WDS.log.info(&quot;Wait for menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+    
+    java.lang.Thread.sleep(3000);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*[normalize-space(.)=&quot;MENU&quot;]&apos;)).click();
+    
+    WDS.log.info(&quot;Wait for Information menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Information&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Information&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reference&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reference&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Countries&quot;]&apos;)));
 
-    WDS.log.info(&quot;Navigate to APX Cloud Country page&quot;);
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
+    WDS.log.info(&quot;Go to country summary page...&quot;);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Countries&quot;]&apos;)).click();
 
     WDS.log.info(&quot;Wait until Country summary page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*[contains(., &apos;Showing&apos;)]&quot;)));
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxtitlewidget[@id=&apos;SecInfoCountry_title&apos;]//*[.=&apos;Countries&apos;]&quot;)));
 
     var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//td[1]//div/input&apos;));
     countryCodeFilter.sendKeys(&apos;us&apos;);
@@ -588,11 +684,11 @@ try {
     var action = new interaction.Actions(WDS.browser);   
     action.click(usCountryRowInSummaryPanel).perform();
 
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_editBtn&quot;]/button&apos;)));
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_edit&quot;]/button&apos;)));
     java.lang.Thread.sleep(3000);
     WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_tabs&quot;]//div[contains(@class,&quot;apx-tabstrip-tab-wrap&quot;) and normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)).click();
 
-    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_editBtn&quot;]/button&apos;)).click();
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_edit&quot;]/button&apos;)).click();
     wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//button[normalize-space(.)=&quot;Withholding Tax&quot;]&apos;)));
 
     java.lang.Thread.sleep(3000);
@@ -610,7 +706,7 @@ try {
     WDS.sampleResult.sampleEnd();
 
     java.lang.Thread.sleep(3000);
-    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_cancelBtn&quot;]/button&apos;)).click();
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_cancel&quot;]/button&apos;)).click();
     java.lang.Thread.sleep(3000);
     WDS.browser.findElement(pkg.By.xpath(&quot;//kendo-dialog-actions//button[normalize-space(.)=&apos;Discard Changes&apos;]&quot;)).click();
 
@@ -620,7 +716,51 @@ try {
     WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//button[normalize-space(.)=&quot;Clear filters&quot;]&apos;)).click();
 } catch (ex) {
     WDS.log.info(&apos;Error occured.&apos;);
+    throw ex;
+}</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_PortfolioList" enabled="true">
+          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
+var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
+var timeout = &apos;${timeoutSec}&apos;;
+var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
+var serverName = &apos;${server}&apos;;
+var userName = &apos;${userName}&apos;;
+var password = &apos;${password}&apos;;
+var protocol = &apos;${protocol}&apos;;
 
+try {
+    WDS.log.info(&quot;Wait for menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+    
+    java.lang.Thread.sleep(3000);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*[normalize-space(.)=&quot;MENU&quot;]&apos;)).click();
+    
+    WDS.log.info(&quot;Wait for Information menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]/div[1]//*[.=&quot;Portfolios&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]/div[1]//*[.=&quot;Portfolios&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]/div[2]//*[.=&quot;Portfolios&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]/div[2]//*[.=&quot;Portfolios&quot;]&apos;)).click();
+
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxsavedsearchlist[@id=&apos;PRTSummary_portfolioSummaryTile&apos;]/div[@class=&apos;searchbox&apos;]&quot;)));
+    WDS.browser.findElement(pkg.By.xpath(&quot;//apxsavedsearchlist[@id=&apos;PRTSummary_portfolioSummaryTile&apos;]/div[@class=&apos;searchbox&apos;]&quot;)).click();
+       
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;PRTSummary_portfolioSummaryTile&quot;]//div[.=&quot;All Portfolios&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;PRTSummary_portfolioSummaryTile&quot;]//div[.=&quot;All Portfolios&quot;]&apos;)).click();
+    
+    WDS.sampleResult.sampleStart();
+    WDS.sampleResult.getLatency();
+    //WDS.log.info(&quot;Wait until all portfolios loaded...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxgridwidget[@id=&apos;PRTSummary_grid&apos;]//*[.=&apos;MOAdvPosition_Port_386674&apos;]&quot;)));
+
+    //WDS.log.info(&quot;Sample ended&quot;);
+    WDS.sampleResult.sampleEnd();
+} catch (ex) {
+    WDS.log.info(&apos;Error occured.&apos;);
     throw ex;
 }</stringProp>
           <stringProp name="WebDriverSampler.parameters"></stringProp>
@@ -638,15 +778,26 @@ var password = &apos;${password}&apos;;
 var protocol = &apos;${protocol}&apos;;
 
 try {
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/home&apos;);
-    WDS.log.info(&quot;Wait until home page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxbreadcrumb//a[.=&apos;Activities&apos;]&quot;)));
+    WDS.log.info(&quot;Wait for menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+    
+    java.lang.Thread.sleep(3000);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*[normalize-space(.)=&quot;MENU&quot;]&apos;)).click();
+    
+    WDS.log.info(&quot;Wait for Information menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Information&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Information&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reference&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reference&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Countries&quot;]&apos;)));
 
-    WDS.log.info(&quot;Navigate to APX Cloud Country page&quot;);
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
+    WDS.log.info(&quot;Go to country summary page...&quot;);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Countries&quot;]&apos;)).click();
 
     WDS.log.info(&quot;Wait until Country page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*[contains(., &apos;Showing&apos;)]&quot;)));
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxtitlewidget[@id=&apos;SecInfoCountry_title&apos;]//*[.=&apos;Countries&apos;]&quot;)));
 
     WDS.sampleResult.sampleStart();
     WDS.sampleResult.getLatency();
@@ -656,7 +807,7 @@ try {
     countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);
 
     //WDS.log.info(&quot;Wait until the filtered results display...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*[contains(., &apos;Showing 1 items&apos;)]&quot;)));
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//div[normalize-space(.)=&apos;us&apos; and contains(@class,&apos;apx-label-textbox-widget-value-display&apos;)]&quot;)));
     
     var usCellXpath = &quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//div[normalize-space(.)=&apos;us&apos; and contains(@class,&apos;apx-label-textbox-widget-value-display&apos;)]&quot;;
     wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(usCellXpath)));
@@ -670,7 +821,6 @@ try {
     WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//button[normalize-space(.)=&quot;Clear filters&quot;]&apos;)).click();
 } catch (ex) {
     WDS.log.info(&apos;Error occured.&apos;);
-
     throw ex;
 }</stringProp>
           <stringProp name="WebDriverSampler.parameters"></stringProp>
@@ -688,15 +838,21 @@ var password = &apos;${password}&apos;;
 var protocol = &apos;${protocol}&apos;;
 
 try {
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/home&apos;);
-    WDS.log.info(&quot;Wait until home page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxbreadcrumb//a[.=&apos;Activities&apos;]&quot;)));
-
-    //WDS.log.info(&quot;Navigate to APX Cloud Report summary page&quot;);
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/s/ReportSummary&apos;);
+    WDS.log.info(&quot;Wait for menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+    
+    java.lang.Thread.sleep(3000);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*[normalize-space(.)=&quot;MENU&quot;]&apos;)).click();
+    
+    WDS.log.info(&quot;Wait for Information menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reports&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reports&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Manage All Reports&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Manage All Reports&quot;]&apos;)).click();
 
     //WDS.log.info(&quot;Wait until Report summary page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;ReportSummary_reportGrid&apos;]/*[contains(., &apos;Showing&apos;)]&quot;)));
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxtitlewidget[@id=&apos;ReportSummary_title&apos;]//*[.=&apos;Manage All Reports&apos;]&quot;)));
 
     //WDS.log.info(&quot;Get all text from Name column on report summary page... &quot;);
     var results = WDS.browser.findElements(pkg.By.xpath(&quot;//apxgridwidget[@id=&apos;ReportSummary_reportGrid&apos;]//tr/td[1]&quot;));
@@ -733,7 +889,6 @@ try {
     java.lang.Thread.sleep(3000);
 } catch (ex) {
     WDS.log.info(&apos;Error occured.&apos;);
-
     throw ex;
 }</stringProp>
           <stringProp name="WebDriverSampler.parameters"></stringProp>
@@ -752,15 +907,26 @@ var password = &apos;${password}&apos;;
 var protocol = &apos;${protocol}&apos;;
 
 try {
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/home&apos;);
-    WDS.log.info(&quot;Wait until home page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxbreadcrumb//a[.=&apos;Activities&apos;]&quot;)));
+    WDS.log.info(&quot;Wait for menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+    
+    java.lang.Thread.sleep(3000);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*[normalize-space(.)=&quot;MENU&quot;]&apos;)).click();
+    
+    WDS.log.info(&quot;Wait for Information menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Information&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Information&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reference&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Reference&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Countries&quot;]&apos;)));
 
-    WDS.log.info(&quot;Navigate to APX Cloud Country page&quot;);
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/s/SecInfoCountry&apos;);
+    WDS.log.info(&quot;Go to country summary page...&quot;);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]//*[.=&quot;Countries&quot;]&apos;)).click();
 
     WDS.log.info(&quot;Wait until Country summary page is loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*[contains(., &apos;Showing&apos;)]&quot;)));
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxtitlewidget[@id=&apos;SecInfoCountry_title&apos;]//*[.=&apos;Countries&apos;]&quot;)));
 
     var countryCode = &apos;xx&apos;;
     var countryCodeFilter = WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountry_grid&quot;]//td[1]//div/input&apos;));
@@ -770,12 +936,13 @@ try {
 
     var filteredResultXPath = &quot;//*[@id=&apos;SecInfoCountry_grid&apos;]/*//div[normalize-space(.)=&apos;&quot; + countryCode + &quot;&apos; and contains(@class,&apos;apx-label-textbox-widget-value-display&apos;)]&quot;;
     if (WDS.browser.findElements(pkg.By.xpath(filteredResultXPath)).size() != 0) { // delete if exists
-        var action = new interaction.Actions(WDS.browser);
         var filteredCountry = WDS.browser.findElement(pkg.By.xpath(filteredResultXPath));
-        action.contextClick(filteredCountry).perform();
+        filteredCountry.click();
 
-        WDS.browser.findElement(pkg.By.xpath(&quot;//kendo-popup//div[normalize-space(.)=&apos;Delete Country&apos;]&quot;)).click();
-        WDS.browser.findElement(pkg.By.xpath(&quot;//kendo-dialog-actions//button[.=&apos;Delete It&apos;]&quot;)).click();
+        wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxbuttonwidget[@id=&apos;SecInfoCountryDetail_meatball&apos;]/button&quot;)));
+        WDS.browser.findElement(pkg.By.xpath(&quot;//apxbuttonwidget[@id=&apos;SecInfoCountryDetail_meatball&apos;]/button&quot;)).click();
+        WDS.browser.findElement(pkg.By.xpath(&quot;//kendo-popup//*[normalize-space(.)=&apos;Delete Country&apos;]&quot;)).click();
+        WDS.browser.findElement(pkg.By.xpath(&quot;//button[@id=&apos;simpledialog_btn_ok&apos;]&quot;)).click();
 
         wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxnotificationwidget//div[@class=&apos;notification__msg&apos;]&quot;)));
         WDS.browser.navigate().refresh();
@@ -813,54 +980,16 @@ try {
     // Interest Reclaim %
     WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_WithholdingTaxGrid&quot;]//td[7]//input&apos;)).sendKeys(&apos;1&apos;);
     
-    wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_saveBtn&quot;]/button&apos;)));
+    wait.until(support_ui.ExpectedConditions.elementToBeClickable(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_save&quot;]/button&apos;)));
     WDS.sampleResult.sampleStart();
     WDS.sampleResult.getLatency();
 
-    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_saveBtn&quot;]/button&apos;)).click();
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;SecInfoCountryDetail_save&quot;]/button&apos;)).click();
     wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxnotificationwidget//div[@class=&apos;notification__msg&apos; and normalize-space(.)=&apos;Country created&apos;]&quot;)));
 
     WDS.sampleResult.sampleEnd();
 } catch (ex) {
     WDS.log.info(&apos;Error occured.&apos;);
-
-    throw ex;
-}</stringProp>
-          <stringProp name="WebDriverSampler.parameters"></stringProp>
-          <stringProp name="WebDriverSampler.language">javascript</stringProp>
-        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
-        <hashTree/>
-        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UI_PortfolioList" enabled="true">
-          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
-var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
-var timeout = &apos;${timeoutSec}&apos;;
-var wait = new support_ui.WebDriverWait(WDS.browser, timeout);
-var serverName = &apos;${server}&apos;;
-var userName = &apos;${userName}&apos;;
-var password = &apos;${password}&apos;;
-var protocol = &apos;${protocol}&apos;;
-
-try {
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/home&apos;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxbreadcrumb//a[.=&apos;Activities&apos;]&quot;)));
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/PRTSummary&apos;);
-
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxsavedsearchlist[@id=&apos;PRTSummary_portfolioSummaryTile&apos;]/div[@class=&apos;searchbox&apos;]&quot;)));
-    WDS.browser.findElement(pkg.By.xpath(&quot;//apxsavedsearchlist[@id=&apos;PRTSummary_portfolioSummaryTile&apos;]/div[@class=&apos;searchbox&apos;]&quot;)).click();
-       
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;PRTSummary_portfolioSummaryTile&quot;]//div[.=&quot;All Portfolios&quot;]&apos;)));
-    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;PRTSummary_portfolioSummaryTile&quot;]//div[.=&quot;All Portfolios&quot;]&apos;)).click();
-    
-    WDS.sampleResult.sampleStart();
-    WDS.sampleResult.getLatency();
-    //WDS.log.info(&quot;Wait until all portfolios loaded...&quot;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxgridwidget[@id=&apos;PRTSummary_grid&apos;]//*[.=&apos;MOAdvPosition_Port_386674&apos;]&quot;)));
-
-    //WDS.log.info(&quot;Sample ended&quot;);
-    WDS.sampleResult.sampleEnd();
-} catch (ex) {
-    WDS.log.info(&apos;Error occured.&apos;);
-
     throw ex;
 }</stringProp>
           <stringProp name="WebDriverSampler.parameters"></stringProp>
@@ -879,9 +1008,18 @@ var password = &apos;${password}&apos;;
 var protocol = &apos;${protocol}&apos;;
 
 try {
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/home&apos;);
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxbreadcrumb//a[.=&apos;Activities&apos;]&quot;)));
-    WDS.browser.get(protocol + &apos;://&apos; + serverName + &apos;/apxuilogin/#/PRTSummary&apos;);
+    WDS.log.info(&quot;Wait for menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//div[contains(text(), &apos;MENU&apos;)]&quot;)));
+    
+    java.lang.Thread.sleep(3000);
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;__pageHeader__&quot;]//*[normalize-space(.)=&quot;MENU&quot;]&apos;)).click();
+    
+    WDS.log.info(&quot;Wait for Information menu...&quot;);
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]/div[1]//*[.=&quot;Portfolios&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]/div[1]//*[.=&quot;Portfolios&quot;]&apos;)).click();
+    
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]/div[2]//*[.=&quot;Portfolios&quot;]&apos;)));
+    WDS.browser.findElement(pkg.By.xpath(&apos;//*[@id=&quot;advent-menu-content&quot;]/div[2]//*[.=&quot;Portfolios&quot;]&apos;)).click();
 
     wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&quot;//apxsavedsearchlist[@id=&apos;PRTSummary_portfolioSummaryTile&apos;]/div[@class=&apos;searchbox&apos;]&quot;)));
     WDS.browser.findElement(pkg.By.xpath(&quot;//apxsavedsearchlist[@id=&apos;PRTSummary_portfolioSummaryTile&apos;]/div[@class=&apos;searchbox&apos;]&quot;)).click();
@@ -895,23 +1033,21 @@ try {
     countryCodeFilter.sendKeys(&apos;Port_385420&apos;);
     countryCodeFilter.sendKeys(org.openqa.selenium.Keys.ENTER);
 
-    var casePortfolioXPath = &quot;//*[@id=&apos;PRTSummary_grid&apos;]/*//div[normalize-space(.)=&apos;Port_385420&apos;]&quot;;
+    var casePortfolioXPath = &quot;//*[@id=&apos;PRTSummary_grid&apos;]//table/tbody/tr/td[2]//*[.=&apos;Port_385420&apos;]&quot;;
     wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(casePortfolioXPath)));
     java.lang.Thread.sleep(3000);
     var casePortfolioRowInSummaryPanel = WDS.browser.findElement(pkg.By.xpath(casePortfolioXPath));
 
-    var action = new interaction.Actions(WDS.browser);   
-    
+    var action = new interaction.Actions(WDS.browser);     
     WDS.sampleResult.sampleStart();
     WDS.sampleResult.getLatency();
     //casePortfolioRowInSummaryPanel.click();
     action.click(casePortfolioRowInSummaryPanel).perform();
     
-    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;prtCode&quot; and normalize-space(.)=&quot;Port_385420&quot;]&apos;)));
+    wait.until(support_ui.ExpectedConditions.visibilityOfElementLocated(pkg.By.xpath(&apos;//*[@id=&quot;PRTView_title&quot;]//*[.=&quot;Portfolio: Port_385420&quot;]&apos;)));
     WDS.sampleResult.sampleEnd();
 } catch (ex) {
     WDS.log.info(&apos;Error occured.&apos;);
-
     throw ex;
 }</stringProp>
           <stringProp name="WebDriverSampler.parameters"></stringProp>
@@ -1004,40 +1140,6 @@ try {
           <stringProp name="WebDriverSampler.language">javascript</stringProp>
         </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
         <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
-          <boolProp name="ResultCollector.error_logging">false</boolProp>
-          <objProp>
-            <name>saveConfig</name>
-            <value class="SampleSaveConfiguration">
-              <time>true</time>
-              <latency>true</latency>
-              <timestamp>true</timestamp>
-              <success>true</success>
-              <label>true</label>
-              <code>true</code>
-              <message>true</message>
-              <threadName>true</threadName>
-              <dataType>true</dataType>
-              <encoding>false</encoding>
-              <assertions>true</assertions>
-              <subresults>true</subresults>
-              <responseData>false</responseData>
-              <samplerData>false</samplerData>
-              <xml>false</xml>
-              <fieldNames>true</fieldNames>
-              <responseHeaders>false</responseHeaders>
-              <requestHeaders>false</requestHeaders>
-              <responseDataOnError>false</responseDataOnError>
-              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-              <assertionsResultsToSave>0</assertionsResultsToSave>
-              <bytes>true</bytes>
-              <threadCounts>true</threadCounts>
-              <idleTime>true</idleTime>
-            </value>
-          </objProp>
-          <stringProp name="filename"></stringProp>
-        </ResultCollector>
-        <hashTree/>
         <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="_#ignore UI_Logout" enabled="true">
           <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium); //WebDriver classes
 var support_ui = JavaImporter(org.openqa.selenium.support.ui);//WebDriver classes
@@ -1062,7 +1164,63 @@ java.lang.Thread.sleep(3000);</stringProp>
         </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
         <hashTree/>
       </hashTree>
-      <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="false">
+      <com.googlecode.jmeter.plugins.webdriver.config.ChromeDriverConfig guiclass="com.googlecode.jmeter.plugins.webdriver.config.gui.ChromeDriverConfigGui" testclass="com.googlecode.jmeter.plugins.webdriver.config.ChromeDriverConfig" testname="jp@gc - Chrome Driver Config" enabled="true">
+        <stringProp name="WebDriverConfig.proxy_type">SYSTEM</stringProp>
+        <stringProp name="WebDriverConfig.proxy_pac_url"></stringProp>
+        <stringProp name="WebDriverConfig.http_host"></stringProp>
+        <intProp name="WebDriverConfig.http_port">8080</intProp>
+        <boolProp name="WebDriverConfig.use_http_for_all_protocols">true</boolProp>
+        <stringProp name="WebDriverConfig.https_host"></stringProp>
+        <intProp name="WebDriverConfig.https_port">8080</intProp>
+        <stringProp name="WebDriverConfig.ftp_host"></stringProp>
+        <intProp name="WebDriverConfig.ftp_port">8080</intProp>
+        <stringProp name="WebDriverConfig.socks_host"></stringProp>
+        <intProp name="WebDriverConfig.socks_port">8080</intProp>
+        <stringProp name="WebDriverConfig.no_proxy">localhost</stringProp>
+        <boolProp name="WebDriverConfig.maximize_browser">false</boolProp>
+        <boolProp name="WebDriverConfig.reset_per_iteration">false</boolProp>
+        <boolProp name="WebDriverConfig.dev_mode">false</boolProp>
+        <stringProp name="ChromeDriverConfig.chromedriver_path">${chromeDriverPath}</stringProp>
+        <boolProp name="ChromeDriverConfig.android_enabled">false</boolProp>
+        <boolProp name="ChromeDriverConfig.headless_enabled">false</boolProp>
+      </com.googlecode.jmeter.plugins.webdriver.config.ChromeDriverConfig>
+      <hashTree/>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="chromeDriverPath" elementType="Argument">
+            <stringProp name="Argument.name">chromeDriverPath</stringProp>
+            <stringProp name="Argument.value">Driver/chromedriver</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="userName" elementType="Argument">
+            <stringProp name="Argument.name">userName</stringProp>
+            <stringProp name="Argument.value">perf_ui</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="password" elementType="Argument">
+            <stringProp name="Argument.name">password</stringProp>
+            <stringProp name="Argument.value">advs</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="loopCount" elementType="Argument">
+            <stringProp name="Argument.name">loopCount</stringProp>
+            <stringProp name="Argument.value">2</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="timeoutSec" elementType="Argument">
+            <stringProp name="Argument.name">timeoutSec</stringProp>
+            <stringProp name="Argument.value">30</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="protocol" elementType="Argument">
+            <stringProp name="Argument.name">protocol</stringProp>
+            <stringProp name="Argument.value">https</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -1095,62 +1253,6 @@ java.lang.Thread.sleep(3000);</stringProp>
         </objProp>
         <stringProp name="filename"></stringProp>
       </ResultCollector>
-      <hashTree/>
-      <com.googlecode.jmeter.plugins.webdriver.config.ChromeDriverConfig guiclass="com.googlecode.jmeter.plugins.webdriver.config.gui.ChromeDriverConfigGui" testclass="com.googlecode.jmeter.plugins.webdriver.config.ChromeDriverConfig" testname="jp@gc - Chrome Driver Config" enabled="true">
-        <stringProp name="WebDriverConfig.proxy_type">SYSTEM</stringProp>
-        <stringProp name="WebDriverConfig.proxy_pac_url"></stringProp>
-        <stringProp name="WebDriverConfig.http_host"></stringProp>
-        <intProp name="WebDriverConfig.http_port">8080</intProp>
-        <boolProp name="WebDriverConfig.use_http_for_all_protocols">true</boolProp>
-        <stringProp name="WebDriverConfig.https_host"></stringProp>
-        <intProp name="WebDriverConfig.https_port">8080</intProp>
-        <stringProp name="WebDriverConfig.ftp_host"></stringProp>
-        <intProp name="WebDriverConfig.ftp_port">8080</intProp>
-        <stringProp name="WebDriverConfig.socks_host"></stringProp>
-        <intProp name="WebDriverConfig.socks_port">8080</intProp>
-        <stringProp name="WebDriverConfig.no_proxy">localhost</stringProp>
-        <boolProp name="WebDriverConfig.maximize_browser">true</boolProp>
-        <boolProp name="WebDriverConfig.reset_per_iteration">false</boolProp>
-        <boolProp name="WebDriverConfig.dev_mode">false</boolProp>
-        <stringProp name="ChromeDriverConfig.chromedriver_path">${chromeDriverPath}</stringProp>
-        <boolProp name="ChromeDriverConfig.android_enabled">false</boolProp>
-        <boolProp name="ChromeDriverConfig.headless_enabled">false</boolProp>
-      </com.googlecode.jmeter.plugins.webdriver.config.ChromeDriverConfig>
-      <hashTree/>
-      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-        <collectionProp name="Arguments.arguments">
-          <elementProp name="chromeDriverPath" elementType="Argument">
-            <stringProp name="Argument.name">chromeDriverPath</stringProp>
-            <stringProp name="Argument.value">/usr/sbin/chromedriver</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="userName" elementType="Argument">
-            <stringProp name="Argument.name">userName</stringProp>
-            <stringProp name="Argument.value">perf_ui</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="password" elementType="Argument">
-            <stringProp name="Argument.name">password</stringProp>
-            <stringProp name="Argument.value">advs</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="loopCount" elementType="Argument">
-            <stringProp name="Argument.name">loopCount</stringProp>
-            <stringProp name="Argument.value">2</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="timeoutSec" elementType="Argument">
-            <stringProp name="Argument.name">timeoutSec</stringProp>
-            <stringProp name="Argument.value">120</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="protocol" elementType="Argument">
-            <stringProp name="Argument.name">protocol</stringProp>
-            <stringProp name="Argument.value">https</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-        </collectionProp>
-      </Arguments>
       <hashTree/>
     </hashTree>
   </hashTree>
