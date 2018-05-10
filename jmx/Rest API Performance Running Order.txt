@@ -1,0 +1,15 @@
+1. Job: APXAPI_Performance_QueryNonReferenceEntities_BlazeMeter - BlazeMeter Test: APX_API_Query_NonReferenceEntities - JMeter File: API_Query_NonReferenceEntities.jmx
+
+2. Job: APXAPI_Performance_QueryReferenceEntities_BlazeMeter - BlazeMeter Test: APX_API_Query_NonReferenceEntities - JMeter File: API_Query_ReferenceEntities.jmx
+
+3. Job: APXAPI_Performance_QueryNonReferenceChildEntities_BlazeMeter - BlazeMeter Test: APX_API_QueryChildEntities_NonReference - JMeter File: API_Query_ChildEntities_NonReference.jmx
+
+4. Job: APXAPI_Performance_QueryReferenceChildEntities_BlazeMeter - BlazeMeter Test: APX_API_QueryChildEntities_Reference - JMeter File: API_Query_ChildEntities_Reference.jmx
+
+5. Job: APXAPI_Performance_CRUDNonReferenceEntities_BlazeMeter - BlazeMeter Test: APX_API_CRUD_NonReferenceEntities - JMeter File: API_CRUD_NonReferenceEntities.jmx
+
+6. Job: APXAPI_Performance_CRUDReferenceEntities_BlazeMeter - BlazeMeter Test: APX_API_CRUD_ReferenceEntities - JMeter File: API_CRUD_ReferenceEntities.jmx
+
+7. Job: APXAPI_Performance_CRUDNonReferenceChildEntities_BlazeMeter - BlazeMeter Test: APX_API_CRUD&Query_ChildEntities_NonReference - JMeter File: API_CRUD&Query_ChildEntities_NonReference.jmx
+
+8. Job: APXAPI_Performance_CRUDReferenceChildEntities_BlazeMeter - BlazeMeter Test: APX_API_CRUD&Query_ChildEntities_Reference - JMeter File: API_CRUD_ChildEntities_Reference.jmx
