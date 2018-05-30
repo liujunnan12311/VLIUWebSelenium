@@ -885,7 +885,7 @@ responseObject.Data.filter(function (x) { return x.PortfolioCode == &quot;Port_3
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Portfolio?$d=y&amp;$m=y&amp;PortfolioID=180&amp;$f=Medium&amp;$e=Distribution($o=OwnerName&amp;$p=0&amp;$z=10)</stringProp>
+          <stringProp name="HTTPSampler.path">/APXlogin/api/internal/Portfolio?$d=y&amp;$m=y&amp;PortfolioID=${portfolioID}&amp;$f=Medium&amp;$e=Distribution($o=OwnerName&amp;$p=0&amp;$z=10)</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
