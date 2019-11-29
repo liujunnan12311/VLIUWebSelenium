@@ -1,0 +1,25 @@
+{
+  "reportSummary": {
+    "testMethodsSummary": {
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0
+    },
+    "configurationMethodsSummary": {
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "testMethods": [],
+  "configurationMethods": [],
+  "configSummary": {
+    "currentDate": "2019-11-28T02:21:01.015-08:00"
+  },
+  "localConfigSummary": [],
+  "reporterMetadata": {
+    "currentDate": {
+      "displayLabel": "Current Date"
+    }
+  }
+}

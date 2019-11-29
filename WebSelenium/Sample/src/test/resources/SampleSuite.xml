@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="1" verbose="1" name="SeLion Sample Tests" skipfailedinvocationcounts="false" junit="false"
+    parallel="classes" data-provider-thread-count="1" annotations="JDK">
+
+    <!-- KEY CONCEPT Place your configuration settings for this test suite here. -->
+    <parameter name="browser" value="*Chrome" />
+    <parameter name="seleniumhost" value="locally" />
+    <parameter name="runLocally" value="true" />
+
+    
+
+</suite>

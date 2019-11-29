@@ -1,0 +1,12 @@
+baseClass: "com.paypal.selion.testcomponents.BasicPageImpl"
+pageTitle:
+    US: "Awesome Deals"
+elements:
+    firstNameTextField:
+        locators:
+            US: "#kw"
+   
+pageValidators: [
+    firstNameLabel
+   
+]
