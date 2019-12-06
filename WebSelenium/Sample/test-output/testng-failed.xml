@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
-  <test verbose="2" name="Default test">
+<suite thread-count="1" guice-stage="DEVELOPMENT" name="Failed suite [SeLion Test]" parallel="none">
+  <parameter name="browser" value="*Chrome"/>
+  <parameter name="seleniumhost" value="locally"/>
+  <parameter name="runLocally" value="true"/>
+  <test name="Default test(failed)" parallel="none">
     <classes>
-      <class name="com.mycompany.myproject.sample.selion.UIFlowUsingSeLionPageObjectsTest"/>
-    </classes>
-  </test> <!-- Default test -->
-  <test name="Default test(failed)">
-    <classes>
-      <class name="com.mycompany.myproject.sample.selion.UIFlowUsingSeLionPageObjectsTest">
+      <class name="com.mycompany.myproject.TESTDemo">
         <methods>
           <include name="startLocalServer"/>
           <include name="myTest"/>
-          <include name="shutdownLocalServer"/>
         </methods>
-      </class> <!-- com.mycompany.myproject.sample.selion.UIFlowUsingSeLionPageObjectsTest -->
+      </class> <!-- com.mycompany.myproject.TESTDemo -->
     </classes>
   </test> <!-- Default test(failed) -->
-</suite> <!-- Failed suite [Default suite] -->
+</suite> <!-- Failed suite [SeLion Test] -->

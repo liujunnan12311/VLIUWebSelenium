@@ -1,7 +1,7 @@
 {
   "reportSummary": {
     "testMethodsSummary": {
-      "passed": 0,
+      "passed": 2,
       "failed": 0,
       "skipped": 0
     },
@@ -11,7 +11,42 @@
       "skipped": 0
     }
   },
-  "testMethods": [],
+  "testMethods": [
+    {
+      "suite": "SeLion Test",
+      "test": "Default test",
+      "packageInfo": "com.mycompany.myproject",
+      "className": "TESTDemo",
+      "methodName": "myTest",
+      "status": "Passed",
+      "startTime": "2019-12-06T03:09:22.123-08:00",
+      "endTime": "2019-12-06T03:09:35.969-08:00",
+      "logs": [
+        {
+          "source": "sources/760acd7a-af9e-4bb6-8d5b-885fe455b3c6.source.txt",
+          "image": "screenshots/760acd7a-af9e-4bb6-8d5b-885fe455b3c6.png",
+          "message": "百度一下，你就知道"
+        }
+      ]
+    },
+    {
+      "suite": "SeLion Test",
+      "test": "Default test",
+      "packageInfo": "com.mycompany.myproject",
+      "className": "TESTDemo",
+      "methodName": "myTest",
+      "status": "Passed",
+      "startTime": "2019-12-06T03:09:22.123-08:00",
+      "endTime": "2019-12-06T03:09:35.969-08:00",
+      "logs": [
+        {
+          "source": "sources/760acd7a-af9e-4bb6-8d5b-885fe455b3c6.source.txt",
+          "image": "screenshots/760acd7a-af9e-4bb6-8d5b-885fe455b3c6.png",
+          "message": "百度一下，你就知道"
+        }
+      ]
+    }
+  ],
   "configurationMethods": [
     {
       "type": "BeforeClass",
@@ -21,22 +56,22 @@
       "className": "TESTDemo",
       "methodName": "startLocalServer",
       "status": "Passed",
-      "startTime": "2019-12-06T02:45:11.996-08:00",
-      "endTime": "2019-12-06T02:45:12.379-08:00",
+      "startTime": "2019-12-06T03:09:21.566-08:00",
+      "endTime": "2019-12-06T03:09:21.966-08:00",
       "description": ""
     }
   ],
   "configSummary": {
-    "currentDate": "2019-12-06T02:45:11.890-08:00"
+    "currentDate": "2019-12-06T03:09:21.519-08:00"
   },
   "localConfigSummary": [
     {
-      "currentDate": "2019-12-06T02:45:11.972-08:00",
+      "currentDate": "2019-12-06T03:09:21.532-08:00",
       "suite": "SeLion Test",
       "test": "Default test"
     },
     {
-      "currentDate": "2019-12-06T02:45:11.977-08:00",
+      "currentDate": "2019-12-06T03:09:21.541-08:00",
       "suite": "SeLion Test",
       "test": "Default test"
     }

@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="0" passed="0">
+<testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
+    <line>
+      <![CDATA[{
+  "msg": "百度一下，你就知道",
+  "screen": "screenshots/760acd7a-af9e-4bb6-8d5b-885fe455b3c6.png",
+  "location": "https://www.baidu.com/",
+  "href": "sources\\760acd7a-af9e-4bb6-8d5b-885fe455b3c6.source.txt"
+}]]>
+    </line>
   </reporter-output>
-  <suite name="SeLion Sample Tests" duration-ms="0" started-at="2019-11-28T10:21:01Z" finished-at="2019-11-28T10:21:01Z">
+  <suite name="SeLion Test" duration-ms="15494" started-at="2019-12-06T11:09:21Z" finished-at="2019-12-06T11:09:37Z">
     <groups>
     </groups>
-  </suite> <!-- SeLion Sample Tests -->
+    <test name="Default test" duration-ms="15494" started-at="2019-12-06T11:09:21Z" finished-at="2019-12-06T11:09:37Z">
+      <class name="com.mycompany.myproject.TESTDemo">
+        <test-method status="PASS" signature="startLocalServer()[pri:0, instance:com.mycompany.myproject.TESTDemo@25359ed8]" name="startLocalServer" is-config="true" duration-ms="400" started-at="2019-12-06T03:09:21Z" finished-at="2019-12-06T03:09:21Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- startLocalServer -->
+        <test-method status="PASS" signature="myTest()[pri:0, instance:com.mycompany.myproject.TESTDemo@25359ed8]" name="myTest" duration-ms="13846" started-at="2019-12-06T03:09:22Z" finished-at="2019-12-06T03:09:35Z">
+          <reporter-output>
+            <line>
+              <![CDATA[{
+  "msg": "百度一下，你就知道",
+  "screen": "screenshots/760acd7a-af9e-4bb6-8d5b-885fe455b3c6.png",
+  "location": "https://www.baidu.com/",
+  "href": "sources\\760acd7a-af9e-4bb6-8d5b-885fe455b3c6.source.txt"
+}]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- myTest -->
+      </class> <!-- com.mycompany.myproject.TESTDemo -->
+    </test> <!-- Default test -->
+  </suite> <!-- SeLion Test -->
 </testng-results>
