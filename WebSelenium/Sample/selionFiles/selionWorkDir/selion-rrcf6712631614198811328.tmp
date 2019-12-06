@@ -1,0 +1,12 @@
+{
+  "type": "BeforeClass",
+  "suite": "SeLion Test",
+  "test": "Default test",
+  "packageInfo": "com.mycompany.myproject",
+  "className": "TESTDemo",
+  "methodName": "startLocalServer",
+  "status": "Passed",
+  "startTime": "2019-11-28T19:27:04.515-08:00",
+  "endTime": "2019-11-28T19:27:04.950-08:00",
+  "description": ""
+},

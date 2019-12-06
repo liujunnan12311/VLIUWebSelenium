@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="1" guice-stage="DEVELOPMENT" name="Failed suite [SeLion Test]" parallel="none">
+  <parameter name="browser" value="*Chrome"/>
+  <parameter name="seleniumhost" value="locally"/>
+  <parameter name="runLocally" value="true"/>
+  <test name="Default test(failed)" parallel="none">
+    <classes>
+      <class name="com.mycompany.myproject.TESTDemo">
+        <methods>
+          <include name="startLocalServer"/>
+          <include name="myTest"/>
+        </methods>
+      </class> <!-- com.mycompany.myproject.TESTDemo -->
+    </classes>
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [SeLion Test] -->

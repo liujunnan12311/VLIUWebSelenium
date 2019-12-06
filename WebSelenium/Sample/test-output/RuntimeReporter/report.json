@@ -6,17 +6,41 @@
       "skipped": 0
     },
     "configurationMethodsSummary": {
-      "passed": 0,
+      "passed": 1,
       "failed": 0,
       "skipped": 0
     }
   },
   "testMethods": [],
-  "configurationMethods": [],
+  "configurationMethods": [
+    {
+      "type": "BeforeClass",
+      "suite": "SeLion Test",
+      "test": "Default test",
+      "packageInfo": "com.mycompany.myproject",
+      "className": "TESTDemo",
+      "methodName": "startLocalServer",
+      "status": "Passed",
+      "startTime": "2019-12-06T02:45:11.996-08:00",
+      "endTime": "2019-12-06T02:45:12.379-08:00",
+      "description": ""
+    }
+  ],
   "configSummary": {
-    "currentDate": "2019-11-28T02:21:01.015-08:00"
+    "currentDate": "2019-12-06T02:45:11.890-08:00"
   },
-  "localConfigSummary": [],
+  "localConfigSummary": [
+    {
+      "currentDate": "2019-12-06T02:45:11.972-08:00",
+      "suite": "SeLion Test",
+      "test": "Default test"
+    },
+    {
+      "currentDate": "2019-12-06T02:45:11.977-08:00",
+      "suite": "SeLion Test",
+      "test": "Default test"
+    }
+  ],
   "reporterMetadata": {
     "currentDate": {
       "displayLabel": "Current Date"
